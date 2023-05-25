@@ -22,18 +22,19 @@ function LoginPage() {
               className="w-full h-10 rounded-xl indent-3 focus:outline-none"
               placeholder="Password"
             />
-
-            <button className="w-full h-10 bg-blue-500 rounded-xl">
-              SignIn
-            </button>
-            <div className="pb-6">
-              <img
-                className="object-cover w-screen h-10 rounded-xl"
-                src={kakaoLoginImg}
-                alt="kakaoLoginImage"
-              />
+            <div className="space-y-2">
+              <button className="w-full h-10 text-white bg-blue-500 rounded-xl">
+                SignIn
+              </button>
+              <div className="pb-6">
+                <img
+                  className="object-cover w-screen h-10 rounded-xl"
+                  src={kakaoLoginImg}
+                  alt="kakaoLoginImage"
+                />
+              </div>
+              <p>Signup</p>
             </div>
-            <p>Signup</p>
           </div>
         </div>
         <div className="hidden w-9/12 md:block">
