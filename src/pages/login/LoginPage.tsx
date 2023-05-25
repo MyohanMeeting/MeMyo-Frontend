@@ -7,7 +7,7 @@ function LoginPage() {
       <div className="flex bg-orange-300 shadow-2xl rounded-2xl">
         <div className="flex flex-col w-7/12 m-auto">
           <div className="mt-8 text-center">
-            <h1 className="text-4xl">MeMyo</h1>
+            <h1 className="text-4xl font-semibold">MeMyo</h1>
             <h3 className="text-gray-600 text-md">Adopt your Life partner</h3>
           </div>
           <div className="space-y-8 text-center md:ml-10 md:mr-10">
@@ -33,7 +33,7 @@ function LoginPage() {
                   alt="kakaoLoginImage"
                 />
               </div>
-              <p>Signup</p>
+              <p className="p-4">Signup</p>
             </div>
           </div>
         </div>
