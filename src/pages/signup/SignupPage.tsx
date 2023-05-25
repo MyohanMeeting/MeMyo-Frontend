@@ -1,9 +1,9 @@
 function SignupPage() {
   return (
-    <div className="flex items-center justify-center p-24">
+    <div className="flex items-center justify-center min-h-screen mx-8 md:p-16">
       <div className="flex bg-yellow-300 shadow-2xl rounded-2xl">
         <div className="flex flex-col w-7/12 m-auto text-center">
-          <div className="p-12">
+          <div className="p-7">
             <h1 className="text-4xl">Signup</h1>
             <h3 className="text-md"></h3>
           </div>
