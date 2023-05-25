@@ -3,7 +3,7 @@ import loginImg from "../../assets/login/login-cat-image.jpeg";
 
 function LoginPage() {
   return (
-    <div className="flex items-center justify-center min-h-screen mx-8 md:p-16 ">
+    <div className="flex items-center justify-center min-h-screen mx-8 md:p-16 max-w-7xl">
       <div className="flex bg-orange-300 shadow-2xl rounded-2xl">
         <div className="flex flex-col w-7/12 m-auto">
           <div className="mt-8 text-center">
