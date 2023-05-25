@@ -1,34 +1,31 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import { Provider } from "react-redux";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-} from "react-router-dom";
-import { Provider } from 'react-redux';
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { PayloadAction, createAction } from '@reduxjs/toolkit/dist/createAction';
-import App from './App';
+  PayloadAction,
+  createAction,
+} from "@reduxjs/toolkit/dist/createAction";
+import App from "./App";
+import LoginPage from "./pages/login/LoginPage";
 
 type stateType = {
   name: string;
-  count: number; 
-}
+  count: number;
+};
 
 const initialState: stateType = {
-  name: 'test',
-  count: 0
-}
+  name: "test",
+  count: 0,
+};
 
 const testSlice = createSlice({
-  name: 'test',
+  name: "test",
   initialState,
   reducers: {
-    setName: (
-      state,
-      action: PayloadAction<{ name: string }>
-    ) => {
+    setName: (state, action: PayloadAction<{ name: string }>) => {
       state.name = action.payload.name;
     },
   },
@@ -37,8 +34,8 @@ const testSlice = createSlice({
 
 const store = configureStore({
   reducer: {
-    test: testSlice.reducer
-  }
+    test: testSlice.reducer,
+  },
 });
 
 export const { setName } = testSlice.actions;
@@ -60,12 +57,16 @@ const router = createBrowserRouter([
     path: "about",
     element: <div>About</div>,
   },
+  {
+    path: "login",
+    element: <LoginPage />,
+  },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
