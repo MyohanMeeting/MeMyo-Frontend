@@ -1,3 +1,4 @@
+import AdoptPictureInp from '../../components/adopt-post/AdoptPictureInp';
 import AdoptSelectBox from '../../components/adopt-post/AdoptSelectBox';
 
 function Post() {
@@ -51,53 +52,12 @@ function Post() {
               <span className="text-lg mb-3 block">upload image</span>
 
               <div className="flex flex-wrap justify-between gap-6 ">
-                <div className="relative basis-1/4 border-4 border-memyo-yellow5  rounded-xl">
-                  <input type="file" hidden />
-
-                  <div className="w-full aspect-square rounded-lg shadow-xl cursor-pointer">
-                    <div className="w-full aspect-square rounded-full overflow-hidden"></div>
-                  </div>
-                </div>
-
-                <div className="relative basis-1/4  border-4 border-memyo-yellow5  rounded-xl">
-                  <input type="file" hidden />
-
-                  <div className="w-full aspect-square rounded-lg shadow-xl cursor-pointer">
-                    <div className="w-full aspect-square rounded-full overflow-hidden"></div>
-                  </div>
-                </div>
-
-                <div className="relative basis-1/4  border-4 border-memyo-yellow5  rounded-xl">
-                  <input type="file" hidden />
-
-                  <div className="w-full aspect-square rounded-lg shadow-xl cursor-pointer">
-                    <div className="w-full aspect-square rounded-full overflow-hidden"></div>
-                  </div>
-                </div>
-
-                <div className="relative basis-1/4  border-4 border-memyo-yellow5  rounded-xl">
-                  <input type="file" hidden />
-
-                  <div className="w-full aspect-square rounded-lg shadow-xl cursor-pointer">
-                    <div className="w-full aspect-square rounded-full overflow-hidden"></div>
-                  </div>
-                </div>
-
-                <div className="relative basis-1/4  border-4 border-memyo-yellow5  rounded-xl">
-                  <input type="file" hidden />
-
-                  <div className="w-full aspect-square rounded-lg shadow-xl cursor-pointer">
-                    <div className="w-full aspect-square rounded-full overflow-hidden"></div>
-                  </div>
-                </div>
-
-                <div className="relative basis-1/4  border-4 border-memyo-yellow5  rounded-xl">
-                  <input type="file" hidden />
-
-                  <div className="w-full aspect-square rounded-lg shadow-xl cursor-pointer">
-                    <div className="w-full aspect-square rounded-full overflow-hidden"></div>
-                  </div>
-                </div>
+                <AdoptPictureInp />
+                <AdoptPictureInp />
+                <AdoptPictureInp />
+                <AdoptPictureInp />
+                <AdoptPictureInp />
+                <AdoptPictureInp />
               </div>
             </div>
             <div className="border-2 border-memyo-yellow2 rounded-xl p-7">
