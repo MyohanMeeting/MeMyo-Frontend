@@ -1,15 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
-import { Provider } from "react-redux";
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-import {
-  PayloadAction,
-  createAction,
-} from "@reduxjs/toolkit/dist/createAction";
-import App from "./App";
-import LoginPage from "./pages/login/LoginPage";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
+import router from './router';
 
 type stateType = {
   name: string;
@@ -17,12 +13,12 @@ type stateType = {
 };
 
 const initialState: stateType = {
-  name: "test",
+  name: 'test',
   count: 0,
 };
 
 const testSlice = createSlice({
-  name: "test",
+  name: 'test',
   initialState,
   reducers: {
     setName: (state, action: PayloadAction<{ name: string }>) => {
@@ -42,28 +38,7 @@ export const { setName } = testSlice.actions;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <div>
-        <h1>Hello World</h1>
-        <Link to="about">About Us</Link>
-        <App />
-      </div>
-    ),
-  },
-  {
-    path: "about",
-    element: <div>About</div>,
-  },
-  {
-    path: "login",
-    element: <LoginPage />,
-  },
-]);
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />

@@ -1,5 +1,5 @@
-import kakaoLoginImg from "../../assets/login/kakao_login_medium_wide.png";
-import loginImg from "../../assets/login/login-cat-image.jpeg";
+import kakaoLoginImg from '../../assets/login/kakao_login_medium_wide.png';
+import loginImg from '../../assets/login/login-cat-image.jpeg';
 
 function LoginPage() {
   return (
@@ -23,9 +23,7 @@ function LoginPage() {
               placeholder="Password"
             />
             <div className="space-y-2">
-              <button className="w-full h-10 text-white bg-blue-500 rounded-xl">
-                SignIn
-              </button>
+              <button className="w-full h-10 text-white bg-blue-500 rounded-xl">SignIn</button>
               <div className="pb-6">
                 <img
                   className="object-cover w-screen h-10 rounded-xl"
