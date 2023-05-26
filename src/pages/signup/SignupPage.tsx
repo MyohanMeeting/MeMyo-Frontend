@@ -1,3 +1,5 @@
+import signupMainImg from '../../assets/signupMainImg.jpg';
+
 function SignupPage() {
   return (
     <div className="flex items-center justify-center min-h-screen mx-8 max-w-7xl md:p-16">
@@ -33,16 +35,13 @@ function SignupPage() {
             />
 
             <div>
-              <label
-                className="p-2 bg-yellow-200 rounded-xl"
-                htmlFor="input-file"
-              >
+              <label className="p-2 bg-yellow-200 rounded-xl" htmlFor="input-file">
                 Add Profile Photo
               </label>
-              <input type="file" id="input-file" style={{ display: "none" }} />
+              <input type="file" id="input-file" style={{ display: 'none' }} />
             </div>
             <div className="pb-6">
-              <button className="w-full h-10 text-white rounded-xl bg-signupBlue">
+              <button className="w-full h-10 text-white rounded-xl bg-signup-signupBlue">
                 Signup
               </button>
             </div>
@@ -51,7 +50,7 @@ function SignupPage() {
         <div className="hidden w-9/12 md:block">
           <img
             className="object-cover w-full h-full rounded-r-2xl"
-            src="https://images.unsplash.com/photo-1574158622682-e40e69881006?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
+            src={signupMainImg}
             alt="signupMainImage"
           />
         </div>
