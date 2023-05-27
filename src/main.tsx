@@ -1,7 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import { RouterProvider } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
@@ -9,22 +9,19 @@ import router from './router';
 
 type stateType = {
   name: string;
-  count: number; 
-}
+  count: number;
+};
 
 const initialState: stateType = {
   name: 'test',
-  count: 0
-}
+  count: 0,
+};
 
 const testSlice = createSlice({
   name: 'test',
   initialState,
   reducers: {
-    setName: (
-      state,
-      action: PayloadAction<{ name: string }>
-    ) => {
+    setName: (state, action: PayloadAction<{ name: string }>) => {
       state.name = action.payload.name;
     },
   },
@@ -33,8 +30,8 @@ const testSlice = createSlice({
 
 const store = configureStore({
   reducer: {
-    test: testSlice.reducer
-  }
+    test: testSlice.reducer,
+  },
 });
 
 export const { setName } = testSlice.actions;
@@ -46,5 +43,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
