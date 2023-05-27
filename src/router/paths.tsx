@@ -1,16 +1,17 @@
-import { RouteObject } from "react-router-dom";
+import { RouteObject } from 'react-router-dom';
 import NavbarWrapper from '../components/layout/NavbarWrapper';
+import HomePage from '../pages/home/HomePage';
 
 const paths: RouteObject[] = [
   {
-    path: "/",
+    path: '/',
     element: <NavbarWrapper />,
     children: [
       {
-        path: "/",
-        element: <div>home</div>
+        path: '/',
+        element: <HomePage />,
       },
-    ]
+    ],
   },
 ];
 
