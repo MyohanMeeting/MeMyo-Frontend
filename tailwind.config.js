@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import colors from 'tailwindcss/colors';
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -15,6 +17,12 @@ export default {
           yellow8: '#FF9900',
           yellow9: '#FF8C00',
           yellow10: '#FF8000',
+        },
+        signup: {
+          signupBlue: '#017ACC',
+          yellow: colors.yellow,
+          gray: colors.gray,
+          white: colors.white,
         },
       },
     },
