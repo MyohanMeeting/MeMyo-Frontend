@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 import NavbarWrapper from '../components/layout/NavbarWrapper';
 import MyPage from '../pages/mypage/MyPage';
+import SignupPage from '../pages/signup/SignupPage';
 
 const paths: RouteObject[] = [
   {
@@ -16,6 +17,10 @@ const paths: RouteObject[] = [
         element: <MyPage />,
       },
     ],
+  },
+  {
+    path: '/signup',
+    element: <SignupPage />,
   },
 ];
 
