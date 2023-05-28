@@ -22,7 +22,8 @@ const paths: RouteObject[] = [
         path: '/signup',
         element: <SignupPage />,
       },
-    ];
+    ],
+  },
 ];
 
 export default paths;
