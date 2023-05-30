@@ -54,7 +54,7 @@ function MyPage() {
   return (
     <div>
       <section>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-between space-x-4">
           <h1 className="text-4xl font-bold">MyPage</h1>
 
           <div className="flex items-center justify-center p-1 space-x-4">
