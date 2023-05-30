@@ -1,14 +1,17 @@
-import CatInfoCard from '../CatInfoCard';
+import AdoptionCard from './AdoptionCard';
 
 export default function AdoptionHandleTab() {
   return (
-    <article>
-      <section className="pt-4 mx-4 space-y-4">
-        <CatInfoCard />
-        <CatInfoCard />
-        <CatInfoCard />
-        <CatInfoCard />
-      </section>
+    <article className="md:grid md:grid-cols-2">
+      <AdoptionCard />
+      <AdoptionCard />
+      <AdoptionCard />
+      <AdoptionCard />
+      <AdoptionCard />
+      <AdoptionCard />
+      <AdoptionCard />
+      <AdoptionCard />
+      <AdoptionCard />
     </article>
   );
 }

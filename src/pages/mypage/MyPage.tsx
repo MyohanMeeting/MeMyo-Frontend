@@ -54,13 +54,17 @@ function MyPage() {
   return (
     <div>
       <section>
-        <div className="flex flex-col items-center justify-center p-1">
-          <img
-            className="object-cover w-16 h-16 border-2 rounded-full border-memyo-yellow6"
-            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=1400&q=60"
-            alt="profileImage"
-          />
-          <p className="text-sm font-semibold">Woody</p>
+        <div className="flex items-center space-x-4">
+          <h1 className="text-4xl font-bold">MyPage</h1>
+
+          <div className="flex items-center justify-center p-1 space-x-4">
+            <img
+              className="object-cover w-16 h-16 border-2 rounded-full border-memyo-yellow6"
+              src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=1400&q=60"
+              alt="profileImage"
+            />
+            <p className="text-sm font-semibold">Woody</p>
+          </div>
         </div>
       </section>
       <section>

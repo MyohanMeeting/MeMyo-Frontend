@@ -1,31 +1,33 @@
 import { RouteObject } from 'react-router-dom';
-import NavbarWrapper from '../components/layout/NavbarWrapper';
-import MyPage from '../pages/mypage/MyPage';
+
+import Wrapper from '../components/layout/Wrapper';
+import HomePage from '../pages/home/HomePage';
 import LoginPage from '../pages/login/LoginPage';
 import SignupPage from '../pages/signup/SignupPage';
+import MyPage from '../pages/mypage/MyPage';
 
 const paths: RouteObject[] = [
   {
     path: '/',
-    element: <NavbarWrapper />,
+    element: <Wrapper />,
     children: [
       {
         path: '/',
-        element: <div>home</div>,
+        element: <HomePage />,
+      },
+      {
+        path: '/login',
+        element: <LoginPage />,
+      },
+      {
+        path: '/signup',
+        element: <SignupPage />,
       },
       {
         path: '/mypage',
         element: <MyPage />,
       },
     ],
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/signup',
-    element: <SignupPage />,
   },
 ];
 

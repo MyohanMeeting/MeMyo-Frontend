@@ -1,11 +1,9 @@
-import Counter from './components/Counter'
-
 function App() {
   return (
-    <div className='bg-amber-100'>
-      <Counter />
+    <div>
+      <h1>Hello World</h1>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
