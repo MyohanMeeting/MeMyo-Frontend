@@ -14,11 +14,11 @@ function SignupPage() {
     >
       <div className="absolute flex w-4/5 shadow-2xl bottom-12 bg-memyo-yellow8 rounded-2xl">
         <div className="flex flex-col w-7/12 m-auto">
-          <div className="mt-8 text-center">
-            <h1 className="text-4xl font-semibold text-white">묘한만남</h1>
-            <h3 className="text-gray-600 text-md">Adopt your Life partner</h3>
+          <div className="text-center md:mt-8">
+            <h1 className="hidden text-4xl font-semibold text-white md:block">묘한만남</h1>
+            <h3 className="hidden text-gray-600 md:block text-md">Adopt your Life partner</h3>
           </div>
-          <div className="p-4 space-y-6 md:ml-10 md:mr-10">
+          <div className="space-y-6 md:ml-10 md:mr-10">
             <div className="space-y-3 text-center">
               <input
                 type="text"
@@ -43,9 +43,9 @@ function SignupPage() {
               />
             </div>
             <div className="flex items-center justify-center">
-              <button className="w-full h-10 bg-blue-500 rounded-xl">회원가입</button>
+              <button className="w-full h-10 text-white bg-blue-500 rounded-xl">회원가입</button>
             </div>
-            <div className="flex items-center justify-center space-x-4">
+            <div className="flex items-center justify-center pb-4 space-x-4">
               <p className="text-xs">이미 회원이신가요? </p>
               <p className="text-xs font-semibold">로그인</p>
             </div>
