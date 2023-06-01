@@ -2,7 +2,7 @@ import AdoptionCard from './AdoptionCard';
 
 export default function AdoptionHandleTab() {
   return (
-    <article className="md:grid md:grid-cols-2">
+    <article className="max-w-lg m-auto md:grid md:grid-cols-2">
       <AdoptionCard />
       <AdoptionCard />
       <AdoptionCard />
