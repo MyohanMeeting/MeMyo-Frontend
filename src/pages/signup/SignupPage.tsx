@@ -1,4 +1,4 @@
-import signupMainImg from '../../assets/signupMainImg.jpg';
+import signupMainImg from '../../assets/signup/signupMainImg.jpg';
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 
 function SignupPage() {
