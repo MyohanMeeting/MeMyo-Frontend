@@ -4,6 +4,7 @@ import Wrapper from '../components/layout/Wrapper';
 import HomePage from '../pages/home/HomePage';
 import LoginPage from '../pages/login/LoginPage';
 import SignupPage from '../pages/signup/SignupPage';
+import MyPage from '../pages/mypage/MyPage';
 
 const paths: RouteObject[] = [
   {
@@ -21,6 +22,10 @@ const paths: RouteObject[] = [
       {
         path: '/signup',
         element: <SignupPage />,
+      },
+      {
+        path: '/mypage',
+        element: <MyPage />,
       },
     ],
   },
