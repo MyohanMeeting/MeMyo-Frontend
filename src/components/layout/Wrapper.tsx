@@ -4,7 +4,7 @@ import Footer from './Footer';
 
 function Wrapper() {
   return (
-    <div className="w-full max-w-5xl h-full mx-auto px-3">
+    <div className="w-full h-full max-w-md px-3 mx-auto md:max-w-5xl">
       <NavBar />
       <Outlet />
       <Footer />
