@@ -2,23 +2,22 @@ import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
-    <nav className="w-full flex items-center py-8">
-      <Link to="/" className="text-2xl font-semibold">
-        Me Myo
+    <nav className="flex items-center justify-between w-full py-8">
+      <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
+        묘한만남
       </Link>
-      <ul className="flex">
-        <li className="border border-memyo-yellow3 font-semibold text-memyo-yellow5 px-4 rounded-sm">
-          Sign up
+      <ul className="flex items-center space-x-8">
+        <li className="px-4 font-semibold border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
+          회원가입
         </li>
-        <li className="border border-memyo-yellow3 font-semibold text-memyo-yellow5 px-4 rounded-sm">
-          Log in
+        <li className="px-4 font-semibold border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
+          로그인
         </li>
       </ul>
-      <ul className="flex items-center">
-        <li className="text-lg font-semibold">Announcements</li>
-        <li className="text-lg font-semibold">Map</li>
-        <li className="text-lg font-semibold">About us</li>
-        <li className="text-lg font-semibold">Blog</li>
+      <ul className="flex items-center space-x-8">
+        <li className="text-lg font-semibold">입양</li>
+        <li className="text-lg font-semibold">커뮤니티</li>
+        <li className="text-lg font-semibold">공지사항</li>
       </ul>
     </nav>
   );
