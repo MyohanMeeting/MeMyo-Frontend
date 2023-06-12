@@ -38,7 +38,7 @@ function SignupPage() {
       <div className="flex bg-yellow-300 shadow-2xl rounded-2xl">
         <div className="flex flex-col w-7/12 m-auto text-center">
           <div className="pt-8 md:p-7">
-            <h1 className="text-4xl font-semibold">Signup</h1>
+            <h1 className="text-4xl font-semibold">회원가입</h1>
             <h3 className="text-md"></h3>
           </div>
           <form
@@ -50,7 +50,7 @@ function SignupPage() {
             <input
               type="email"
               className="w-full h-10 mt-12 rounded-xl indent-3 focus:outline-none"
-              placeholder="E-mail"
+              placeholder="이메일"
               name="email"
               value={email}
               onChange={handleChangeInputs}
@@ -60,7 +60,7 @@ function SignupPage() {
             <input
               type="password"
               className="w-full h-10 rounded-xl indent-3 focus:outline-none"
-              placeholder="Password"
+              placeholder="비밀번호"
               name="password"
               value={password}
               onChange={handleChangeInputs}
@@ -70,7 +70,7 @@ function SignupPage() {
             <input
               type="text"
               className="w-full h-10 rounded-xl indent-3 focus:outline-none"
-              placeholder="Nickname"
+              placeholder="닉네임"
               name="nickName"
               value={nickName}
               onChange={handleChangeInputs}
@@ -80,7 +80,7 @@ function SignupPage() {
             <input
               type="text"
               className="w-full h-10 rounded-xl indent-3 focus:outline-none"
-              placeholder="PhoneNumber"
+              placeholder="전화번호"
               name="phoneNumber"
               value={phoneNumber}
               onChange={handleChangeInputs}
@@ -93,14 +93,14 @@ function SignupPage() {
                 className="p-2 bg-yellow-200 rounded-xl cursor-pointer hover:opacity-80 transition-all"
                 htmlFor="input-file"
               >
-                Add Profile Photo
+                프로필 사진 추가
               </label>
               {profilePhoto && (
                 <button
                   onClick={() => setProfilePhoto('')}
                   className="p-2 bg-red-200 rounded-xl cursor-pointer hover:opacity-80 transition-all ml-1"
                 >
-                  Remove
+                  삭제
                 </button>
               )}
               <input
@@ -115,9 +115,9 @@ function SignupPage() {
             <div className="pb-6">
               <button
                 type="submit"
-                className="w-full h-10 text-white rounded-xl bg-signup-signupBlue"
+                className="w-full h-10 text-white rounded-xl bg-signup-signupBlue font-semibold"
               >
-                Signup
+                SignUp
               </button>
             </div>
           </form>
