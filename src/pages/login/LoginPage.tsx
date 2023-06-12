@@ -1,7 +1,24 @@
+import { useState } from 'react';
 import kakaoLoginImg from '../../assets/login/kakao_login_medium_wide.png';
 import loginImg from '../../assets/login/login-cat-image.jpeg';
 
+const initialInputs = {
+  email: '',
+  password: '',
+};
+
 function LoginPage() {
+  const [inputs, setInputs] = useState(initialInputs);
+  const { email, password } = inputs;
+
+  const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInputs((prevInputs) => ({
+      ...prevInputs,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen mx-8 md:p-16 max-w-7xl">
       <div className="flex bg-orange-300 shadow-2xl rounded-2xl">
@@ -12,15 +29,23 @@ function LoginPage() {
           </div>
           <div className="space-y-8 text-center md:ml-10 md:mr-10">
             <input
-              type="text"
+              type="email"
               className="w-full h-10 mt-12 rounded-xl indent-3 focus:outline-none"
               placeholder="E-mail"
+              name="email"
+              value={email}
+              onChange={handleChangeInputs}
+              required
             />
 
             <input
               type="password"
               className="w-full h-10 rounded-xl indent-3 focus:outline-none"
               placeholder="Password"
+              name="password"
+              value={password}
+              onChange={handleChangeInputs}
+              required
             />
             <div className="space-y-2">
               <button className="w-full h-10 text-white bg-blue-500 rounded-xl">SignIn</button>
