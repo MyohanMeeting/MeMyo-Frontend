@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { CardProps } from '../../interfaces/type';
 import { Link } from 'react-router-dom';
+import { CardProps } from '../../types/cardType';
 
 function Card({ post }: { post: CardProps }) {
   const [isFavorite, setIsFavorite] = useState(false);

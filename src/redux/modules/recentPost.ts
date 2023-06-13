@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CardProps } from '../../interfaces/type';
+import { CardProps } from '../../types/cardType';
 
 interface RecentPostState {
   recentPost: Array<CardProps>;
