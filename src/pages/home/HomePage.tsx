@@ -1,8 +1,35 @@
-import Card from '../../components/layout/Card';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../redux/configureStore';
+import { RootState } from '../../redux/configureStore';
+import {
+  getRecentPostFailure,
+  getRecentPostStart,
+  getRecentPostSuccess,
+} from '../../redux/modules/recentPost';
+import { Link } from 'react-router-dom';
+import { getRecentPost } from '../../apis/homeApi';
 
+import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
 
 function HomePage() {
+  const dispatch = useDispatch<AppDispatch>();
+  const recentPost = useSelector((state: RootState) => state.recentPost?.recentPost);
+
+  useEffect(() => {
+    async function fetchRecentPost() {
+      try {
+        dispatch(getRecentPostStart());
+        const data = await getRecentPost();
+        dispatch(getRecentPostSuccess(data));
+      } catch (error) {
+        dispatch(getRecentPostFailure('error'));
+      }
+    }
+    fetchRecentPost();
+  }, [dispatch]);
+
   return (
     <main>
       <div className="mb-2 text-lg md:hidden">
@@ -11,7 +38,7 @@ function HomePage() {
           <p className="font-bold">미묘</p>
           <p>님!</p>
         </div>
-        <p>고양이 가족 찾는 것을 도와드릴게요</p>
+        <p>반려묘 찾는 것을 도와드릴게요</p>
       </div>
       <section className="flex items-center border border-memyo-yellow8 rounded-2xl md:border-0">
         <img
@@ -45,14 +72,21 @@ function HomePage() {
       <section className="my-8">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold">최근 올라온 공고</h2>
-          <p className="h-6 text-center border-b md:hidden w-14 text-memyo-yellow8 border-memyo-yellow8">
-            더보기
-          </p>
+          <Link to="/공고전체주소">
+            <p className="h-6 text-center border-b md:hidden w-14 text-memyo-yellow8 border-memyo-yellow8">
+              더보기
+            </p>
+          </Link>
         </div>
         <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
-          {new Array(4).fill(1).map((i) => (
-            <Card key={i} />
-          ))}
+          {recentPost &&
+            recentPost.map((item) => {
+              return (
+                <li key={item.adoptNoticeId}>
+                  <Card post={item} />
+                </li>
+              );
+            })}
         </ul>
         <div className="flex items-center justify-between h-40">
           <div className="w-1/3"></div>
@@ -63,9 +97,11 @@ function HomePage() {
             <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
           </ul>
           <div className="w-1/3 text-end">
-            <button className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white">
-              더보기
-            </button>
+            <Link to="/adoptionPost">
+              <button className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white">
+                모든 공고 보기
+              </button>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,20 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function NavBar() {
+  let navigate = useNavigate();
   return (
     <>
       <nav className="flex items-center justify-between py-6 md:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          stroke="currentColor"
-          className="w-12 h-8 text-memyo-yellow8"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
-        <h1 className="text-3xl font-semibold text-memyo-yellow9">묘한만남</h1>
+        <button onClick={() => navigate(-1)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            className="w-12 h-8 text-memyo-yellow8"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <Link to="/">
+          <h1 className="text-3xl font-semibold text-memyo-yellow9">묘한만남</h1>
+        </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -37,10 +42,10 @@ function NavBar() {
           </Link>
           <ul className="flex items-center space-x-4">
             <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              Signup
+              <Link to="/signup">Signup</Link>
             </li>
             <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              Signin
+              <Link to="/login">Signin</Link>
             </li>
           </ul>
           <ul className="flex items-center space-x-8">

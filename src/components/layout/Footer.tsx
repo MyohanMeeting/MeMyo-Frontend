@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="flex flex-col justify-center space-y-4 text-xs text-white bg-gray-700 p-7 h-52">
+    <footer className="flex flex-col justify-center space-y-4 text-xs text-white bg-gray-700 p-7 h-52 ">
       <div>
         <p>(주)묘한만남</p>
       </div>
