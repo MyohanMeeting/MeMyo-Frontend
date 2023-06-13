@@ -88,21 +88,12 @@ function HomePage() {
               );
             })}
         </ul>
-        <div className="flex items-center justify-between h-40">
-          <div className="w-1/3"></div>
-          <ul className="hidden md:flex md:items-center md:justify-center md:w-1/3">
-            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
-            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
-            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
-            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
-          </ul>
-          <div className="w-1/3 text-end">
-            <Link to="/adoptionPost">
-              <button className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white">
-                모든 공고 보기
-              </button>
-            </Link>
-          </div>
+        <div className="flex items-center justify-center h-40">
+          <Link to="/adoptionPost">
+            <button className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white">
+              모든 공고 보기
+            </button>
+          </Link>
         </div>
       </section>
     </main>
