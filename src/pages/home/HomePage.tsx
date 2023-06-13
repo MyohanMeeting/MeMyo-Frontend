@@ -12,7 +12,7 @@ import { getRecentPost } from '../../apis/homeApi';
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
-
+// webhook
 function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
   const recentPost = useSelector((state: RootState) => state.recentPost?.recentPost);
