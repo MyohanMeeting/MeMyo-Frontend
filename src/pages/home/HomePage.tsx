@@ -15,14 +15,16 @@ import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
 
 function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
-  const recentPost = useSelector((state: RootState) => state.recentPost?.recentPost);
+  const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
 
   useEffect(() => {
     async function fetchRecentPost() {
       try {
         dispatch(getRecentPostStart());
-        const data = await getRecentPost();
-        dispatch(getRecentPostSuccess(data.data));
+        const res = await getRecentPost();
+        console.log(res.data.data.recentPost);
+
+        dispatch(getRecentPostSuccess(res.data));
       } catch (error) {
         dispatch(getRecentPostFailure('error'));
       }

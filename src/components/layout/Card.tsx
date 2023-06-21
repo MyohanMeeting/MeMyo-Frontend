@@ -1,12 +1,31 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CardProps } from '../../types/cardType';
+import { PostFavoritesRequest, postFavorites } from '../../apis/utils/postFavorites';
 
-function Card({ post }: { post: CardProps }) {
+interface PostData {
+  adoptNoticeId: number;
+  catId: number;
+  name: string;
+  thumbnail: string;
+  registNumber: number;
+  species: string;
+}
+
+function Card({ post }: { post: PostData }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  function toggleHeart() {
-    setIsFavorite(!isFavorite);
+  async function handleHeartClick() {
+    const postFavoritesRequest: PostFavoritesRequest = {
+      catid: post.catId,
+    };
+    try {
+      const res = await postFavorites(postFavoritesRequest);
+      if (res.status === 200) {
+        setIsFavorite(!isFavorite);
+      }
+    } catch (e) {
+      alert('최애친구 등록에 실패했습니다.');
+    }
   }
 
   return (
@@ -19,8 +38,8 @@ function Card({ post }: { post: CardProps }) {
       </Link>
       <div className="p-2">
         <div className="flex items-center justify-between mb-2">
-          <span className="font-semibold">{post.catName}</span>
-          <button onClick={() => toggleHeart()}>
+          <span className="font-semibold">{post.name}</span>
+          <button onClick={() => handleHeartClick()}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

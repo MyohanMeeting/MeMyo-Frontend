@@ -2,7 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GetRecentPostResponse } from '../../apis/api/home/getRecentPost';
 
 interface RecentPostState {
-  recentPost: GetRecentPostResponse[];
+  recentPost: {
+    adoptNoticeId: number;
+    catId: number;
+    name: string;
+    thumbnail: string;
+    registNumber: number;
+    species: string;
+  }[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
@@ -20,10 +27,9 @@ const recentPostSlice = createSlice({
     getRecentPostStart: (state) => {
       state.status = 'loading';
     },
-    getRecentPostSuccess: (state, action: PayloadAction<Array<GetRecentPostResponse>>) => {
-      console.log('Payload:', action.payload);
+    getRecentPostSuccess: (state, action: PayloadAction<GetRecentPostResponse>) => {
       state.status = 'succeeded';
-      state.recentPost = action.payload;
+      state.recentPost = action.payload.data.recentPost;
     },
     getRecentPostFailure: (state, action: PayloadAction<string>) => {
       state.status = 'failed';

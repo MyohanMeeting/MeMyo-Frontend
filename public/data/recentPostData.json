@@ -3,30 +3,34 @@
     "recentPost": [
       {
         "adoptNoticeId": 1,
-        "catName": "루루",
+        "catId": 1,
+        "name": "루루",
         "thumbnail": "https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8JUVBJUIzJUEwJUVDJTk2JTkxJUVDJTlEJUI0fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-        "city": "SEOUL",
+        "registNumber": 1,
         "species": "코리안 숏헤어"
       },
       {
         "adoptNoticeId": 2,
-        "catName": "샤넬",
+        "catId": 2,
+        "name": "샤넬",
         "thumbnail": "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8JUVBJUIzJUEwJUVDJTk2JTkxJUVDJTlEJUI0fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-        "city": "SEOUL",
+        "registNumber": 2,
         "species": "샴"
       },
       {
         "adoptNoticeId": 3,
-        "catName": "구찌",
+        "catId": 3,
+        "name": "루이",
         "thumbnail": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8JUVBJUIzJUEwJUVDJTk2JTkxJUVDJTlEJUI0fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-        "city": "SEOUL",
+        "registNumber": 3,
         "species": "터키쉬 앙고라"
       },
       {
         "adoptNoticeId": 4,
-        "catName": "핑키",
+        "catId": 4,
+        "name": "루이",
         "thumbnail": "https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fCVFQSVCMyVBMCVFQyU5NiU5MSVFQyU5RCVCNHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=900&q=60",
-        "city": "SEOUL",
+        "registNumber": 4,
         "species": "스코티쉬 폴드"
       }
     ]
