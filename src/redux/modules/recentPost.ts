@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CardProps } from '../../types/cardType';
+import { GetRecentPostResponse } from '../../apis/api/home/getRecentPost';
 
 interface RecentPostState {
-  recentPost: Array<CardProps>;
+  recentPost: GetRecentPostResponse[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
@@ -20,7 +20,7 @@ const recentPostSlice = createSlice({
     getRecentPostStart: (state) => {
       state.status = 'loading';
     },
-    getRecentPostSuccess: (state, action: PayloadAction<Array<CardProps>>) => {
+    getRecentPostSuccess: (state, action: PayloadAction<Array<GetRecentPostResponse>>) => {
       console.log('Payload:', action.payload);
       state.status = 'succeeded';
       state.recentPost = action.payload;

@@ -8,11 +8,11 @@ import {
   getRecentPostSuccess,
 } from '../../redux/modules/recentPost';
 import { Link } from 'react-router-dom';
-import { getRecentPost } from '../../apis/homeApi';
+import { getRecentPost } from '../../apis/api/home/getRecentPost';
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
-// webhook
+
 function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
   const recentPost = useSelector((state: RootState) => state.recentPost?.recentPost);
@@ -22,7 +22,7 @@ function HomePage() {
       try {
         dispatch(getRecentPostStart());
         const data = await getRecentPost();
-        dispatch(getRecentPostSuccess(data));
+        dispatch(getRecentPostSuccess(data.data));
       } catch (error) {
         dispatch(getRecentPostFailure('error'));
       }
