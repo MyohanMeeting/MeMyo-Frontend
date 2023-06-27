@@ -73,7 +73,9 @@ function MyPage() {
             return item.tabTitle;
           })}
         </ul>
-        <div className="h-screen overflow-auto">{tabContArr[activeIndex].tabCont}</div>
+        <div className="h-screen overflow-auto scrollbar-hide">
+          {tabContArr[activeIndex].tabCont}
+        </div>
       </section>
     </div>
   );
