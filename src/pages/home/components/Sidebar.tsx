@@ -17,7 +17,7 @@ function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
   }
 
   function toggleSide() {
-    setShowSidebar(!showSidebar);
+    setShowSidebar(false);
   }
   return (
     <div id="sidebar" ref={outside}>
