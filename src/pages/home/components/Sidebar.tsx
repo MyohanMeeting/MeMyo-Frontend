@@ -1,8 +1,26 @@
+import { useEffect, useRef } from 'react';
 import { SidebarProps } from '../../../components/layout/NavBar';
 
 function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
+  const outside = useRef<any>();
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleOutside);
+    };
+  });
+
+  function handleOutside(e: any) {
+    if (!outside.current.contains(e.target)) {
+      toggleSide();
+    }
+  }
+
+  function toggleSide() {
+    setShowSidebar(!showSidebar);
+  }
   return (
-    <div>
+    <div id="sidebar" ref={outside}>
       <button onClick={() => setShowSidebar(!showSidebar)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
