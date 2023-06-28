@@ -1,6 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function NavBar() {
+  const pathToTitle: { [key: string]: string } = {
+    '/': '묘한만남',
+    '/signup': '회원가입',
+    '/mypage': '마이페이지',
+    '/login': '로그인',
+    '/mypage/favoritemate': '최애 친구',
+    '/mypage/myletter': '내가 쓴 글',
+    '/mypage/adoptionhandle': '입양 관리',
+  };
+  const location = useLocation();
+  const pathName = pathToTitle[location.pathname] || '묘한만남';
   return (
     <>
       <nav className="flex items-center justify-between py-6 md:hidden">
@@ -14,7 +25,7 @@ function NavBar() {
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
-        <h1 className="text-3xl font-semibold text-memyo-yellow9">묘한만남</h1>
+        <h1 className="text-3xl font-semibold text-memyo-yellow9">{pathName}</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
