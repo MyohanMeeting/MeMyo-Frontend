@@ -1,6 +1,8 @@
-function Sidebar({ showSidebar, setShowSidebar }: any) {
+import { SidebarProps } from '../../../components/layout/NavBar';
+
+function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
   return (
-    <>
+    <div>
       <button onClick={() => setShowSidebar(!showSidebar)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +20,7 @@ function Sidebar({ showSidebar, setShowSidebar }: any) {
         </svg>
       </button>
       <div
-        className={`top-0 right-0 w-[40vw] bg-blue-600  p-10 pl-20 text-white fixed h-full z-40  ease-in-out duration-300 ${
+        className={`top-20 right-0 w-[45vw] bg-memyo-yellow8 p-10 text-white fixed h-80 z-40  ease-in-out duration-300 rounded-tl-2xl rounded-bl-2xl ${
           showSidebar ? 'translate-x-0 ' : 'translate-x-full'
         }`}
       >
@@ -37,9 +39,16 @@ function Sidebar({ showSidebar, setShowSidebar }: any) {
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        <h3 className="mt-20 font-semibold text-white">I am a sidebar</h3>
+        <div className="mt-10 font-semibold text-white">
+          <ul className="space-y-4">
+            <li>마이페이지</li>
+            <li>입양페이지</li>
+            <li>공고 올리기</li>
+            <li>로그아웃</li>
+          </ul>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

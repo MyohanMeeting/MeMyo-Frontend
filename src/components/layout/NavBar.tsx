@@ -2,6 +2,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Sidebar from '../../pages/home/components/Sidebar';
 
+export interface SidebarProps {
+  showSidebar: boolean;
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+}
 function NavBar() {
   let navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
