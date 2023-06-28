@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { SidebarProps } from '../../../components/layout/NavBar';
 
 function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
-  const outside = useRef<any>();
+  const outside = useRef() as React.MutableRefObject<HTMLDivElement>; // typeassertion
   useEffect(() => {
     document.addEventListener('mousedown', handleOutside);
     return () => {
@@ -10,7 +10,7 @@ function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
     };
   });
 
-  function handleOutside(e: any) {
+  function handleOutside(e: React.BaseSyntheticEvent | MouseEvent) {
     if (!outside.current.contains(e.target)) {
       toggleSide();
     }
