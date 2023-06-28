@@ -22,8 +22,6 @@ function HomePage() {
       try {
         dispatch(getRecentPostStart());
         const res = await getRecentPost();
-        console.log(res.data.data.recentPost);
-
         dispatch(getRecentPostSuccess(res.data));
       } catch (error) {
         dispatch(getRecentPostFailure('error'));
