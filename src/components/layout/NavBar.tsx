@@ -57,7 +57,9 @@ function NavBar() {
           <ul className="flex items-center space-x-8">
             <li className="text-lg font-semibold">입양</li>
             <li className="text-lg font-semibold">커뮤니티</li>
-            <li className="text-lg font-semibold">공지사항</li>
+            <Link to="/mypage">
+              <li className="text-lg font-semibold">마이페이지</li>
+            </Link>
           </ul>
         </nav>
       </div>
