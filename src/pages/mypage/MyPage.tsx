@@ -32,7 +32,7 @@ function MyPage() {
           </div>
         </div>
         <div>
-          <Link to="/mypage/favoritemate">
+          <Link to="/mypage/userinfomodifying">
             <div className="flex justify-center h-20 border rounded-2xl border-memyo-yellow8 md:w-48 md:h-72 md:bg-memyo-yellow5">
               <div className="flex items-center justify-between w-80 md:flex-col md:justify-center md:space-y-4">
                 <svg

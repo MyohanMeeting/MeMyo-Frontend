@@ -8,6 +8,7 @@ import MyPage from '../pages/mypage/MyPage';
 import FavoriteTab from '../pages/mypage/components/favoriteTab/FavoriteTab';
 import MyLetterTab from '../pages/mypage/components/myLetterTab/MyLetterTab';
 import AdoptionHandleTab from '../pages/mypage/components/adoptionHandleTab/AdoptionHandleTab';
+import UserInfoModifyPage from '../pages/mypage/components/UserInfoModifyPage';
 
 function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ function AppRoutes() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="mypage" element={<MyPage />} />
+          <Route path="/mypage/userinfomodifying" element={<UserInfoModifyPage />} />
           <Route path="/mypage/favoritemate" element={<FavoriteTab />} />
           <Route path="/mypage/myletter" element={<MyLetterTab />} />
           <Route path="/mypage/adoptionhandle" element={<AdoptionHandleTab />} />
