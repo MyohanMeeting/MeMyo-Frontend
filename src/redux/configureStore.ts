@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import recentPostReducer from './modules/recentPost';
+import userInfo from './modules/userInfo';
 
 export const store = configureStore({
   reducer: {
     recentPost: recentPostReducer,
+    userInfo: userInfo,
   },
 });
 

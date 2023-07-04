@@ -11,7 +11,7 @@ function UserInfoModifyPage() {
       try {
         const res = await getUserInfo();
         if (res.status === 200) {
-          console.log(res.data);
+          console.log(res.data.userInfo);
         }
       } catch (e) {
         console.log(e);
