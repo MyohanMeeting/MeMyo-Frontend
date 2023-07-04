@@ -1,59 +1,9 @@
-import { useState } from 'react';
-import AdoptionHandleTab from './components/adoptionHandleTab/AdoptionHandleTab';
-import FavoriteTab from './components/favoriteTab/FavoriteTab';
-import MyLetterTab from './components/myLetterTab/MyLetterTab';
+import { Link } from 'react-router-dom';
 
 function MyPage() {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const tabClickHandler = (index: number) => {
-    setActiveIndex(index);
-  };
-
-  const tabContArr = [
-    {
-      tabTitle: (
-        <li
-          className={
-            activeIndex === 0 ? 'is-active border-solid border-b border-memyo-yellow10' : ''
-          }
-          onClick={() => tabClickHandler(0)}
-        >
-          최애 친구
-        </li>
-      ),
-      tabCont: <FavoriteTab />,
-    },
-    {
-      tabTitle: (
-        <li
-          className={
-            activeIndex === 1 ? 'is-active border-solid border-b border-memyo-yellow7' : ''
-          }
-          onClick={() => tabClickHandler(1)}
-        >
-          나의 신청 현황
-        </li>
-      ),
-      tabCont: <MyLetterTab />,
-    },
-    {
-      tabTitle: (
-        <li
-          className={
-            activeIndex === 2 ? 'is-active border-solid border-b border-memyo-yellow7' : ''
-          }
-          onClick={() => tabClickHandler(2)}
-        >
-          입양 관리
-        </li>
-      ),
-      tabCont: <AdoptionHandleTab />,
-    },
-  ];
   return (
     <div>
-      <section>
+      <section className="hidden border-gray-400 md:block md:mb-6 md:border-b">
         <div className="flex items-center justify-between space-x-4">
           <h1 className="text-3xl font-semibold">MyPage</h1>
 
@@ -67,13 +17,171 @@ function MyPage() {
           </div>
         </div>
       </section>
-      <section>
-        <ul className="flex justify-around mt-4 border-b-2 cursor-pointer">
-          {tabContArr.map((item, index) => {
-            return item.tabTitle;
-          })}
-        </ul>
-        <div className="h-screen overflow-auto">{tabContArr[activeIndex].tabCont}</div>
+      <section className="flex flex-col h-screen space-y-4 md:flex-row md:justify-around md:gap-2">
+        <div className="flex justify-center border h-36 bg-gradient-to-bl from-memyo-yellow3 to-memyo-yellow8 rounded-2xl border-memyo-yellow8 md:hidden">
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <img
+              src="https://images.unsplash.com/photo-1674574124649-778f9afc0e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+              alt="mobile-profile-image"
+              className="object-cover w-20 h-20 rounded-full"
+            />
+            <div className="flex items-center">
+              <p className="text-sm font-semibold">Woody</p>
+              <p>님</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <Link to="/mypage/favoritemate">
+            <div className="flex justify-center h-20 border rounded-2xl border-memyo-yellow8 md:w-48 md:h-72 md:bg-memyo-yellow5">
+              <div className="flex items-center justify-between w-80 md:flex-col md:justify-center md:space-y-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.0"
+                  stroke="currentColor"
+                  className="hidden w-24 h-24 text-white md:block"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <p className="text-sm font-semibold text-gray-500 md:text-white">회원 정보 수정</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 md:hidden"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </div>
+            </div>
+          </Link>
+        </div>
+        <div>
+          <Link to="/mypage/favoritemate">
+            <div className="flex justify-center h-20 border rounded-2xl border-memyo-yellow8 md:w-48 md:h-72 md:bg-memyo-yellow8">
+              <div className="flex items-center justify-between w-80 md:flex-col md:justify-center md:space-y-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.0"
+                  stroke="currentColor"
+                  className="hidden w-24 h-24 text-white md:block"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"
+                  />
+                </svg>
+
+                <p className="text-sm font-semibold text-gray-500 md:text-white">최애 친구</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 md:hidden"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </div>
+            </div>
+          </Link>
+        </div>
+        <div>
+          <Link to="/mypage/myletter">
+            <div className="flex justify-center h-20 border rounded-2xl border-memyo-yellow8 md:w-48 md:h-72 md:bg-memyo-yellow5">
+              <div className="flex items-center justify-between w-80 md:flex-col md:justify-center md:space-y-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.0"
+                  stroke="currentColor"
+                  className="hidden w-24 h-24 text-white md:block"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                  />
+                </svg>
+
+                <p className="text-sm font-semibold text-gray-500 md:text-white">내가 쓴 글</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 md:hidden"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </div>
+            </div>
+          </Link>
+        </div>
+        <div>
+          <Link to="/mypage/adoptionhandle">
+            <div className="flex justify-center h-20 border rounded-2xl border-memyo-yellow8 md:w-48 md:h-72 md:bg-memyo-yellow8">
+              <div className="flex items-center justify-between w-80 md:flex-col md:justify-center md:space-y-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.0"
+                  stroke="currentColor"
+                  className="hidden w-24 h-24 text-white md:block"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                  />
+                </svg>
+
+                <p className="text-sm font-semibold text-gray-500 md:text-white">입양 관리</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 md:hidden"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </div>
+            </div>
+          </Link>
+        </div>
       </section>
     </div>
   );

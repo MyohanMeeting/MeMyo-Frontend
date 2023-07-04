@@ -1,6 +1,4 @@
-import approvedImg from '../../../assets/mypage/approved.png';
 import maleIcon from '../../../assets/mypage/male.png';
-import femaleIcon from '../../../assets/mypage/femenine.png';
 
 function CatInfoCard() {
   return (

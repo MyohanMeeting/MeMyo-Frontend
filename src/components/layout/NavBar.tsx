@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Sidebar from '../../pages/home/components/Sidebar';
 
@@ -7,6 +7,17 @@ export interface SidebarProps {
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 function NavBar() {
+  const pathToTitle: { [key: string]: string } = {
+    '/': '묘한만남',
+    '/signup': '회원가입',
+    '/mypage': '마이페이지',
+    '/login': '로그인',
+    '/mypage/favoritemate': '최애 친구',
+    '/mypage/myletter': '내가 쓴 글',
+    '/mypage/adoptionhandle': '입양 관리',
+  };
+  const location = useLocation();
+  const pathName = pathToTitle[location.pathname] || '묘한만남';
   let navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
   return (
@@ -25,7 +36,7 @@ function NavBar() {
           </svg>
         </button>
         <Link to="/">
-          <h1 className="text-3xl font-semibold text-memyo-yellow9">묘한만남</h1>
+          <h1 className="text-3xl font-semibold text-memyo-yellow9">{pathName}</h1>
         </Link>
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       </nav>
@@ -45,7 +56,9 @@ function NavBar() {
           <ul className="flex items-center space-x-8">
             <li className="text-lg font-semibold">입양</li>
             <li className="text-lg font-semibold">커뮤니티</li>
-            <li className="text-lg font-semibold">공지사항</li>
+            <Link to="/mypage">
+              <li className="text-lg font-semibold">마이페이지</li>
+            </Link>
           </ul>
         </nav>
       </div>
