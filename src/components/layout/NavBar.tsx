@@ -15,6 +15,7 @@ function NavBar() {
     '/mypage/favoritemate': '최애 친구',
     '/mypage/myletter': '내가 쓴 글',
     '/mypage/adoptionhandle': '입양 관리',
+    '/mypage/userinfomodifying': '회원정보 수정',
   };
   const location = useLocation();
   const pathName = pathToTitle[location.pathname] || '묘한만남';

@@ -8,7 +8,7 @@ import MyPage from '../pages/mypage/MyPage';
 import FavoriteTab from '../pages/mypage/components/favoriteTab/FavoriteTab';
 import MyLetterTab from '../pages/mypage/components/myLetterTab/MyLetterTab';
 import AdoptionHandleTab from '../pages/mypage/components/adoptionHandleTab/AdoptionHandleTab';
-import UserInfoModifyPage from '../pages/mypage/components/UserInfoModifyPage';
+import UserInfoModifyPage from '../pages/mypage/components/userInfoModifyTab/UserInfoModifyPage';
 
 function AppRoutes() {
   return (

@@ -1,34 +1,20 @@
-import { useEffect } from 'react';
-import { getUserInfo } from '../../../apis/api/mypage/getUserInfo';
-
-function UserInfoModifyPage() {
-  // 가입 되어 있는 회원 정보를 보여줌
-  // 왼쪽에 수정 아이콘을 누르면 (상태값이 modify mode 일때)수정가능한 인풋창이 열림
-  // api를 이용해서 PATCH
-
-  useEffect(() => {
-    async function fetchUserInfo() {
-      try {
-        const res = await getUserInfo();
-        if (res.status === 200) {
-          console.log(res.data.userInfo);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    fetchUserInfo();
-  }, []);
-
+interface UserInfoData {
+  name: string;
+  email: string;
+  nickName: string;
+  profileImage: string;
+  phoneNumber: string;
+}
+function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber }: UserInfoData) {
   return (
-    <article className="h-screen m-6">
+    <div>
       <form>
         <label htmlFor="name">
           <div className="flex items-center justify-between mb-4 text-xs border-b border-black">
             <div className="flex">
               <p className="w-14">이름:</p>
             </div>
-            <input type="text" className="w-full h-12 focus:outline-none" readOnly value="김진우" />
+            <input type="text" className="w-full h-12 focus:outline-none" readOnly value={name} />
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +38,12 @@ function UserInfoModifyPage() {
             <div className="flex">
               <p className="w-14">닉네임:</p>
             </div>
-            <input type="text" className="w-full h-12 focus:outline-none" readOnly value="woody" />
+            <input
+              type="text"
+              className="w-full h-12 focus:outline-none"
+              readOnly
+              value={nickName}
+            />
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +71,7 @@ function UserInfoModifyPage() {
               type="text"
               className="w-full h-12 focus:outline-none"
               readOnly
-              value="010-1234-1234"
+              value={phoneNumber}
             />
             <button>
               <svg
@@ -130,16 +121,11 @@ function UserInfoModifyPage() {
           </div>
         </label>
         <label htmlFor="email">
-          <div className="flex items-center justify-between mb-4 text-xs border-b border-black">
+          <div className="flex items-center justify-between mb-8 text-xs border-b border-black">
             <div className="flex">
               <p className="w-14">이메일:</p>
             </div>
-            <input
-              type="text"
-              className="w-full h-12 focus:outline-none"
-              readOnly
-              value="test1@gmail.com"
-            />
+            <input type="text" className="w-full h-12 focus:outline-none" readOnly value={email} />
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +145,30 @@ function UserInfoModifyPage() {
           </div>
         </label>
       </form>
-    </article>
+      <div className="relative flex items-center justify-center h-48 border border-black">
+        <p className="absolute text-xs top-2 left-2">프로필 이미지</p>
+        <div className="relative">
+          <img src={profileImage} alt="modifyPageProfileImage" className="w-32 h-32 rounded-full" />
+          <button className="absolute bottom-1 right-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 -5 25 35"
+              stroke-width="2.0"
+              stroke="currentColor"
+              className="w-6 h-6 border border-black rounded-full bg-memyo-yellow6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
-export default UserInfoModifyPage;
+
+export default UserInfoModifyInput;
