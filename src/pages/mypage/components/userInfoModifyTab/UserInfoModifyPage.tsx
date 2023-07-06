@@ -5,8 +5,6 @@ import { AppDispatch, RootState } from '../../../../redux/configureStore';
 import { getUserInfoFailure, getUserInfoSuccess } from '../../../../redux/modules/userInfo';
 import UserInfoModifyInput from './userInfoModifyInput';
 
-// 버튼 눌렀을때 수정모드 (인풋이 보여야함) 완료버튼 렌더
-// 완료버튼 클릭시 api 요청
 function UserInfoModifyPage() {
   const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector((state: RootState) => state.userInfo.userInfo);

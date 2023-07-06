@@ -1,15 +1,24 @@
 import { useState } from 'react';
+import { patchUserInfo } from '../../../../apis/api/mypage/patchUserInfo';
 
 interface UserInfoData {
   name: string;
-  email: string;
   nickName: string;
-  profileImage: string;
   phoneNumber: string;
+  email: string;
+  profileImage: {
+    uploadId: number;
+    url: string;
+  };
 }
-function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber }: UserInfoData) {
+
+// 회원 탈퇴 기능
+// 회원 탈퇴 버튼 클릭 -> 비밀번호 입력 모달창 -> 정말 탈퇴하시겠습니까 ? 메세지
+// -> 예 버튼 클릭시 DELETE API 요청 -> 회원 탈퇴 되었습니다. 메세지 출력.
+
+function UserInfoModifyInput({ name, email, nickName, phoneNumber }: UserInfoData) {
   const [isModifyMode, setIsModifyMode] = useState(false);
-  const [userInfo, setUserInfo] = useState({ name, email, nickName, profileImage, phoneNumber });
+  const [userInfo, setUserInfo] = useState({ name, nickName, phoneNumber });
 
   function handleClickModifyBtn() {
     setIsModifyMode(!isModifyMode);
@@ -25,6 +34,25 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
       ...prevInputs,
       [id]: value,
     }));
+  }
+
+  async function handleClickCompleteBtn() {
+    const { name, nickName, phoneNumber } = userInfo;
+    const patchUserInfoRequest = { name, nickName, phoneNumber };
+    const res = await patchUserInfo(patchUserInfoRequest);
+    try {
+      if (res.status === 200) {
+        // const { value, id } = e.target;
+        // setUserInfo((prevInfoData) => ({
+        //   ...prevInfoData,
+        //   [id]: value,
+        // }));
+        console.log(res.data);
+        console.log(userInfo);
+      }
+    } catch (e) {
+      console.log('에러뜸');
+    }
   }
 
   return (
@@ -50,7 +78,7 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                className="w-5 h-5"
+                className={isModifyMode ? 'hidden' : 'w-5 h-5'}
               >
                 <path
                   stroke-linecap="round"
@@ -58,6 +86,15 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
                   d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
                 />
               </svg>
+              <div className={isModifyMode ? 'flex w-24 space-x-2 text-white' : 'hidden'}>
+                <button
+                  onClick={handleClickCompleteBtn}
+                  className="p-1 rounded-2xl bg-memyo-yellow8"
+                >
+                  수정완료
+                </button>
+                <button className="p-1 rounded-2xl bg-memyo-yellow8">취소</button>
+              </div>
             </button>
           </div>
         </label>
@@ -164,7 +201,7 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
               type="email"
               className="w-full h-12 focus:outline-none"
               readOnly={!isModifyMode}
-              value={userInfo.email}
+              value="test1@gmail.com"
               id="email"
             />
             <button onClick={handleClickModifyBtn}>
@@ -190,7 +227,7 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
         <p className="absolute text-xs top-2 left-2">프로필 이미지</p>
         <div className="relative">
           <img
-            src={userInfo.profileImage}
+            src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
             alt="modifyPageProfileImage"
             className="w-32 h-32 rounded-full"
           />

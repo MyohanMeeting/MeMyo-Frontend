@@ -7,7 +7,10 @@ interface UserInfoState {
     email: string;
     name: string;
     nickName: string;
-    profileImage: string;
+    profileImage: {
+      uploadId: number;
+      url: string;
+    };
     phoneNumber: string;
     certified: string;
     createAt: string;
