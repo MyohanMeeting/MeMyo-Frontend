@@ -1,4 +1,4 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Sidebar from '../../pages/home/components/Sidebar';
 
@@ -19,7 +19,6 @@ function NavBar() {
   };
   const location = useLocation();
   const pathName = pathToTitle[location.pathname] || '묘한만남';
-  let navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
   return (
     <>

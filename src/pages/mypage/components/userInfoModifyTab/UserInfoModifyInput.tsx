@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface UserInfoData {
   name: string;
   email: string;
@@ -6,16 +8,42 @@ interface UserInfoData {
   phoneNumber: string;
 }
 function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber }: UserInfoData) {
+  const [isModifyMode, setIsModifyMode] = useState(false);
+  const [userInfo, setUserInfo] = useState({ name, email, nickName, profileImage, phoneNumber });
+
+  function handleClickModifyBtn() {
+    setIsModifyMode(!isModifyMode);
+  }
+
+  function handleForm(e: React.MouseEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
+
+  function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value, id } = e.target;
+    setUserInfo((prevInputs) => ({
+      ...prevInputs,
+      [id]: value,
+    }));
+  }
+
   return (
     <div>
-      <form>
+      <form onClick={handleForm}>
         <label htmlFor="name">
           <div className="flex items-center justify-between mb-4 text-xs border-b border-black">
             <div className="flex">
               <p className="w-14">이름:</p>
             </div>
-            <input type="text" className="w-full h-12 focus:outline-none" readOnly value={name} />
-            <button>
+            <input
+              onChange={handleChangeInput}
+              type="text"
+              className="w-full h-12 focus:outline-none"
+              readOnly={!isModifyMode}
+              value={userInfo.name}
+              id="name"
+            />
+            <button onClick={handleClickModifyBtn}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -33,18 +61,20 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
             </button>
           </div>
         </label>
-        <label htmlFor="nickname">
+        <label htmlFor="nickName">
           <div className="flex items-center justify-between mb-4 text-xs border-b border-black">
             <div className="flex">
               <p className="w-14">닉네임:</p>
             </div>
             <input
+              onChange={handleChangeInput}
               type="text"
               className="w-full h-12 focus:outline-none"
-              readOnly
-              value={nickName}
+              readOnly={!isModifyMode}
+              value={userInfo.nickName}
+              id="nickName"
             />
-            <button>
+            <button onClick={handleClickModifyBtn}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -68,12 +98,14 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
               <p className="w-14">전화번호:</p>
             </div>
             <input
+              onChange={handleChangeInput}
               type="text"
               className="w-full h-12 focus:outline-none"
-              readOnly
-              value={phoneNumber}
+              readOnly={!isModifyMode}
+              value={userInfo.phoneNumber}
+              id="phoneNumber"
             />
-            <button>
+            <button onClick={handleClickModifyBtn}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -97,12 +129,14 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
               <p className="w-14">비밀번호:</p>
             </div>
             <input
+              onChange={handleChangeInput}
               type="password"
               className="w-full h-12 focus:outline-none"
-              readOnly
+              readOnly={!isModifyMode}
               value="12341234"
+              id="password"
             />
-            <button>
+            <button onClick={handleClickModifyBtn}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -125,8 +159,15 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
             <div className="flex">
               <p className="w-14">이메일:</p>
             </div>
-            <input type="text" className="w-full h-12 focus:outline-none" readOnly value={email} />
-            <button>
+            <input
+              onChange={handleChangeInput}
+              type="email"
+              className="w-full h-12 focus:outline-none"
+              readOnly={!isModifyMode}
+              value={userInfo.email}
+              id="email"
+            />
+            <button onClick={handleClickModifyBtn}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -148,7 +189,11 @@ function UserInfoModifyInput({ name, email, nickName, profileImage, phoneNumber 
       <div className="relative flex items-center justify-center h-48 border border-black">
         <p className="absolute text-xs top-2 left-2">프로필 이미지</p>
         <div className="relative">
-          <img src={profileImage} alt="modifyPageProfileImage" className="w-32 h-32 rounded-full" />
+          <img
+            src={userInfo.profileImage}
+            alt="modifyPageProfileImage"
+            className="w-32 h-32 rounded-full"
+          />
           <button className="absolute bottom-1 right-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"

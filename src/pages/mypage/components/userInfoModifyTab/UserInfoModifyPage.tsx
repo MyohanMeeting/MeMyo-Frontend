@@ -5,8 +5,10 @@ import { AppDispatch, RootState } from '../../../../redux/configureStore';
 import { getUserInfoFailure, getUserInfoSuccess } from '../../../../redux/modules/userInfo';
 import UserInfoModifyInput from './userInfoModifyInput';
 
+// 버튼 눌렀을때 수정모드 (인풋이 보여야함) 완료버튼 렌더
+// 완료버튼 클릭시 api 요청
 function UserInfoModifyPage() {
-  const dispatch = useDispatch<AppDispatch>(); // action 함수 사용을 위함.
+  const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector((state: RootState) => state.userInfo.userInfo);
 
   useEffect(() => {
@@ -23,10 +25,8 @@ function UserInfoModifyPage() {
     fetchUserInfo();
   }, [dispatch]);
 
-  console.log(userInfo);
-
   return (
-    <article className="flex flex-col h-screen m-6">
+    <article className="flex flex-col h-screen md:max-w-md md:m-auto">
       {userInfo.map(({ memberId, name, email, nickName, profileImage, phoneNumber }) => (
         <div key={memberId}>
           <UserInfoModifyInput
