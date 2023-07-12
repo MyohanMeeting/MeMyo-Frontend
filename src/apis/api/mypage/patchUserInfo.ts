@@ -2,15 +2,17 @@ import { API } from '../../../services/api';
 import { basicApi } from '../../../utils/config';
 
 export interface PatchUserInfoResponse {
-  name: string;
-  nickName: string;
-  phoneNumber: string;
+  member: {
+    nickname: string;
+    phoneNumber: string;
+    profileImage: string;
+  };
 }
 
 export interface PatchUserInfoRequest {
-  name: string;
-  nickName: string;
+  nickname: string;
   phoneNumber: string;
+  profileImage: string;
 }
 
 export function patchUserInfo(data: PatchUserInfoRequest) {

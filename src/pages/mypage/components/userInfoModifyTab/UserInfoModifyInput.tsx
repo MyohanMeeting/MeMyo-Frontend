@@ -1,64 +1,56 @@
 import { useState } from 'react';
-import { patchUserInfo } from '../../../../apis/api/mypage/patchUserInfo';
+import { PatchUserInfoRequest, patchUserInfo } from '../../../../apis/api/mypage/patchUserInfo';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../../redux/configureStore';
+import { patchUserInfoSuccess, setUserInfo } from '../../../../redux/modules/userInfo';
 
-interface UserInfoData {
-  name: string;
-  nickName: string;
-  phoneNumber: string;
-  email: string;
-  profileImage: {
-    uploadId: number;
-    url: string;
-  };
-}
-
-// 회원 탈퇴 기능
-// 회원 탈퇴 버튼 클릭 -> 비밀번호 입력 모달창 -> 정말 탈퇴하시겠습니까 ? 메세지
-// -> 예 버튼 클릭시 DELETE API 요청 -> 회원 탈퇴 되었습니다. 메세지 출력.
-
-function UserInfoModifyInput({ name, email, nickName, phoneNumber }: UserInfoData) {
+function UserInfoModifyInput() {
+  const patchedUserInfo = useSelector((state: RootState) => state.userInfo.patchUserInfo);
+  const dispatch = useDispatch<AppDispatch>();
   const [isModifyMode, setIsModifyMode] = useState(false);
-  const [userInfo, setUserInfo] = useState({ name, nickName, phoneNumber });
 
   function handleClickModifyBtn() {
+    setIsModifyMode(!isModifyMode);
+  }
+
+  function handleClickCancelBtn() {
     setIsModifyMode(!isModifyMode);
   }
 
   function handleForm(e: React.MouseEvent<HTMLFormElement>) {
     e.preventDefault();
   }
-
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, id } = e.target;
-    setUserInfo((prevInputs) => ({
-      ...prevInputs,
-      [id]: value,
-    }));
+    dispatch(setUserInfo({ [id]: value }));
   }
+  // setUserInfo((prevInputs) => ({
+  //   ...prevInputs,
+  //   [id]: value,
+  // }));
 
   async function handleClickCompleteBtn() {
-    const { name, nickName, phoneNumber } = userInfo;
-    const patchUserInfoRequest = { name, nickName, phoneNumber };
-    const res = await patchUserInfo(patchUserInfoRequest);
-    try {
-      if (res.status === 200) {
-        // const { value, id } = e.target;
-        // setUserInfo((prevInfoData) => ({
-        //   ...prevInfoData,
-        //   [id]: value,
-        // }));
-        console.log(res.data);
-        console.log(userInfo);
+    if (patchedUserInfo) {
+      const { nickname, phoneNumber, profileImage } = patchedUserInfo.member;
+      const patchUserInfoRequest: PatchUserInfoRequest = { nickname, phoneNumber, profileImage };
+      const res = await patchUserInfo(patchUserInfoRequest);
+      try {
+        if (res.status === 200) {
+          dispatch(patchUserInfoSuccess(res.data));
+        }
+      } catch (e) {
+        console.log('에러뜸');
       }
-    } catch (e) {
-      console.log('에러뜸');
+      setIsModifyMode(!isModifyMode);
+    } else {
+      console.log('patchedUserInfo가 아직 정의되지 않았습니다.');
     }
   }
 
   return (
     <div>
       <form onClick={handleForm}>
-        <label htmlFor="name">
+        <label htmlFor="nickname">
           <div className="flex items-center justify-between mb-4 text-xs border-b border-black">
             <div className="flex">
               <p className="w-14">이름:</p>
@@ -68,8 +60,9 @@ function UserInfoModifyInput({ name, email, nickName, phoneNumber }: UserInfoDat
               type="text"
               className="w-full h-12 focus:outline-none"
               readOnly={!isModifyMode}
-              value={userInfo.name}
-              id="name"
+              value={patchedUserInfo?.member.nickname || ''}
+              // patchedUserInfo가 null일수도 있어서 Optional Chanining으로 값이 Null이라면 렌더되지 않음.
+              id="nickname"
             />
             <button onClick={handleClickModifyBtn}>
               <svg
@@ -93,7 +86,9 @@ function UserInfoModifyInput({ name, email, nickName, phoneNumber }: UserInfoDat
                 >
                   수정완료
                 </button>
-                <button className="p-1 rounded-2xl bg-memyo-yellow8">취소</button>
+                <button onClick={handleClickCancelBtn} className="p-1 rounded-2xl bg-memyo-yellow8">
+                  취소
+                </button>
               </div>
             </button>
           </div>
@@ -108,7 +103,7 @@ function UserInfoModifyInput({ name, email, nickName, phoneNumber }: UserInfoDat
               type="text"
               className="w-full h-12 focus:outline-none"
               readOnly={!isModifyMode}
-              value={userInfo.nickName}
+              value={patchedUserInfo?.member.nickname || ''}
               id="nickName"
             />
             <button onClick={handleClickModifyBtn}>
@@ -139,7 +134,7 @@ function UserInfoModifyInput({ name, email, nickName, phoneNumber }: UserInfoDat
               type="text"
               className="w-full h-12 focus:outline-none"
               readOnly={!isModifyMode}
-              value={userInfo.phoneNumber}
+              value={patchedUserInfo?.member.phoneNumber || ''}
               id="phoneNumber"
             />
             <button onClick={handleClickModifyBtn}>

@@ -1,25 +1,16 @@
+import { PatchUserInfoResponse } from './../../apis/api/mypage/patchUserInfo';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { GetUserInfoResponse } from '../../apis/api/mypage/getUserInfo';
 
-interface UserInfoState {
-  userInfo: {
-    memberId: number;
-    email: string;
-    name: string;
-    nickName: string;
-    profileImage: {
-      uploadId: number;
-      url: string;
-    };
-    phoneNumber: string;
-    certified: string;
-    createAt: string;
-  }[];
+export interface UserInfoState {
+  getUserInfo: GetUserInfoResponse | null;
+  patchUserInfo: PatchUserInfoResponse | null;
   error: string | null;
 }
 
 const initialState: UserInfoState = {
-  userInfo: [],
+  getUserInfo: null,
+  patchUserInfo: null,
   error: null,
 };
 
@@ -28,14 +19,21 @@ const userInfoSlice = createSlice({
   initialState,
   reducers: {
     getUserInfoSuccess: (state, action: PayloadAction<GetUserInfoResponse>) => {
-      state.userInfo = action.payload.userInfo;
+      state.getUserInfo = action.payload;
     },
     getUserInfoFailure: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
+    patchUserInfoSuccess: (state, action: PayloadAction<PatchUserInfoResponse>) => {
+      state.patchUserInfo = action.payload;
+    },
+    setUserInfo: (state, action: PayloadAction<any>) => {
+      state.getUserInfo = action.payload;
+    },
   },
 });
 
-export const { getUserInfoFailure, getUserInfoSuccess } = userInfoSlice.actions;
+export const { getUserInfoFailure, getUserInfoSuccess, setUserInfo, patchUserInfoSuccess } =
+  userInfoSlice.actions;
 
 export default userInfoSlice.reducer;

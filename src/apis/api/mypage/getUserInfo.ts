@@ -3,17 +3,11 @@ import { basicApi } from '../../../utils/config';
 
 export interface GetUserInfoResponse {
   userInfo: {
-    memberId: number;
     email: string;
-    name: string;
-    nickName: string;
-    profileImage: {
-      uploadId: number;
-      url: string;
-    };
+    nickname: string;
     phoneNumber: string;
-    certified: string;
-    createAt: string;
+    profileImage: string;
+    oauthType: string;
   }[];
 }
 
