@@ -1,11 +1,14 @@
+import { Link } from 'react-router-dom';
+
 const tempImgUrl =
   'https://mblogthumb-phinf.pstatic.net/MjAxOTExMjJfMTk5/MDAxNTc0NDA0OTcwNzM3.YlP2NHVh9AsnIQ12kJpA1kAQ7Q7_6JkfsIMGKfH_g-sg.MuvPx9aqyJC-ULPKzgxk0FgCQoZupoPDhKu0NAvtmSAg.JPEG.rlatjsgkr92/5d3d58633158005938b3beb2107726ce-20191122-153323.jpg?type=w800';
 
-function Card() {
+function Card({ id }: { id: number }) {
   return (
-    <div
+    <Link
       className="border border-memyo-yellow4 hover:bg-memyo-yellow2 rounded-md transition-all 
       cursor-pointer hover:p-2 shadow-sm hover:shadow-md hover:border-memyo-yellow2 box-border"
+      to={`/adopt/${id}`}
     >
       <img
         className="border-b border-memyo-yellow4 rounded-t-md hover:rounded-md"
@@ -36,7 +39,7 @@ function Card() {
           <span className="text-sm">스코티시폴드</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

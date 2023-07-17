@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function NavBar() {
   return (
     <>
-      <nav className="flex items-center justify-between py-6 md:hidden">
+      <nav className="flex items-center justify-between py-6 md:hidden shadow-sm">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -14,7 +14,9 @@ function NavBar() {
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
-        <h1 className="text-3xl font-semibold text-memyo-yellow9">묘한만남</h1>
+        <h1 className="text-3xl font-semibold text-memyo-yellow9">
+          <Link to="/">묘한만남</Link>
+        </h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -30,22 +32,23 @@ function NavBar() {
           />
         </svg>
       </nav>
-      <div className="hidden md:block">
+      <div className="hidden md:block shadow-sm px-2">
         <nav className="flex items-center justify-between w-full py-8">
           <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
             묘한만남
           </Link>
           <ul className="flex items-center space-x-4">
             <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              Signup
+              <Link to="/signup">회원가입</Link>
             </li>
             <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              Signin
+              <Link to="/login">로그인</Link>
             </li>
           </ul>
           <ul className="flex items-center space-x-8">
-            <li className="text-lg font-semibold">입양</li>
-            <li className="text-lg font-semibold">커뮤니티</li>
+            <li className="text-lg font-semibold">
+              <Link to="adopt">입양</Link>
+            </li>
             <li className="text-lg font-semibold">공지사항</li>
           </ul>
         </nav>
