@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import signupMainImg from '../../assets/signupMainImg.jpg';
+import { Link } from 'react-router-dom';
+
+import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 
 const initialInputs = {
   email: '',
   password: '',
-  nickName: '',
+  nickname: '',
   phoneNumber: '',
 };
 
 function SignupPage() {
   const [inputs, setInputs] = useState(initialInputs);
-  const { email, password, nickName, phoneNumber } = inputs;
+  const { email, password, nickname, phoneNumber } = inputs;
   const [profilePhoto, setProfilePhoto] = useState('');
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,103 +36,86 @@ function SignupPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen mx-8 max-w-7xl md:p-16">
-      <div className="flex bg-yellow-300 shadow-2xl rounded-2xl">
-        <div className="flex flex-col w-7/12 m-auto text-center">
-          <div className="pt-8 md:p-7">
-            <h1 className="text-4xl font-semibold">회원가입</h1>
-            <h3 className="text-md"></h3>
+    <div
+      style={{
+        backgroundImage: `url(${signupBgImg})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+      }}
+      className="flex items-center justify-center max-w-5xl min-h-screen md:p-16"
+    >
+      <div className="flex w-4/5 bg-opacity-50 shadow-2xl bottom-12 bg-memyo-yellow8 rounded-2xl">
+        <div className="flex flex-col w-7/12 m-auto">
+          <div className="text-center md:mt-8">
+            <h1 className="hidden text-4xl font-semibold text-white shadow-inner md:block">
+              묘한만남
+            </h1>
+            <h3 className="hidden text-gray-600 md:block text-md">Adopt your Life Partner</h3>
           </div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-            className="space-y-8 text-center md:ml-10 md:mr-10"
-          >
-            <input
-              type="email"
-              className="w-full h-10 mt-12 rounded-xl indent-3 focus:outline-none"
-              placeholder="이메일"
-              name="email"
-              value={email}
-              onChange={handleChangeInputs}
-              required
-            />
-
-            <input
-              type="password"
-              className="w-full h-10 rounded-xl indent-3 focus:outline-none"
-              placeholder="비밀번호"
-              name="password"
-              value={password}
-              onChange={handleChangeInputs}
-              required
-            />
-
-            <input
-              type="text"
-              className="w-full h-10 rounded-xl indent-3 focus:outline-none"
-              placeholder="닉네임"
-              name="nickName"
-              value={nickName}
-              onChange={handleChangeInputs}
-              required
-            />
-
-            <input
-              type="text"
-              className="w-full h-10 rounded-xl indent-3 focus:outline-none"
-              placeholder="전화번호"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChangeInputs}
-              required
-            />
-
-            <div>
-              {profilePhoto && <img src={profilePhoto} className="rounded-full mb-1" />}
-              <label
-                className="p-2 bg-yellow-200 rounded-xl cursor-pointer hover:opacity-80 transition-all"
-                htmlFor="input-file"
-              >
-                프로필 사진 추가
-              </label>
-              {profilePhoto && (
-                <button
-                  onClick={() => setProfilePhoto('')}
-                  className="p-2 bg-red-200 rounded-xl cursor-pointer hover:opacity-80 transition-all ml-1"
-                >
-                  삭제
-                </button>
-              )}
+          <div className="space-y-6 md:ml-10 md:mr-10">
+            <div className="space-y-3 text-center">
               <input
-                type="file"
-                id="input-file"
-                accept="image*"
-                onChange={handleFileChange}
-                className="hidden"
+                type="text"
+                className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                placeholder="이메일"
+                name="email"
+                value={email}
+                onChange={handleChangeInputs}
+                required
+              />
+
+              <input
+                type="password"
+                className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                placeholder="비밀번호"
+                name="password"
+                value={password}
+                onChange={handleChangeInputs}
+                required
+              />
+              <input
+                type="text"
+                className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                placeholder="닉네임"
+                name="nickname"
+                value={nickname}
+                onChange={handleChangeInputs}
+                required
+              />
+              <input
+                type="text"
+                className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                placeholder="전화번호"
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={handleChangeInputs}
+                required
               />
             </div>
-
-            <div className="pb-6">
-              <button
-                type="submit"
-                className="w-full h-10 text-white rounded-xl bg-signup-signupBlue font-semibold"
-              >
-                SignUp
+            <div className="flex items-center justify-center">
+              <button className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl">
+                회원가입
               </button>
             </div>
-          </form>
+            <div className="flex items-center justify-center pb-4 space-x-2">
+              <p className="text-xs">이미 회원이신가요? </p>
+              <Link to="/login" className="text-xs font-semibold">
+                로그인하기
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className="hidden w-9/12 md:block">
+        {/* <div className="hidden w-9/12 md:block">
           <img
-            className="object-cover w-full h-full rounded-r-2xl"
+            className="object-fill w-full h-full rounded-r-2xl"
             src={signupMainImg}
             alt="signupMainImage"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
 }
+
 export default SignupPage;
