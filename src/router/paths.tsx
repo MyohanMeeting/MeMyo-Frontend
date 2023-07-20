@@ -8,7 +8,6 @@ import AdoptPage from '../pages/adopt/AdoptPage';
 import AdoptDetail from '../pages/adopt/AdoptDetail';
 import MyPage from '../pages/mypage/MyPage';
 
-
 const paths: RouteObject[] = [
   {
     path: '/',
@@ -37,7 +36,6 @@ const paths: RouteObject[] = [
         path: '/mypage',
         element: <MyPage />
       },
-    
     ],
   },
 ];
