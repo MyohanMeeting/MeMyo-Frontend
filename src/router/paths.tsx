@@ -5,6 +5,8 @@ import HomePage from '../pages/home/HomePage';
 import LoginPage from '../pages/login/LoginPage';
 import SignupPage from '../pages/signup/SignupPage';
 import MyPage from '../pages/mypage/MyPage';
+import AdoptPage from '../pages/adopt/AdoptPage';
+import AdoptDetail from '../pages/adopt/AdoptDetail';
 
 const paths: RouteObject[] = [
   {
@@ -27,6 +29,14 @@ const paths: RouteObject[] = [
         path: '/mypage',
         element: <MyPage />,
       },
+      {
+        path: '/adopt',
+        element: <AdoptPage />,
+      },
+      {
+        path: '/adopt/detail',
+        element: <AdoptDetail />,
+      }
     ],
   },
 ];
