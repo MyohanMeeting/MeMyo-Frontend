@@ -7,6 +7,7 @@ import SignupPage from '../pages/signup/SignupPage';
 import MyPage from '../pages/mypage/MyPage';
 import AdoptPage from '../pages/adopt/AdoptPage';
 import AdoptDetail from '../pages/adopt/AdoptDetail';
+import AdoptForm from '../pages/adopt/AdoptForm';
 
 const paths: RouteObject[] = [
   {
@@ -36,6 +37,10 @@ const paths: RouteObject[] = [
       {
         path: '/adopt/detail',
         element: <AdoptDetail />,
+      },
+      {
+        path: '/adopt/register',
+        element: <AdoptForm />,
       }
     ],
   },
