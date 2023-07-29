@@ -4,6 +4,8 @@ import Wrapper from '../components/layout/Wrapper';
 import HomePage from '../pages/home/HomePage';
 import LoginPage from '../pages/login/LoginPage';
 import SignupPage from '../pages/signup/SignupPage';
+import AdoptPage from '../pages/adopt/AdoptPage';
+import AdoptDetail from '../pages/adopt/AdoptDetail';
 import MyPage from '../pages/mypage/MyPage';
 
 const paths: RouteObject[] = [
@@ -23,9 +25,16 @@ const paths: RouteObject[] = [
         path: '/signup',
         element: <SignupPage />,
       },
+       {
+        path: '/adopt',
+        element: <AdoptPage />,
+      },
       {
+        path: '/adopt/detail',
+        element: <AdoptDetail />,
+      },{
         path: '/mypage',
-        element: <MyPage />,
+        element: <MyPage />
       },
     ],
   },
