@@ -95,14 +95,14 @@ export const adoptSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAdoptPostThunk.pending, (state, action) => {
-         console.log('action',action.type,state)
+      .addCase(getAdoptPostThunk.pending, (_state, action) => {
+         console.log('action',action.type)
       })
-    .addCase(getAdoptPostThunk.fulfilled, (state, action) => {
-                console.log(action.type,state);
+    .addCase(getAdoptPostThunk.fulfilled, (_state, action) => {
+                console.log(action.type);
             })
-    .addCase(getAdoptPostThunk.rejected, (state, action) => {
-        console.log(action.type,state)
+    .addCase(getAdoptPostThunk.rejected, (_state, action) => {
+        console.log(action.type)
     })
   }
 })

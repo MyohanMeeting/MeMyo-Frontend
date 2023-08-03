@@ -5,9 +5,14 @@ import axios from 'axios'
 
 const getAdoptPostThunk = createAsyncThunk(
     'adopt/getAdoptPosts',
-    async (facet:any, thunkApi) => {
+    async (facet: any, thunkApi) => {
+        console.log('facek',facet)
         try {
-            const data = await axios.get(`/v1/adoption/notices`, facet).then(result => {
+            const data = await axios({
+                method: 'get',
+                url: '/v1/adoption/notices',
+                params:{...facet}
+            }).then(result => {
                 console.log('result', result)
                 return result
             });
