@@ -77,6 +77,58 @@ const initialState: AdoptState = {
       applicationCount: 0,
       commentCount: 0,
       createdAt: "2023-08-03T08:25:11.951Z"
+    },
+     {
+      noticeId: 4,
+      noticeTitle: "루루",
+      noticeStatus: "접수중",
+      thumbnail: "https://mblogthumb-phinf.pstatic.net/MjAxOTExMjJfMTk5/MDAxNTc0NDA0OTcwNzM3.YlP2NHVh9AsnIQ12kJpA1kAQ7Q7_6JkfsIMGKfH_g-sg.MuvPx9aqyJC-ULPKzgxk0FgCQoZupoPDhKu0NAvtmSAg.JPEG.rlatjsgkr92/5d3d58633158005938b3beb2107726ce-20191122-153323.jpg?type=w800",
+      authorName: "라라",
+      catName: "루루1",
+      catSpecies: "스코티시폴드",
+      shelterCity: "서울",
+      applicationCount: 0,
+      commentCount: 0,
+      createdAt: "2023-08-03T08:25:11.951Z"
+  },
+    {
+      noticeId: 5,
+      noticeTitle: "루루",
+      noticeStatus: "접수중",
+      thumbnail: "https://mblogthumb-phinf.pstatic.net/MjAxOTExMjJfMTk5/MDAxNTc0NDA0OTcwNzM3.YlP2NHVh9AsnIQ12kJpA1kAQ7Q7_6JkfsIMGKfH_g-sg.MuvPx9aqyJC-ULPKzgxk0FgCQoZupoPDhKu0NAvtmSAg.JPEG.rlatjsgkr92/5d3d58633158005938b3beb2107726ce-20191122-153323.jpg?type=w800",
+      authorName: "라라",
+      catName: "루루2",
+      catSpecies: "스코티시폴드",
+      shelterCity: "서울",
+      applicationCount: 0,
+      commentCount: 0,
+      createdAt: "2023-08-03T08:25:11.951Z"
+    },
+    {
+      noticeId: 6,
+      noticeTitle: "루루",
+      noticeStatus: "접수중",
+      thumbnail: "https://mblogthumb-phinf.pstatic.net/MjAxOTExMjJfMTk5/MDAxNTc0NDA0OTcwNzM3.YlP2NHVh9AsnIQ12kJpA1kAQ7Q7_6JkfsIMGKfH_g-sg.MuvPx9aqyJC-ULPKzgxk0FgCQoZupoPDhKu0NAvtmSAg.JPEG.rlatjsgkr92/5d3d58633158005938b3beb2107726ce-20191122-153323.jpg?type=w800",
+      authorName: "라라",
+      catName: "루루3",
+      catSpecies: "스코티시폴드",
+      shelterCity: "서울",
+      applicationCount: 0,
+      commentCount: 0,
+      createdAt: "2023-08-03T08:25:11.951Z"
+    },
+     {
+      noticeId: 7,
+      noticeTitle: "루루",
+      noticeStatus: "접수중",
+      thumbnail: "https://mblogthumb-phinf.pstatic.net/MjAxOTExMjJfMTk5/MDAxNTc0NDA0OTcwNzM3.YlP2NHVh9AsnIQ12kJpA1kAQ7Q7_6JkfsIMGKfH_g-sg.MuvPx9aqyJC-ULPKzgxk0FgCQoZupoPDhKu0NAvtmSAg.JPEG.rlatjsgkr92/5d3d58633158005938b3beb2107726ce-20191122-153323.jpg?type=w800",
+      authorName: "라라",
+      catName: "루루4",
+      catSpecies: "스코티시폴드",
+      shelterCity: "서울",
+      applicationCount: 0,
+      commentCount: 0,
+      createdAt: "2023-08-03T08:25:11.951Z"
     }
   ]
 }

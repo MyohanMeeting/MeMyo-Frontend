@@ -11,6 +11,7 @@ const getAdoptPostThunk = createAsyncThunk(
             const data = await axios({
                 method: 'get',
                 url: '/v1/adoption/notices',
+                headers: { 'Access-Control-Allow-Origin':'*'},
                 params:{...facet}
             }).then(result => {
                 console.log('result', result)
