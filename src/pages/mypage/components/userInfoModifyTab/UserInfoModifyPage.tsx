@@ -37,6 +37,7 @@ function UserInfoModifyPage() {
 
   return (
     <article className="flex flex-col h-screen md:max-w-md md:m-auto">
+      <UserInfoModifyInput />
       {Array.isArray(userInfo) &&
         userInfo.map((info) => (
           <div key={info.nickname}>
