@@ -6,12 +6,16 @@ export interface UserInfoState {
   getUserInfo: GetUserInfoResponse | null;
   patchUserInfo: PatchUserInfoResponse | null;
   error: string | null;
+  currentPassword: string;
+  newPassword: string;
 }
 
 const initialState: UserInfoState = {
   getUserInfo: null,
   patchUserInfo: null,
   error: null,
+  currentPassword: '',
+  newPassword: '',
 };
 
 const userInfoSlice = createSlice({
@@ -30,10 +34,22 @@ const userInfoSlice = createSlice({
     setUserInfo: (state, action: PayloadAction<any>) => {
       state.getUserInfo = action.payload;
     },
+    setUserCurrentPassword: (state, action: PayloadAction<any>) => {
+      state.currentPassword = action.payload;
+    },
+    setUserNewPassword: (state, action: PayloadAction<any>) => {
+      state.newPassword = action.payload;
+    },
   },
 });
 
-export const { getUserInfoFailure, getUserInfoSuccess, setUserInfo, patchUserInfoSuccess } =
-  userInfoSlice.actions;
+export const {
+  getUserInfoFailure,
+  getUserInfoSuccess,
+  setUserInfo,
+  patchUserInfoSuccess,
+  setUserCurrentPassword,
+  setUserNewPassword,
+} = userInfoSlice.actions;
 
 export default userInfoSlice.reducer;

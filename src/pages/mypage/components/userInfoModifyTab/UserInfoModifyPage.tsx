@@ -24,10 +24,6 @@ function UserInfoModifyPage() {
     fetchUserInfo();
   }, [dispatch]);
 
-  // 회원 탈퇴 기능
-  // 회원 탈퇴 버튼 클릭 -> 비밀번호 입력 모달창 -> 정말 탈퇴하시겠습니까 ? 메세지
-  // -> 예 버튼 클릭시 DELETE API 요청 -> 회원 탈퇴 되었습니다. 메세지 출력.
-
   async function handleClickDeleteBtn() {
     const res = await deleteUser();
     if (res.status === 200) {
