@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/v1': {
-        target: 'https://myohanmeeting-backend-lq2ln24hga-uw.a.run.app/swagger-ui/index.html',
+        target: 'http://34.125.176.70:8080',
         changeOrigin: true,
         secure: false,
         rewrite:(path)=>path.replace(/^\/v1/, "/v1/")
