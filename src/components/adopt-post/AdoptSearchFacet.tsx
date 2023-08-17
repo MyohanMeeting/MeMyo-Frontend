@@ -1,4 +1,24 @@
+import { useState } from 'react';
+
+interface searchFacet {
+  page: number;
+  limit: number;
+  title: string;
+  content: string;
+  authorName: string;
+  noticeStatus: string;
+  catName: string;
+  catSpecies: string;
+  catAge: string;
+  catSex: string;
+  neutered: string;
+  city: string;
+  shelterName: string;
+  sort: string;
+}
+
 function AdoptSearchFacet() {
+  const [facet,setFacet] = useState<Partial<searchFacet>>({})
   return (
     <section className="flex flex-col w-96 border border-memyo-yellow4 p-2 my-4 h-full mt-6 md:block hidden">
           <div className="flex w-full p-2">

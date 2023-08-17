@@ -10,7 +10,7 @@ const getAdoptPostThunk = createAsyncThunk(
         try {
             const data = await axios({
                 method: 'get',
-                url: '/v1/adoption/notices',
+                url: 'https://myohanmeeting-backend-lq2ln24hga-uw.a.run.app/swagger-ui/index.html',
                 headers: { 'Access-Control-Allow-Origin':'*'},
                 params:{...facet}
             }).then(result => {

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 interface Adopt {
   noticeId: number,
@@ -16,11 +17,11 @@ interface Props {
 }
 
 function AdoptCard(props:Props) {
-  const { adopt:{catName,catSpecies,thumbnail} } = props;
+  const { adopt:{catName,catSpecies,thumbnail,noticeId} } = props;
   
   
   return (
-    <div
+    <Link to={`/adopt/detail/${noticeId}`}
       className="border border-memyo-yellow4 hover:bg-memyo-yellow2 rounded-md transition-all 
       cursor-pointer hover:p-2 shadow-sm hover:shadow-md hover:border-memyo-yellow2 box-border"
     >
@@ -53,7 +54,7 @@ function AdoptCard(props:Props) {
           <span className="text-sm">{catSpecies}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

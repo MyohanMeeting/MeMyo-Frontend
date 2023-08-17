@@ -30,7 +30,7 @@ const paths: RouteObject[] = [
         element: <AdoptPage />,
       },
       {
-        path: '/adopt/detail',
+        path: '/adopt/detail/:noticeId',
         element: <AdoptDetail />,
       },{
         path: '/mypage',
