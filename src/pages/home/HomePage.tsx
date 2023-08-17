@@ -22,7 +22,7 @@ function HomePage() {
       try {
         dispatch(getRecentPostStart());
         const res = await getRecentPost();
-        dispatch(getRecentPostSuccess(res.data));
+        dispatch(getRecentPostSuccess(res));
       } catch (error) {
         dispatch(getRecentPostFailure('error'));
       }

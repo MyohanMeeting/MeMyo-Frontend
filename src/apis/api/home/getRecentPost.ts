@@ -3,15 +3,18 @@ import { basicApi } from '../../../utils/config';
 
 export interface GetRecentPostResponse {
   data: {
-    recentPost: {
-      adoptNoticeId: number;
-      catId: number;
-      name: string;
-      thumbnail: string;
-      registNumber: number;
-      species: string;
-    }[];
-  };
+    noticeId: number;
+    noticeTitle: string;
+    noticeStatus: string;
+    thumbnail: string;
+    authorName: string;
+    catName: string;
+    catSpecies: string;
+    shelterCity: string;
+    applicationCount: number;
+    commentCount: number;
+    createdAt: string;
+  }[];
 }
 
 export function getRecentPost() {

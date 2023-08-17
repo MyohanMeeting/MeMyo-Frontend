@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GetRecentPostResponse } from '../../apis/api/home/getRecentPost';
 
 interface RecentPostState {
   recentPost: {
@@ -27,9 +26,9 @@ const recentPostSlice = createSlice({
     getRecentPostStart: (state) => {
       state.status = 'loading';
     },
-    getRecentPostSuccess: (state, action: PayloadAction<GetRecentPostResponse>) => {
+    getRecentPostSuccess: (state, action: PayloadAction<any>) => {
       state.status = 'succeeded';
-      state.recentPost = action.payload.data.recentPost;
+      state.recentPost = action.payload.data.data.recentPost;
     },
     getRecentPostFailure: (state, action: PayloadAction<string>) => {
       state.status = 'failed';

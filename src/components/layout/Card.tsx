@@ -16,7 +16,7 @@ function Card({ post }: { post: PostData }) {
 
   async function handleHeartClick() {
     const postFavoritesRequest: PostFavoritesRequest = {
-      catid: post.catId,
+      noticeId: post.catId,
     };
     try {
       const res = await postFavorites(postFavoritesRequest);
