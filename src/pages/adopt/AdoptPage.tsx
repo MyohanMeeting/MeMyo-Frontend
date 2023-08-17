@@ -1,7 +1,7 @@
 import { useAppSelector, useThunkDispatch } from '../../redux/hooks'
 import AdoptSearchFacet from '../../components/adopt-post/AdoptSearchFacet';
 import { useCallback, useEffect } from 'react';
-import getAdoptPostThunk from '../../redux/thunks/AdoptThunk';
+import { getAdoptPostThunk } from '../../redux/thunks/AdoptThunk';
 import AdoptCard from '../../components/adopt-post/AdoptCard';
 import AdoptMobileFacet from '../../components/adopt-post/AdoptMobileFacet';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ function AdoptPage() {
   
 
   useEffect(() => {
-    dispatch(getAdoptPostThunk({ page: 1, limit: 10 }));
+    dispatch(getAdoptPostThunk({}));
   },[dispatch])
   
   if (!AdoptPosts) return null;

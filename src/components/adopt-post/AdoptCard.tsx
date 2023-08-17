@@ -1,19 +1,9 @@
 import { Link } from 'react-router-dom';
+import { AdoptPost } from '../../types/Adopt';
 
-interface Adopt {
-  noticeId: number,
-  noticeTitle: string,
-  thumbnail: string,
-  authorName: string,
-  catName: string,
-  catSpecies: string,
-  shelterCity: string,
-  applicationCount: number,
-  commentCount: number,
-  createdAt: string
-}
+
 interface Props {
-  adopt: Adopt
+  adopt: AdoptPost
 }
 
 function AdoptCard(props:Props) {

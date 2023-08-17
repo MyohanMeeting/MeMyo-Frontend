@@ -1,27 +1,39 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getAdoptPosts } from '../slice/adoptSlice';
-import axios from 'axios'
+import { getAdoptDetail, getAdoptPosts } from '../slice/adoptSlice';
+import  { AxiosResponse } from 'axios'
+import { searchFacet,AdoptPost, AdoptDetail, NoticeId } from '../../types/Adopt';
+import { basicApi } from '../api/axiosConfig';
 
 
-const getAdoptPostThunk = createAsyncThunk(
+interface AdoptResultDataType<T> {
+    status: string,
+    timestamp: string,
+    message: string,
+    data:T
+}
+
+
+export const getAdoptPostThunk = createAsyncThunk(
     'adopt/getAdoptPosts',
     async (facet: any, thunkApi) => {
         try {
-            await axios({
+            await basicApi<AdoptResultDataType<AdoptPost[]>,AxiosResponse<AdoptResultDataType<AdoptPost[]>,Partial<searchFacet>>,Partial<searchFacet>>({
                 method: 'get',
                 url: '/v1/adoption/notices',
                 headers: { 'withCredentials': true},
                 params:{...facet}
             }).then(result => {
-                const { data } = result.data;
-                console.log('result', data)
-                if (data) {
-                thunkApi.dispatch(getAdoptPosts(data));
+                if (result.data) {
+                    const { data }  = result.data;
+                    if (data) {
+                        thunkApi.dispatch(getAdoptPosts(data));
+                    }
                 }
+              
                 
             });
         } catch(error) {
-            console.log('error',error);
+            console.error('error',error);
         }
     
     
@@ -29,4 +41,25 @@ const getAdoptPostThunk = createAsyncThunk(
 
 )
 
-export default getAdoptPostThunk;
+export const getAdoptDetailThunk = createAsyncThunk(
+    'adopt/getAdoptDetail',
+    async (noticeId: number, thunkApi) => {
+       try {
+            await basicApi<AdoptResultDataType<AdoptDetail>,AxiosResponse<AdoptResultDataType<AdoptDetail>,NoticeId>,NoticeId>({
+                method: 'get',
+                url: `/v1/adoption/notices/${noticeId}`,
+            }).then(result => {
+                if (result.data) {
+                    const { data }  = result.data;
+                    if (data) {
+                        thunkApi.dispatch(getAdoptDetail(data));
+                    }
+                }
+               
+            });
+        } catch(error) {
+             console.error('error',error);
+        }
+    }
+
+)
