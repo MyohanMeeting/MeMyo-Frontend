@@ -82,7 +82,7 @@ function HomePage() {
           {recentPost &&
             recentPost.map((item) => {
               return (
-                <li key={item.adoptNoticeId}>
+                <li key={item.noticeId}>
                   <Card post={item} />
                 </li>
               );

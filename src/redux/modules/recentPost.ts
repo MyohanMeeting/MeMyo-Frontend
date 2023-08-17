@@ -2,12 +2,17 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface RecentPostState {
   recentPost: {
-    adoptNoticeId: number;
-    catId: number;
-    name: string;
+    noticeId: number;
+    noticeTitle: string;
+    noticeStatus: string;
     thumbnail: string;
-    registNumber: number;
-    species: string;
+    authorName: string;
+    catName: string;
+    catSpecies: string;
+    shelterCity: string;
+    applicationCount: number;
+    commentCount: number;
+    createdAt: string;
   }[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
@@ -28,7 +33,7 @@ const recentPostSlice = createSlice({
     },
     getRecentPostSuccess: (state, action: PayloadAction<any>) => {
       state.status = 'succeeded';
-      state.recentPost = action.payload.data.data.recentPost;
+      state.recentPost = action.payload.data.data;
     },
     getRecentPostFailure: (state, action: PayloadAction<string>) => {
       state.status = 'failed';
