@@ -1,38 +1,76 @@
+import axios from 'axios';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 
-const initialInputs = {
-  email: '',
-  password: '',
-  nickname: '',
-  phoneNumber: '',
-};
+const DIRECT_SIGNUP_API_URL = 'v1/member/direct';
+
+interface ErrorResponse {
+  status: string;
+  timestamp: string;
+  message: string;
+  debugMessage: string;
+}
 
 function SignupPage() {
-  const [inputs, setInputs] = useState(initialInputs);
+  const navigate = useNavigate();
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+    nickname: '',
+    phoneNumber: '',
+  });
   const { email, password, nickname, phoneNumber } = inputs;
-  const [profilePhoto, setProfilePhoto] = useState('');
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setInputs((prevInputs) => ({
-      ...prevInputs,
-      [name]: value,
-    }));
+
+    if (name === 'phoneNumber') {
+      let formattedValue = value
+        .replace(/\D+/g, '') // 숫자 외의 문자 제거
+        .slice(0, 11) // 최대 11 자리까지 자르기
+        .split('')
+        .map((digit, index) => {
+          if (index === 2 || index === 6) {
+            // 3번째 또는 7번째 위치에서 하이픈 추가
+            return digit + '-';
+          }
+          return digit;
+        })
+        .join('');
+      setInputs((prevInputs) => ({
+        ...prevInputs,
+        phoneNumber: formattedValue,
+      }));
+    } else {
+      setInputs((prevInputs) => ({
+        ...prevInputs,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    let formData = new FormData();
-    formData.append('imgFile', file);
-    const fileReader = new FileReader();
-    fileReader.onload = (e: any) => {
-      setProfilePhoto(e.target.result);
-    };
-    fileReader.readAsDataURL(file);
+  const handleSignUp = async () => {
+    try {
+      const data = await axios({
+        method: 'post',
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        url: DIRECT_SIGNUP_API_URL,
+        data: JSON.stringify(inputs),
+      });
+      if (data.status === 200) {
+        alert('회원가입이 완료됐습니다!');
+        navigate('/login');
+      }
+    } catch (error) {
+      if (axios.isAxiosError<ErrorResponse, any>(error)) {
+        alert(error.response?.data.debugMessage);
+      }
+    }
   };
 
   return (
@@ -54,7 +92,13 @@ function SignupPage() {
             <h3 className="hidden text-gray-600 md:block text-md">Adopt your Life Partner</h3>
           </div>
           <div className="space-y-6 md:ml-10 md:mr-10">
-            <div className="space-y-3 text-center">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSignUp();
+              }}
+              className="space-y-3 text-center"
+            >
               <input
                 type="text"
                 className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
@@ -64,7 +108,6 @@ function SignupPage() {
                 onChange={handleChangeInputs}
                 required
               />
-
               <input
                 type="password"
                 className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
@@ -72,6 +115,7 @@ function SignupPage() {
                 name="password"
                 value={password}
                 onChange={handleChangeInputs}
+                minLength={6}
                 required
               />
               <input
@@ -81,6 +125,7 @@ function SignupPage() {
                 name="nickname"
                 value={nickname}
                 onChange={handleChangeInputs}
+                minLength={1}
                 required
               />
               <input
@@ -90,17 +135,19 @@ function SignupPage() {
                 name="phoneNumber"
                 value={phoneNumber}
                 onChange={handleChangeInputs}
+                minLength={13}
+                maxLength={13}
                 required
               />
-            </div>
-            <div className="flex items-center justify-center">
-              <button className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl">
-                회원가입
-              </button>
-            </div>
-            <div className="flex items-center justify-center pb-4 space-x-2">
-              <p className="text-xs">이미 회원이신가요? </p>
-              <Link to="/login" className="text-xs font-semibold">
+              <div className="flex items-center justify-center">
+                <button className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl">
+                  회원가입
+                </button>
+              </div>
+            </form>
+            <div className="flex items-center justify-center text-sm pb-4 space-x-2">
+              <p>이미 회원이신가요? </p>
+              <Link to="/login" className="font-semibold">
                 로그인하기
               </Link>
             </div>
