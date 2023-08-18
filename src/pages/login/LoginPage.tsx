@@ -1,20 +1,40 @@
+import axios from 'axios';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import loginImg from '../../assets/login/login-cat-image.jpeg';
 import loginBgImg from '../../assets/login/login-background.jpeg';
 
-const initialInputs = {
-  email: '',
-  password: '',
-} as const;
+interface ErrorResponse {
+  status: string;
+  timestamp: string;
+  message: string;
+  debugMessage: string;
+}
+
+interface SignInResponseData {
+  accessToken: string;
+  refreshToken: string;
+}
+interface SignInResponse {
+  status: string;
+  timestamp: string;
+  message: string;
+  data: SignInResponseData;
+}
+
+const DIRECT_SIGNIN_API_URL = 'v1/auth/signin/direct';
 
 function LoginPage() {
+  const navigate = useNavigate();
   const REST_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
   const RIDIRECT_URL = import.meta.env.VITE_KAKAO_REDIRECT_URL;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${RIDIRECT_URL}&response_type=code`;
 
-  const [inputs, setInputs] = useState(initialInputs);
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+  });
   const { email, password } = inputs;
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,8 +45,28 @@ function LoginPage() {
     }));
   };
 
-  const hadleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    try {
+      const resp = await axios<SignInResponse>({
+        method: 'post',
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        url: DIRECT_SIGNIN_API_URL,
+        data: JSON.stringify(inputs),
+      });
+      const { accessToken, refreshToken } = resp.data.data;
+      localStorage.setItem('memyo_access_token', accessToken);
+      localStorage.setItem('memyo_refresh_token', refreshToken);
+      navigate('/');
+    } catch (error) {
+      if (axios.isAxiosError<ErrorResponse, any>(error)) {
+        alert(error.response?.data.debugMessage);
+      }
+    }
   };
 
   const handleKakaoLogin = () => {
@@ -74,7 +114,10 @@ function LoginPage() {
               />
             </div>
             <div className="space-y-1 text-center md:ml-10 md:mr-10">
-              <button className="w-full h-10 text-white bg-blue-500 shadow-xl rounded-xl font-medium">
+              <button
+                onClick={handleSubmit}
+                className="w-full h-10 text-white bg-blue-500 shadow-xl rounded-xl font-medium"
+              >
                 로그인
               </button>
               <button className="w-full flex items-center justify-center h-10 bg-[#F7E600] text-[#3A1D1D] shadow-xl rounded-xl font-medium">
