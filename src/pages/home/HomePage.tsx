@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/configureStore';
@@ -9,6 +10,9 @@ import {
 } from '../../redux/modules/recentPost';
 import { Link } from 'react-router-dom';
 import { getRecentPost } from '../../apis/api/home/getRecentPost';
+=======
+import { Link } from 'react-router-dom';
+>>>>>>> develop
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
@@ -31,7 +35,7 @@ function HomePage() {
   }, [dispatch]);
 
   return (
-    <main>
+    <div className="mt-4">
       <div className="mb-2 text-lg md:hidden">
         <div className="flex">
           <p>안녕하세요,</p>
@@ -40,6 +44,7 @@ function HomePage() {
         </div>
         <p>반려묘 찾는 것을 도와드릴게요</p>
       </div>
+
       <section className="flex items-center border border-memyo-yellow8 rounded-2xl md:border-0">
         <img
           className="hidden rounded-md md:block"
@@ -79,6 +84,7 @@ function HomePage() {
           </Link>
         </div>
         <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
+<<<<<<< HEAD
           {recentPost &&
             recentPost.map((item) => {
               return (
@@ -94,9 +100,31 @@ function HomePage() {
               모든 공고 보기
             </button>
           </Link>
+=======
+          {[1, 2, 3, 4].map((i) => (
+            <Card key={i} id={i} />
+          ))}
+        </ul>
+        <div className="flex items-center justify-between h-40">
+          <div className="w-1/3"></div>
+          <ul className="hidden md:flex md:items-center md:justify-center md:w-1/3">
+            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
+            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
+            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
+            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
+          </ul>
+          <div className="w-1/3 text-end">
+            <Link
+              to="adopt"
+              className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white"
+            >
+              더보기
+            </Link>
+          </div>
+>>>>>>> develop
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 
