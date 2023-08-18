@@ -5,6 +5,7 @@ import HomePage from '../pages/home/HomePage';
 import LoginPage from '../pages/login/LoginPage';
 import SignupPage from '../pages/signup/SignupPage';
 import MyPage from '../pages/mypage/MyPage';
+import AdoptForm from '../pages/adopt/AdoptForm';
 
 const paths: RouteObject[] = [
   {
@@ -22,6 +23,14 @@ const paths: RouteObject[] = [
       {
         path: '/signup',
         element: <SignupPage />,
+      },
+      {
+        path: '/adopt',
+        element: <AdoptPage />,
+      },
+      {
+        path: '/adopt/detail/:noticeId',
+        element: <AdoptDetail />,
       },
       {
         path: '/mypage',
