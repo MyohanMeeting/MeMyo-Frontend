@@ -4,10 +4,11 @@ import { AdoptDetail, AdoptPost } from '../../types/Adopt'
 
 
 
-interface AdoptState {
+export interface AdoptState {
   page: number,
   limit: number,
   adoptDetail?: AdoptDetail,
+  adoptForm?: Partial<Omit<AdoptDetail,'noticeId'>>,
   adoptPosts?:Array<AdoptPost> 
 }
 
@@ -33,6 +34,10 @@ export const adoptSlice = createSlice({
     getAdoptDetail: (state, action) => {
       state.adoptDetail = action.payload;
       return state;
+    },
+    setAdoptForm: (state, action) => {
+      state.adoptForm = { ...state.adoptForm,...action.payload }
+      return state;
     }
   },
   extraReducers: (builder) => {
@@ -49,7 +54,7 @@ export const adoptSlice = createSlice({
   }
 })
 
-export const { getAdoptPosts,getAdoptDetail } = adoptSlice.actions
+export const { getAdoptPosts,getAdoptDetail,setAdoptForm } = adoptSlice.actions
 
 
 export default adoptSlice.reducer

@@ -63,3 +63,24 @@ export const getAdoptDetailThunk = createAsyncThunk(
     }
 
 )
+
+export const setAdoptPostThunk = createAsyncThunk(
+    'adopt/setAdoptPost',
+    async (obj: Partial<Omit<AdoptDetail, 'noticeId'>>) => {
+       try {
+            await basicApi({
+                method: 'post',
+                url: `/v1/adoption/notices`,
+                data: {
+                    ...obj, thumbnail: { uploadId: 1, url: 'https://storage.googleapis.com/myohanmeeting/cat/b590421e-afa0-4ebb-a6eb-88808e30dc0c-1692021140667.jpg' },
+            catPictures:[{uploadId:2,url:"https://storage.googleapis.com/myohanmeeting/cat/a12373a0-b89d-4c19-9f4c-b5308a4629f6-1692021141642.jpg"}]    }
+            }).then(result => {
+                console.log('result', result);
+               
+            });
+        } catch(error) {
+             console.error('error',error);
+        }
+    }
+
+)

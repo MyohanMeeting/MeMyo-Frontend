@@ -35,9 +35,9 @@ interface Author{
     profileImageUrl:string
 }
 
-type gender = 'MALE' | 'FEMALE';
+export type gender = 'MALE' | 'FEMALE';
 
-interface Cat{
+export interface Cat{
     name: string,
     age: string,
     registered: string,
@@ -52,10 +52,10 @@ interface Cat{
     weight: number
 }
 
-type CITY_NAME = 'SEOUL' | 'SEJONG' | 'BUSAN' | 'DAEGU' | 'INCHEON' | 'GWANGJU' | 'ULSAN' | 'DAEJEON' | 'GYEONGGI' | 'GANGWON' | 'CHUNGCHEONG_BUK' |
+export type CITY_NAME = 'SEOUL' | 'SEJONG' | 'BUSAN' | 'DAEGU' | 'INCHEON' | 'GWANGJU' | 'ULSAN' | 'DAEJEON' | 'GYEONGGI' | 'GANGWON' | 'CHUNGCHEONG_BUK' |
     'CHUNGCHEONG_NAM' | 'JEOLLA_BUK' | 'JEOLLA_NAM' | 'GYEONGSANG_BUK' | 'GYEONGSANG_NAM' | 'JEJU';
 
-interface Shelter{
+export interface Shelter{
     city: CITY_NAME,
     name: string,
     address: string,
