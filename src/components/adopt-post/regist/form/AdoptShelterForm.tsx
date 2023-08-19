@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { CITY_NAME, Shelter } from '@/types/Adopt';
-import { useAppDispatch } from '@redux/hooks';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { setAdoptForm } from '@redux/slice/adoptSlice';
 
 function AdoptShelterForm() {
     const dispatch = useAppDispatch();
-    const [shelter, setShelter] = useState<Partial<Shelter>>();
+      const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+    const [shelter, setShelter] = useState<Partial<Shelter>>(() => {
+        return adoptForm?.shelter as Partial<Shelter>;
+    });
     const [city, setCity] = useState<string>('');
     const cityName = [{ name: '서울시', english: 'SEOUL' },
         { name: '세종시', english: 'SEJONG' },
