@@ -1,10 +1,11 @@
-import Card from '../../components/layout/Card';
+import { Link } from 'react-router-dom';
 
+import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
 
 function HomePage() {
   return (
-    <main>
+    <div className="mt-4">
       <div className="mb-2 text-lg md:hidden">
         <div className="flex">
           <p>안녕하세요,</p>
@@ -13,6 +14,7 @@ function HomePage() {
         </div>
         <p>고양이 가족 찾는 것을 도와드릴게요</p>
       </div>
+
       <section className="flex items-center border border-memyo-yellow8 rounded-2xl md:border-0">
         <img
           className="hidden rounded-md md:block"
@@ -50,8 +52,8 @@ function HomePage() {
           </p>
         </div>
         <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
-          {new Array(4).fill(1).map((i) => (
-            <Card key={i} />
+          {[1, 2, 3, 4].map((i) => (
+            <Card key={i} id={i} />
           ))}
         </ul>
         <div className="flex items-center justify-between h-40">
@@ -63,13 +65,16 @@ function HomePage() {
             <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
           </ul>
           <div className="w-1/3 text-end">
-            <button className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white">
+            <Link
+              to="adopt"
+              className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white"
+            >
               더보기
-            </button>
+            </Link>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 
