@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getAdoptDetail, getAdoptPosts } from '../slice/adoptSlice';
+import { getAdoptDetail, getAdoptPosts } from '@redux/slice/adoptSlice';
 import  { AxiosResponse } from 'axios'
-import { searchFacet,AdoptPost, AdoptDetail, NoticeId } from '../../types/Adopt';
-import { basicApi } from '../api/axiosConfig';
+import { searchFacet,AdoptPost, AdoptDetail, NoticeId } from '@/types/Adopt';
+import { basicApi } from '@redux/api/axiosConfig';
 
 
 interface AdoptResultDataType<T> {

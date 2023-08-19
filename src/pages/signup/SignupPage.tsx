@@ -1,4 +1,4 @@
-import signupMainImg from '../../assets/signupMainImg.jpg';
+import signupMainImg from '@/assets/signupMainImg.jpg';
 
 function SignupPage() {
   return (

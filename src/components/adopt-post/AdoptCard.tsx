@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AdoptPost } from '../../types/Adopt';
+import { AdoptPost } from '@/types/Adopt';
 
 
 interface Props {

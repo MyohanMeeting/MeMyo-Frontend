@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useReducer, useState } from 'react';
-import { UPDATE_CAT, catFormState, initialstate, reducer } from '../../../../reducers/Adopt';
-import { gender } from '../../../../types/Adopt';
-import { useAppDispatch } from '../../../../redux/hooks';
-import { setAdoptForm } from '../../../../redux/slice/adoptSlice';
+import { UPDATE_CAT, catFormState, initialstate, reducer } from '@reducers/Adopt';
+import { Cat, gender } from '@/types/Adopt';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { setAdoptForm } from '@redux/slice/adoptSlice';
 
 
 function AdoptCatForm() {
-    const [state, dispatch] = useReducer(reducer, initialstate);
+    const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+    const createInitialState = (form:Partial<Cat>) => {
+        if (form === null) return initialstate;
+        return form;
+    }
+    const [state, dispatch] = useReducer(reducer, createInitialState(adoptForm?.cat as Partial<Cat>));
     const appDispatch = useAppDispatch();
 
     const genderArr = [{ name: '암컷', english: 'FEMALE' }, { name: '수컷', english: 'MALE' }];
@@ -32,6 +37,7 @@ function AdoptCatForm() {
     },[])
 
     useEffect(() => {
+        if (state == null) return;
         appDispatch(setAdoptForm({ cat: state }));
     },[state,appDispatch]);
     

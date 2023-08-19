@@ -1,4 +1,4 @@
-import AdoptCatForm from './AdoptCatForm';
+import AdoptCatForm from '@components/adopt-post/regist/form/AdoptCatForm';
 import 냥이5 from '../../../../assets/adopt/냥이5.jpg'
 
 function AdoptUploadPicForm() {

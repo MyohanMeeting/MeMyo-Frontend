@@ -1,6 +1,6 @@
-import Card from '../../components/layout/Card';
+import Card from '@components/layout/Card';
 
-import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
+import homePageMainImage from '@/assets/homePage/homePageMainImage.png';
 
 function HomePage() {
   return (

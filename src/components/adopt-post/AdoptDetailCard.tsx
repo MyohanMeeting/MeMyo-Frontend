@@ -1,5 +1,5 @@
 import { AiOutlineHeart } from 'react-icons/ai';
-import { AdoptDetail } from '../../types/Adopt';
+import { AdoptDetail } from '@/types/Adopt';
 import { memo } from 'react';
 
 interface Props{

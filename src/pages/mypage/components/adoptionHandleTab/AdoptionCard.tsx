@@ -1,4 +1,4 @@
-import adoptionHeart from '../../../../assets/mypage/adoptHeart.svg';
+import adoptionHeart from '@/assets/mypage/adoptHeart.svg';
 
 function AdoptionCard() {
   return (

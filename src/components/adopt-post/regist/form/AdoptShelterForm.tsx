@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { CITY_NAME, Shelter } from '../../../../types/Adopt';
-import { useAppDispatch } from '../../../../redux/hooks';
-import { setAdoptForm } from '../../../../redux/slice/adoptSlice';
+import { CITY_NAME, Shelter } from '@/types/Adopt';
+import { useAppDispatch } from '@redux/hooks';
+import { setAdoptForm } from '@redux/slice/adoptSlice';
 
 function AdoptShelterForm() {
     const dispatch = useAppDispatch();

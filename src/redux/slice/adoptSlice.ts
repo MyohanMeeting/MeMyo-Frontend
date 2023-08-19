@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAdoptPostThunk } from '../thunks/AdoptThunk'
-import { AdoptDetail, AdoptPost } from '../../types/Adopt'
+import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk'
+import { AdoptDetail, AdoptPost } from '@/types/Adopt'
 
 
 
@@ -36,7 +36,14 @@ export const adoptSlice = createSlice({
       return state;
     },
     setAdoptForm: (state, action) => {
-      state.adoptForm = { ...state.adoptForm,...action.payload }
+      console.log('action', action);
+      if ('cat' in action.payload) {
+        state.adoptForm = {...state.adoptForm,cat:{...action.payload.cat}}
+      }else if ('shelter' in action.payload) {
+        state.adoptForm = {...state.adoptForm,shelter:{...action.payload.shelter}}
+      } else {
+        state.adoptForm = { ...state.adoptForm,...action.payload }
+      }
       return state;
     }
   },

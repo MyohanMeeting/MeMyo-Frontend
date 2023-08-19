@@ -1,11 +1,11 @@
-import AdoptPostTheme from '../form/AdoptPostTheme';
-import AdoptShelterForm from '../form/AdoptShelterForm';
-import AdoptUploadPicForm from '../form/AdoptUploadPicForm';
-import { useAppDispatch, useAppSelector, useThunkDispatch } from '../../../../redux/hooks';
-import { setAdoptForm } from '../../../../redux/slice/adoptSlice';
-import { AdoptDetail } from '../../../../types/Adopt';
+import AdoptPostTheme from '@components/adopt-post/regist/form/AdoptPostTheme';
+import AdoptShelterForm from '@components/adopt-post/regist/form/AdoptShelterForm';
+import AdoptUploadPicForm from '@components/adopt-post/regist/form/AdoptUploadPicForm';
+import { useAppDispatch, useAppSelector, useThunkDispatch } from '@redux/hooks';
+import { setAdoptForm } from '@redux/slice/adoptSlice';
+import { AdoptDetail } from '@/types/Adopt';
 import { useCallback } from 'react';
-import { setAdoptPostThunk } from '../../../../redux/thunks/AdoptThunk';
+import { setAdoptPostThunk } from '@redux/thunks/AdoptThunk';
 
 function AdoptWebTemplate() {
   const dispatch = useAppDispatch();

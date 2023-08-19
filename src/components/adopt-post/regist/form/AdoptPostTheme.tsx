@@ -1,14 +1,19 @@
-import { ReactNode, useCallback, useState } from 'react';
-import { AdoptDetail } from '../../../../types/Adopt';
+import { ReactNode, memo, useCallback, useState } from 'react';
+import { AdoptDetail } from '@/types/Adopt';
+import { useAppSelector } from '@redux/hooks';
 
 interface Props{
     children?: ReactNode,
     handleForm: (value: Partial<Omit<AdoptDetail, 'noticeId'>>) => void,
 }
 function AdoptPostTheme({ children, handleForm }: Props) {
-    
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+    const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+    const [title, setTitle] = useState(() => {
+        if (adoptForm) return adoptForm.title
+    });
+    const [content, setContent] = useState(() => {
+        if (adoptForm) return adoptForm.content;
+    });
     const handleTheme = useCallback(<T extends HTMLInputElement | HTMLTextAreaElement>(e: React.ChangeEvent<T>, type: string) => {
         if (type === 'title') {
             setTitle(e.target.value);
@@ -41,5 +46,5 @@ function AdoptPostTheme({ children, handleForm }: Props) {
             );
 }
 
-export default AdoptPostTheme;
+export default memo(AdoptPostTheme);
 
