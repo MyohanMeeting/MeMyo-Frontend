@@ -11,25 +11,26 @@ import {
     PURGE,
     REGISTER
 } from 'redux-persist';
-import { AdoptState } from './slice/adoptSlice';
 
 
-const adoptFormStateReconciler = <AdoptState>(inboundState:any, originalState:AdoptState, reducedState:AdoptState) => {
-  // inboundState: 로컬 스토리지에서 가져온 상태
-  // originalState: 현재 스토어의 원래 상태
-  // reducedState: 현재 스토어의 리듀서로 처리된 상태
 
-  // 'adopt' 키에 해당하는 상태만 로컬 스토리지에서 가져옵니다.
-console.log('reducer',reducedState)
+// 작업중.. 👩‍🎤
+// const adoptFormStateReconciler = <AdoptState>(inboundState:any, originalState:AdoptState, reducedState:AdoptState) => {
+//   // inboundState: 로컬 스토리지에서 가져온 상태
+//   // originalState: 현재 스토어의 원래 상태
+//   // reducedState: 현재 스토어의 리듀서로 처리된 상태
+
+//   // 'adopt' 키에 해당하는 상태만 로컬 스토리지에서 가져옵니다.
+// console.log('reducer',reducedState)
   
-  const adoptFormState = inboundState && inboundState.adoptForm ? inboundState.adoptForm : {};
+//   const adoptFormState = inboundState && inboundState.adoptForm ? inboundState.adoptForm : {};
 
-  // 리덕스 상태를 조합하여 최종 상태를 반환합니다.
-  return {
-    ...reducedState, // 다른 상태는 그대로 유지
-      adopt: adoptFormState, // adoptForm 상태만 덮어쓰기
-  };
-};
+//   // 리덕스 상태를 조합하여 최종 상태를 반환합니다.
+//   return {
+//     ...reducedState, // 다른 상태는 그대로 유지
+//       adopt: adoptFormState, // adoptForm 상태만 덮어쓰기
+//   };
+// };
 
 
 const persistConfig = {
