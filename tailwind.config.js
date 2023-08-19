@@ -25,6 +25,9 @@ export default {
           white: colors.white,
         },
       },
+      fontFamily: {
+        pretendard: ['PretendardVariable'],
+      },
     },
   },
   plugins: [],
