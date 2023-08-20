@@ -8,6 +8,7 @@ import AdoptPage from '@pages/adopt/AdoptPage';
 import AdoptDetail from '@pages/adopt/AdoptDetail';
 import MyPage from '@pages/mypage/MyPage';
 import AdoptForm from '@pages/adopt/AdoptForm';
+import AdoptApply from '@pages/adopt/AdoptApply';
 
 const paths: RouteObject[] = [
   {
@@ -37,6 +38,10 @@ const paths: RouteObject[] = [
       {
         path: '/adopt/register',
         element: <AdoptForm />,
+      },
+       {
+        path: '/adopt/apply',
+        element: <AdoptApply />,
       },
       {
         path: '/mypage',

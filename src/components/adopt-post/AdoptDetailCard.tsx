@@ -8,9 +8,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import AdoptCatDetail from './AdoptCatDetail';
-import 냥이9 from '@/assets/adopt/냥이10.png';
 import AdoptShelterDetail from './AdoptShelterDetail';
 import AdoptCatPic from './AdoptCatPic';
+import AdoptDetailReview from './AdoptDetailReview';
+import { Link } from 'react-router-dom';
 
 interface Props{
     adopt:AdoptDetail
@@ -28,7 +29,7 @@ function AdoptDetailCard({ adopt }: Props) {
               <div className='flex justify-center mt-10'>
                 <h2 className='text-lg font-bold'>{title}</h2>
               </div>
-               <div className='flex justify-center mt-10  md:flex-nowrap flex-wrap pb-5 border-b-2 border-gray-300'>
+               <div className='flex justify-center mt-10  md:flex-nowrap flex-wrap pb-5 border-b-2 border-black'>
                 <Swiper className='flex sm:w-11/12 w-full justify-center items-center h-full'
                     modules={[Navigation, Pagination, Scrollbar, A11y]}
                     navigation
@@ -83,12 +84,12 @@ function AdoptDetailCard({ adopt }: Props) {
                               <button className='w-10 h-10 mr-2 bg-gray-100 text-center flex justify-center items-center'>
                                   <AiOutlineHeart/>
                               </button>
-                              <button className='w-full bg-memyo-yellow6 text-white'>입양 신청하기</button>
+                              <Link to='/adopt/apply' className='w-full bg-memyo-yellow6 hover:bg-memyo-yellow8 text-white text-center flex justify-center items-center'>입양 신청하기</Link>
                           </div>    
                       </div>
                  </div>
             </div>
-            <div>
+            <div className='border-b-2 border-black'>
                 <h2 className='p-2 text-md font-semibold'>자세히 보기 🐾</h2>
                 <div className='grid md:grid-cols-2 grid-cols-1'>
                     <div className='md:block hidden relative'>
@@ -102,6 +103,7 @@ function AdoptDetailCard({ adopt }: Props) {
                 </div>
                 <AdoptShelterDetail shelter={adopt?.shelter} />
             </div>
+            <AdoptDetailReview />
       </section>
     );
 }

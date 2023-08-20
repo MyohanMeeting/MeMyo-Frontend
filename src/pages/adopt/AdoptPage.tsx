@@ -28,7 +28,9 @@ function AdoptPage() {
     <>
     <div className="flex items-center justify-between p-2">
         <h2 className="text-xl font-semibold">입양 공고</h2>
-        <Link to='/adopt/register' className="p-2 text-center text-sm border-b md:block hidden w-24 bg-memyo-yellow8 hover:bg-memyo-yellow9 text-white border-memyo-yellow8">공고 올리기</Link>
+        <div className='grid grid-cols-1'>
+          <Link to='/adopt/register' className="p-2 text-center text-sm border-b md:block hidden w-24 bg-memyo-yellow8 hover:bg-memyo-yellow9 text-white border-memyo-yellow8">공고 올리기</Link>          
+        </div>
     </div>  
     <div className='flex md:flex-none md:flex-row flex-col'>
       <div className='block w-full md:hidden'>
