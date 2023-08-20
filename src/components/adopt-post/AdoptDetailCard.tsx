@@ -13,7 +13,7 @@ interface Props{
 }
 function AdoptDetailCard({ adopt }: Props) {
   
-    const { title,thumbnail,cat,catPictures } = adopt;
+    const { title,cat,catPictures } = adopt;
     return (
          <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center border-b-2 border-gray-300">
               <div className='flex justify-center'>
@@ -25,7 +25,7 @@ function AdoptDetailCard({ adopt }: Props) {
                 <h2 className='text-lg font-bold'>{title}</h2>
               </div>
                <div className='flex justify-center mt-10  md:flex-nowrap flex-wrap'>
-                <Swiper className='flex sm:w-11/12 justify-center items-center h-full'
+                <Swiper className='flex sm:w-11/12 w-full justify-center items-center h-full'
                     modules={[Navigation, Pagination, Scrollbar, A11y]}
                     navigation
                     pagination={{ clickable: true }}>
@@ -33,7 +33,7 @@ function AdoptDetailCard({ adopt }: Props) {
                         return (
                          <SwiperSlide key={picture.uploadId}>
                             <div className='w-full flex justify-center md:h-80 h-72'> 
-                                <img src={picture?.url} className='w-9/12 md:h-72 h-64'/>
+                                <img src={picture?.url} className='md:w-9/12 w-full md:h-72 h-64'/>
                             </div>
                         </SwiperSlide>    
                         )
