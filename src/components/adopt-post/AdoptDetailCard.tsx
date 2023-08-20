@@ -1,13 +1,19 @@
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AdoptDetail } from '@/types/Adopt';
 import { memo } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 interface Props{
     adopt:AdoptDetail
 }
 function AdoptDetailCard({ adopt }: Props) {
   
-    const { title,thumbnail,cat } = adopt;
+    const { title,thumbnail,cat,catPictures } = adopt;
     return (
          <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center border-b-2 border-gray-300">
               <div className='flex justify-center'>
@@ -19,9 +25,22 @@ function AdoptDetailCard({ adopt }: Props) {
                 <h2 className='text-lg font-bold'>{title}</h2>
               </div>
                <div className='flex justify-center mt-10  md:flex-nowrap flex-wrap'>
-                  <div className='flex sm:w-9/12 justify-center'>
-                      <img src={thumbnail?.url}/>
-                  </div>
+                <Swiper className='flex sm:w-11/12 justify-center items-center h-full'
+                    modules={[Navigation, Pagination, Scrollbar, A11y]}
+                    navigation
+                    pagination={{ clickable: true }}>
+                    {catPictures.map((picture) => {
+                        return (
+                         <SwiperSlide key={picture.uploadId}>
+                            <div className='w-full flex justify-center md:h-80 h-72'> 
+                                <img src={picture?.url} className='w-9/12 md:h-72 h-64'/>
+                            </div>
+                        </SwiperSlide>    
+                        )
+                        
+                    })
+                    }
+                  </Swiper>
                   <div className='flex w-full p-2 flex-col md:items-center'>
                       <div className='flex flex-col md:w-2/3 space-y-8 content-between'>
                           <div className='flex space-x-6'>
