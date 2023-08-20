@@ -65,7 +65,7 @@ interface Thumbnail{
     uploadId: number,
     url:string
 }
-interface catPicture{
+export interface catPicture{
     uploadId: number,
     url:string
 }
