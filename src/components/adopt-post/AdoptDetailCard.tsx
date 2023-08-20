@@ -29,8 +29,8 @@ function AdoptDetailCard({ adopt }: Props) {
               <div className='flex justify-center mt-10'>
                 <h2 className='text-lg font-bold'>{title}</h2>
               </div>
-               <div className='flex justify-center mt-10  md:flex-nowrap flex-wrap pb-5 border-b-2 border-black'>
-                <Swiper className='flex sm:w-11/12 w-full justify-center items-center h-full'
+               <div className='flex justify-center items-center mt-10  md:flex-nowrap flex-wrap pb-5 shadow-md bg-white'>
+                <Swiper className='flex sm:w-11/12 w-full justify-center items-center mt-2'
                     modules={[Navigation, Pagination, Scrollbar, A11y]}
                     navigation
                     pagination={{ clickable: true }}>
@@ -89,8 +89,8 @@ function AdoptDetailCard({ adopt }: Props) {
                       </div>
                  </div>
             </div>
-            <div className='border-b-2 border-black'>
-                <h2 className='p-2 text-md font-semibold'>자세히 보기 🐾</h2>
+            <div className='border-b border-black'>
+                <h2 className='p-2 text-md font-semibold mt-4'>자세히 보기 🐾</h2>
                 <div className='grid md:grid-cols-2 grid-cols-1'>
                     <div className='md:block hidden relative'>
                         <div className='left-10 top-5 absolute h-full w-10/12'>
