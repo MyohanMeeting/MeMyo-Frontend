@@ -4,7 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 
+const DUPLICATE_EMAIL_API_URL = 'v1/member/email';
+const DUPLICATE_NICKNAME_API_URL = 'v1/member/nickname';
 const DIRECT_SIGNUP_API_URL = 'v1/member/direct';
+const CERTIFICATION_EMAIL_API_URL = 'v1/member/certification';
 
 interface ErrorResponse {
   status: string;
@@ -22,6 +25,11 @@ function SignupPage() {
     phoneNumber: '',
   });
   const { email, password, nickname, phoneNumber } = inputs;
+  const [duplicated, setDuplicated] = useState({
+    isDuplicatedEmail: null,
+    isDuplicatedNickname: null,
+  });
+  const { isDuplicatedEmail, isDuplicatedNickname } = duplicated;
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -50,6 +58,51 @@ function SignupPage() {
       }));
     }
   };
+
+  const handleDuplicateEmailOrNickname = async (type: 'email' | 'nickname') => {
+    let data;
+    const stateName = type === 'email' ? 'isDuplicatedEmail' : 'isDuplicatedNickname';
+    try {
+      if (type === 'email') {
+        data = await axios({
+          method: 'GET',
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          url: `${DUPLICATE_EMAIL_API_URL}?email=${email}`,
+          data: JSON.stringify(inputs),
+        });
+      } else if (type === 'nickname') {
+        data = await axios({
+          method: 'GET',
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          url: `${DUPLICATE_NICKNAME_API_URL}?nickname=${nickname}`,
+          data: JSON.stringify(inputs),
+        });
+      }
+      // console.log(type, data?.data);
+      if (data?.data.message === 'SUCCESS') {
+        alert(`${type === 'email' ? '이메일' : '닉네임'} 인증이 완료됐습니다.`);
+        setDuplicated((prev) => ({
+          ...prev,
+          [stateName]: true,
+        }));
+      }
+    } catch (error) {
+      if (axios.isAxiosError<ErrorResponse, any>(error)) {
+        alert(error.response?.data.debugMessage);
+        setDuplicated((prev) => ({
+          ...prev,
+          [stateName]: false,
+        }));
+      }
+    }
+  };
+  console.log(duplicated);
 
   const handleSignUp = async () => {
     try {
@@ -108,16 +161,12 @@ function SignupPage() {
                 onChange={handleChangeInputs}
                 required
               />
-              <input
-                type="password"
-                className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
-                placeholder="비밀번호"
-                name="password"
-                value={password}
-                onChange={handleChangeInputs}
-                minLength={6}
-                required
-              />
+              {(isDuplicatedEmail === false || isDuplicatedEmail === null) && (
+                <button className="" onClick={() => handleDuplicateEmailOrNickname('email')}>
+                  이메일 중복 확인
+                </button>
+              )}
+
               <input
                 type="text"
                 className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
@@ -128,6 +177,24 @@ function SignupPage() {
                 minLength={1}
                 required
               />
+              {isDuplicatedNickname === false ||
+                (isDuplicatedNickname === null && (
+                  <button className="" onClick={() => handleDuplicateEmailOrNickname('nickname')}>
+                    닉네임 중복 확인
+                  </button>
+                ))}
+
+              <input
+                type="password"
+                className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                placeholder="비밀번호"
+                name="password"
+                value={password}
+                onChange={handleChangeInputs}
+                minLength={6}
+                required
+              />
+
               <input
                 type="text"
                 className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
@@ -139,6 +206,7 @@ function SignupPage() {
                 maxLength={13}
                 required
               />
+
               <div className="flex items-center justify-center">
                 <button className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl">
                   회원가입
