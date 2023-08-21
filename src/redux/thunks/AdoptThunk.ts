@@ -44,7 +44,7 @@ export const getAdoptPostThunk = createAsyncThunk(
     }
 
 )
-
+// 입양 공고 상세
 export const getAdoptDetailThunk = createAsyncThunk(
     'adopt/getAdoptDetail',
     async (noticeId: number, thunkApi) => {
@@ -68,6 +68,9 @@ export const getAdoptDetailThunk = createAsyncThunk(
 
 )
 
+
+
+// 입양 공고 올리기
 export const setAdoptPostThunk = createAsyncThunk(
     'adopt/setAdoptPost',
     async (obj: Partial<Omit<AdoptDetail, 'noticeId'>>) => {
@@ -92,6 +95,7 @@ export const setAdoptPostThunk = createAsyncThunk(
 
 )
 
+// 내 코멘트 쓰기
 export const setAdoptComments = createAsyncThunk(
     'adopt/setAdoptComment',
     async (obj: userComment) => {
@@ -114,6 +118,7 @@ export const setAdoptComments = createAsyncThunk(
 
 )
 
+// 코멘드 읽어오기
 export const getAdoptCommentsThunk = createAsyncThunk(
     'adopt/getAdoptComments',
     async (noticeId: NoticeId, thunkApi) => {

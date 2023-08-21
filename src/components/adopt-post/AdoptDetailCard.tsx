@@ -25,9 +25,9 @@ function AdoptDetailCard({ adopt }: Props) {
     return (
          <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center">
               <div className='flex justify-center'>
-               <button className='w-20 flex bg-gray-100 p-1'>
+               <p className='w-20 flex bg-gray-100 p-1 text-sm justify-center font-pretendard'>
                   공고 상세
-                  </button>
+                  </p>
               </div>
               <div className='flex justify-center mt-10'>
                 <h2 className='text-lg font-bold'>{title}</h2>
