@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk'
-import { AdoptDetail, AdoptPost } from '@/types/Adopt'
+import { AdoptComment, AdoptDetail, AdoptPost } from '@/types/Adopt'
 
 
 
@@ -9,7 +9,8 @@ export interface AdoptState {
   limit: number,
   adoptDetail?: AdoptDetail,
   adoptForm?: Partial<Omit<AdoptDetail,'noticeId'>>,
-  adoptPosts?:Array<AdoptPost> 
+  adoptPosts?: Array<AdoptPost>,
+  adoptComments?:Array<AdoptComment>
 }
 
 // Define the initial state using that type
@@ -45,6 +46,10 @@ export const adoptSlice = createSlice({
         state.adoptForm = { ...state.adoptForm,...action.payload }
       }
       return state;
+    },
+    getAdoptComments: (state, action) => {
+      state.adoptComments = action.payload;
+      return state;
     }
   },
   extraReducers: (builder) => {
@@ -61,7 +66,7 @@ export const adoptSlice = createSlice({
   }
 })
 
-export const { getAdoptPosts,getAdoptDetail,setAdoptForm } = adoptSlice.actions
+export const { getAdoptPosts,getAdoptDetail,setAdoptForm,getAdoptComments } = adoptSlice.actions
 
 
 export default adoptSlice.reducer

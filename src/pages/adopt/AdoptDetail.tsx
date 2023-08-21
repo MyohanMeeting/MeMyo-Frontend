@@ -10,10 +10,10 @@ function AdoptDetail() {
     const dispatch = useThunkDispatch();
     const adopt = useAppSelector((state) => state.adopt.adoptDetail);
     
- 
+  
 
     useEffect(() => {
-        if (!noticeId) return;
+      if (!noticeId) return;
         dispatch(getAdoptDetailThunk(parseInt(noticeId)));
     }, [dispatch]);
 

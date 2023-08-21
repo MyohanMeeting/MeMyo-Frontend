@@ -72,7 +72,7 @@ export interface catPicture{
 export type NoticeId = NonNullable<number | null>
 
 export interface AdoptDetail{
-    noticeId: number,
+    noticeId: NoticeId,
     author: Author,
     cat: Cat,
     shelter: Shelter,
@@ -86,4 +86,14 @@ export interface AdoptDetail{
     createdAt: string
 }
 
+
+export interface AdoptComment{
+    noticeId: NoticeId,
+    author: Author,
+    content: string,
+    createdAt: string,
+    noticeCommentId: number
+}
+
+export type userComment = Pick<AdoptComment,"noticeId" | "content">
 

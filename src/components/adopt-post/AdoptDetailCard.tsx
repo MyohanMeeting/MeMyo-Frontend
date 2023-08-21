@@ -10,14 +10,17 @@ import 'swiper/css/scrollbar';
 import AdoptCatDetail from './AdoptCatDetail';
 import AdoptShelterDetail from './AdoptShelterDetail';
 import AdoptCatPic from './AdoptCatPic';
-import AdoptDetailReview from './AdoptDetailReview';
-import { Link } from 'react-router-dom';
+import AdoptDetailReview from './detail/AdoptDetailReview';
+import { Link, useParams } from 'react-router-dom';
+import AdoptAddMyReview from './detail/AdoptAddMyReview';
 
 interface Props{
     adopt:AdoptDetail
 }
 function AdoptDetailCard({ adopt }: Props) {
-  
+    const {noticeId} = useParams();
+    
+
     const { title,cat,catPictures } = adopt;
     return (
          <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center">
@@ -28,7 +31,7 @@ function AdoptDetailCard({ adopt }: Props) {
               </div>
               <div className='flex justify-center mt-10'>
                 <h2 className='text-lg font-bold'>{title}</h2>
-              </div>
+            </div>
                <div className='flex justify-center items-center mt-10  md:flex-nowrap flex-wrap pb-5 shadow-md bg-white'>
                 <Swiper className='flex sm:w-11/12 w-full justify-center items-center mt-2'
                     modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -88,13 +91,15 @@ function AdoptDetailCard({ adopt }: Props) {
                           </div>    
                       </div>
                  </div>
-            </div>
+                </div>    
             <div className='border-b border-black'>
-                <h2 className='p-2 text-md font-semibold mt-4'>자세히 보기 🐾</h2>
+                <h2 className='p-2 text-lg font-semibold mt-4 border-b border-black'>상세정보</h2>
+                <div className='p-2'>
+                    <p className='p-2 text-sm font-semibold'>유기묘의 정보를 확인해주세요.</p>
+                </div>
                 <div className='grid md:grid-cols-2 grid-cols-1'>
                     <div className='md:block hidden relative'>
                         <div className='left-10 top-5 absolute h-full w-10/12'>
-                            <p className='p-2 text-sm'>유기묘의 정보를 확인해주세요. 😺</p>
                             <AdoptCatPic catPictures={catPictures}/>
                         </div>
                         
@@ -103,7 +108,13 @@ function AdoptDetailCard({ adopt }: Props) {
                 </div>
                 <AdoptShelterDetail shelter={adopt?.shelter} />
             </div>
-            <AdoptDetailReview />
+            {noticeId &&
+                (
+                <>
+                    <AdoptDetailReview noticeId={parseInt(noticeId)} />
+                    <AdoptAddMyReview noticeId={parseInt(noticeId)}/>
+                </>    
+                )}
       </section>
     );
 }

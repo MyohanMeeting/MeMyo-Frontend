@@ -15,8 +15,8 @@ function AdoptCatForm() {
     const appDispatch = useAppDispatch();
 
     const genderArr = [{ name: '암컷', english: 'FEMALE' }, { name: '수컷', english: 'MALE' }];
-    const neuteredArr = [{ name: '예', english: 'NEUTERED' }, { name: '아니오', english: 'NONNEUTERED' }];
-    const handleCatForm = useCallback((value:catFormState) => {
+    const neuteredArr = [{ name: '아니오', english: 'NONNEUTERED' },{ name: '예', english: 'NEUTERED' }];
+    const handleCatForm = useCallback((value: catFormState) => {
         dispatch({ type: UPDATE_CAT, value });
     }, []);
    
@@ -38,6 +38,13 @@ function AdoptCatForm() {
 
     useEffect(() => {
         if (state == null) return;
+        console.log('state', state?.neutered ==undefined)
+        if (!state?.neutered) {
+            handleCatForm({'neutered': 'NONNEUTERED'})
+        }
+        if (!state?.sex) {
+            handleCatForm({ 'sex': 'FEMALE' });
+        }
         appDispatch(setAdoptForm({ cat: state }));
     },[state,appDispatch]);
     
