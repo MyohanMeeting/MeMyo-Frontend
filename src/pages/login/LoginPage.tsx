@@ -120,7 +120,10 @@ function LoginPage() {
               >
                 로그인
               </button>
-              <button className="w-full flex items-center justify-center h-10 bg-[#F7E600] text-[#3A1D1D] shadow-xl rounded-xl font-medium">
+              <button
+                onClick={handleKakaoLogin}
+                className="w-full flex items-center justify-center h-10 bg-[#F7E600] text-[#3A1D1D] shadow-xl rounded-xl font-medium"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
