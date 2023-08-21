@@ -7,7 +7,6 @@ import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 const DUPLICATE_EMAIL_API_URL = 'v1/member/email';
 const DUPLICATE_NICKNAME_API_URL = 'v1/member/nickname';
 const DIRECT_SIGNUP_API_URL = 'v1/member/direct';
-const CERTIFICATION_EMAIL_API_URL = 'v1/member/certification';
 
 interface ErrorResponse {
   status: string;
@@ -60,36 +59,25 @@ function SignupPage() {
   };
 
   const handleDuplicateEmailOrNickname = async (type: 'email' | 'nickname') => {
-    let data;
+    const stateValue = type === 'email' ? email : nickname;
+    const url = type === 'email' ? DUPLICATE_EMAIL_API_URL : DUPLICATE_NICKNAME_API_URL;
     const stateName = type === 'email' ? 'isDuplicatedEmail' : 'isDuplicatedNickname';
     try {
-      if (type === 'email') {
-        data = await axios({
-          method: 'GET',
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          url: `${DUPLICATE_EMAIL_API_URL}?email=${email}`,
-          data: JSON.stringify(inputs),
-        });
-      } else if (type === 'nickname') {
-        data = await axios({
-          method: 'GET',
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          url: `${DUPLICATE_NICKNAME_API_URL}?nickname=${nickname}`,
-          data: JSON.stringify(inputs),
-        });
-      }
-      // console.log(type, data?.data);
+      const data = await axios({
+        method: 'GET',
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        url: `${url}?${type}=${stateValue}`,
+        data: JSON.stringify(inputs),
+      });
+
       if (data?.data.message === 'SUCCESS') {
-        alert(`${type === 'email' ? '이메일' : '닉네임'} 인증이 완료됐습니다.`);
+        alert(`사용가능한 ${type === 'email' ? '이메일' : '닉네임'}입니다.`);
         setDuplicated((prev) => ({
           ...prev,
-          [stateName]: true,
+          [stateName]: stateValue,
         }));
       }
     } catch (error) {
@@ -102,7 +90,6 @@ function SignupPage() {
       }
     }
   };
-  console.log(duplicated);
 
   const handleSignUp = async () => {
     try {
@@ -115,8 +102,9 @@ function SignupPage() {
         url: DIRECT_SIGNUP_API_URL,
         data: JSON.stringify(inputs),
       });
+
       if (data.status === 200) {
-        alert('회원가입이 완료됐습니다!');
+        alert('회원가입이 완료됐습니다.');
         navigate('/login');
       }
     } catch (error) {
@@ -125,6 +113,9 @@ function SignupPage() {
       }
     }
   };
+
+  const isEmailBtnDisabled = email.length < 8 || isDuplicatedEmail === email;
+  const isNicknameBtnDisabled = nickname.length < 1 || isDuplicatedNickname === nickname;
 
   return (
     <div
@@ -159,13 +150,17 @@ function SignupPage() {
                 name="email"
                 value={email}
                 onChange={handleChangeInputs}
+                minLength={6}
+                maxLength={100}
                 required
               />
-              {(isDuplicatedEmail === false || isDuplicatedEmail === null) && (
-                <button className="" onClick={() => handleDuplicateEmailOrNickname('email')}>
-                  이메일 중복 확인
-                </button>
-              )}
+              <button
+                disabled={isEmailBtnDisabled}
+                className={`${isEmailBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'}`}
+                onClick={() => handleDuplicateEmailOrNickname('email')}
+              >
+                이메일 중복 확인
+              </button>
 
               <input
                 type="text"
@@ -175,14 +170,16 @@ function SignupPage() {
                 value={nickname}
                 onChange={handleChangeInputs}
                 minLength={1}
+                maxLength={11}
                 required
               />
-              {isDuplicatedNickname === false ||
-                (isDuplicatedNickname === null && (
-                  <button className="" onClick={() => handleDuplicateEmailOrNickname('nickname')}>
-                    닉네임 중복 확인
-                  </button>
-                ))}
+              <button
+                disabled={isNicknameBtnDisabled}
+                className={`${isNicknameBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'}`}
+                onClick={() => handleDuplicateEmailOrNickname('nickname')}
+              >
+                닉네임 중복 확인
+              </button>
 
               <input
                 type="password"
@@ -221,13 +218,6 @@ function SignupPage() {
             </div>
           </div>
         </div>
-        {/* <div className="hidden w-9/12 md:block">
-          <img
-            className="object-fill w-full h-full rounded-r-2xl"
-            src={signupMainImg}
-            alt="signupMainImage"
-          />
-        </div> */}
       </div>
     </div>
   );
