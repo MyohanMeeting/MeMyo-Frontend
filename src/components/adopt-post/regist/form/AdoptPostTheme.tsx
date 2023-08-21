@@ -31,8 +31,8 @@ function AdoptPostTheme({ children, handleForm }: Props) {
 
     return (
         <>
-            <div className='flex mt-10'>
-                  <h2 className='text-lg font-bold'>유기묘 공고를 등록합니다</h2>
+            <div className='flex mt-10 w-full'>
+                  <h2 className='text-lg font-bold font-pretendard'>유기묘 공고를 등록합니다</h2>
               </div>
               <div className='p-2 mt-5'>
                   <h6 className='text-base font-bold'>등록한 유기묘 공고의 타이틀과 설명을 입력해주세요</h6>

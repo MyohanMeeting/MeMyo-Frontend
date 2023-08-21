@@ -27,9 +27,9 @@ function AdoptWebTemplate() {
         <div className='flex flex-col'>
           <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center">
               <div className='flex justify-center'>
-                <button className='w-20 flex bg-gray-100 p-1'>
+                <p className='w-20 flex bg-gray-100 p-1 text-sm justify-center font-pretendard'>
                   공고 등록
-                  </button>
+                  </p>
                 </div>
                 <AdoptPostTheme children={<AdoptUploadPicForm/>} handleForm={handleForm} />
                 <AdoptShelterForm />
