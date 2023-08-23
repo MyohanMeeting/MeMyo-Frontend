@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 
 const DUPLICATE_EMAIL_API_URL = '/v1/member/email';
 const DUPLICATE_NICKNAME_API_URL = '/v1/member/nickname';
+import type { ErrorResponse } from '../pages/login/LoginPage';
+import { useNavigate } from 'react-router';
 
 interface KakaoResponseData {
   access_token: string;
@@ -30,19 +32,24 @@ interface KakaoUserResponseData {
   };
 }
 
-interface ErrorResponse {
+interface SuccessResonse {
   status: string;
   timestamp: string;
   message: string;
-  debugMessage: string;
+  data: {
+    memberId: number;
+  };
 }
 
 function KakaoCallBack() {
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(window.location.search);
   const code = searchParams.get('code');
   const grant_type = 'authorization_code';
   const clientId = import.meta.env.VITE_KAKAO_API_KEY;
   const redirectURL = import.meta.env.VITE_KAKAO_REDIRECT_URL;
+
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const [inputs, setInputs] = useState({
     email: '',
@@ -92,19 +99,31 @@ function KakaoCallBack() {
               }
             )
             .then((res) => {
-              console.log('2', res);
-              setInputs({
-                email: res.data.kakao_account.email ?? '',
-                nickname: res.data.kakao_account.profile?.nickname ?? '',
-              });
-              setUserInfo((prev) => ({
-                ...prev,
-                oauthId: String(res.data.id),
-              }));
+              handleKakaoSignin(String(res.data.id))
+                .then((res) => {
+                  // 로그인
+                  console.log('카카오 로그인 res', res);
+                })
+                .catch((err) => {
+                  // 가입안됨 -> 회원가입
+                  if (axios.isAxiosError<ErrorResponse, any>(err)) {
+                    console.log('카카오 로그인 에러', err.response?.data.debugMessage);
+                    if (err.response?.data.debugMessage === 'UNCERTIFIED') {
+                      alert('이메일이 인증되지 않았습니다. 메일을 확인해주세요.');
+                    }
+                  }
+                  setInputs({
+                    email: res.data.kakao_account.email ?? '',
+                    nickname: res.data.kakao_account.profile?.nickname ?? '',
+                  });
+                  setUserInfo((prev) => ({
+                    ...prev,
+                    oauthId: String(res.data.id),
+                  }));
+                });
             });
         }
       })
-
       .catch((error) => {
         console.log('error', error);
       });
@@ -145,8 +164,8 @@ function KakaoCallBack() {
 
   console.log(userInfo);
 
-  const handleKakaoSubmit = () => {
-    axios({
+  const handleKakaoSignup = () => {
+    axios<SuccessResonse>({
       method: 'post',
       withCredentials: true,
       headers: {
@@ -156,29 +175,88 @@ function KakaoCallBack() {
       data: JSON.stringify(userInfo),
     })
       .then((res) => {
-        //
+        console.log('res', res.data);
+        // 메일인증
+        setIsCompleted(true);
       })
       .catch((err) => {
-        //
+        console.log('err', err);
+        // 카카오가입실패
       });
   };
 
+  const handleKakaoSignin = (oauthId: string) => {
+    return axios({
+      method: 'post',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      url: '/v1/auth/signin/oauth',
+      data: JSON.stringify({
+        oauthType: 'KAKAOTALK',
+        oauthId,
+      }),
+    });
+  };
+
   return (
-    <div className=" h-60 flex flex-col">
-      <div className="flex items-center">
-        <input name="email" value={email} placeholder="이메일" onChange={handleChangeInputs} />
-        <button onClick={() => handleDuplicateEmailOrNickname('email')}>중복 확인</button>
-      </div>
-      <div className="flex items-center">
-        <input
-          name="nickname"
-          value={nickname}
-          placeholder="닉네임"
-          onChange={handleChangeInputs}
-        />
-        <button onClick={() => handleDuplicateEmailOrNickname('nickname')}>중복 확인</button>
-      </div>
-      <button onClick={handleKakaoSubmit}>가입하기</button>
+    <div className="h-80 flex flex-col items-center justify-center gap-y-1">
+      {isCompleted ? (
+        <div className="text-center">
+          <h2 className=" font-semibold">인증 이메일이 발송되었습니다!</h2>
+          <p>
+            가입을 완료하려면 이메일 인증이 필요합니다. 받은 메일함을 확인하시고 제공된 지시에
+            따라주십시오.
+          </p>
+          <p className="my-4">
+            발송된 메일 주소는 <span className="font-medium bg-gray-100">{userInfo.email}</span>{' '}
+            입니다.
+          </p>
+          <input />
+        </div>
+      ) : (
+        <>
+          <div className="flex items-center">
+            <input
+              type="email"
+              minLength={6}
+              name="email"
+              value={email}
+              placeholder="이메일"
+              onChange={handleChangeInputs}
+              className="border rounded-tl-sm rounded-bl-sm p-1"
+            />
+            <button
+              onClick={() => handleDuplicateEmailOrNickname('email')}
+              className="bg-gray-200 h-full px-1 rounded-tr-sm rounded-br-sm"
+            >
+              중복 확인
+            </button>
+          </div>
+          <div className="flex items-center">
+            <input
+              name="nickname"
+              value={nickname}
+              placeholder="닉네임"
+              onChange={handleChangeInputs}
+              className="border rounded-tl-sm rounded-bl-sm p-1"
+            />
+            <button
+              onClick={() => handleDuplicateEmailOrNickname('nickname')}
+              className="bg-gray-200 h-full px-1 rounded-tr-sm rounded-br-sm"
+            >
+              중복 확인
+            </button>
+          </div>
+          <button
+            onClick={handleKakaoSignup}
+            className="w-64 py-1 rounded-sm shadow-sm bg-memyo-yellow5 mt-1"
+          >
+            가입하기
+          </button>
+        </>
+      )}
     </div>
   );
 }

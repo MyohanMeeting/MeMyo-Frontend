@@ -6,6 +6,7 @@ import LoginPage from '../pages/login/LoginPage';
 import SignupPage from '../pages/signup/SignupPage';
 import MyPage from '../pages/mypage/MyPage';
 import KakaoCallBack from '../components/KakaoCallBack';
+import CertificationPage from '../pages/certification/CertificationPage';
 
 const paths: RouteObject[] = [
   {
@@ -31,6 +32,10 @@ const paths: RouteObject[] = [
       {
         path: '/oauth/kakao/callback',
         element: <KakaoCallBack />,
+      },
+      {
+        path: '/certification',
+        element: <CertificationPage />,
       },
     ],
   },

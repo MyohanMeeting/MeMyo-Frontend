@@ -82,7 +82,7 @@ function SignupPage() {
       }
     } catch (error) {
       if (axios.isAxiosError<ErrorResponse, any>(error)) {
-        alert(error.response?.data.debugMessage);
+        console.log(error.response?.data);
         setDuplicated((prev) => ({
           ...prev,
           [stateName]: false,
@@ -105,11 +105,11 @@ function SignupPage() {
 
       if (data.status === 200) {
         alert('회원가입이 완료됐습니다.');
-        navigate('/login');
+        // navigate('/certification');
       }
     } catch (error) {
       if (axios.isAxiosError<ErrorResponse, any>(error)) {
-        alert(error.response?.data.debugMessage);
+        console.log(error.response?.data);
       }
     }
   };
