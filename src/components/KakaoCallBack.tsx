@@ -213,7 +213,6 @@ function KakaoCallBack() {
             발송된 메일 주소는 <span className="font-medium bg-gray-100">{userInfo.email}</span>{' '}
             입니다.
           </p>
-          <input />
         </div>
       ) : (
         <>

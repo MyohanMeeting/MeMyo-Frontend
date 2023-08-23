@@ -12,11 +12,13 @@ interface ErrorResponse {
   status: string;
   timestamp: string;
   message: string;
-  debugMessage: string;
+  debugMessage: {
+    [key: string]: string;
+  };
 }
 
 function SignupPage() {
-  const navigate = useNavigate();
+  const [errorData, setErrorData] = useState<ErrorResponse['debugMessage']>({});
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -29,6 +31,8 @@ function SignupPage() {
     isDuplicatedNickname: null,
   });
   const { isDuplicatedEmail, isDuplicatedNickname } = duplicated;
+
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -105,11 +109,12 @@ function SignupPage() {
 
       if (data.status === 200) {
         alert('회원가입이 완료됐습니다.');
-        // navigate('/certification');
+        setIsCompleted(true);
       }
     } catch (error) {
       if (axios.isAxiosError<ErrorResponse, any>(error)) {
         console.log(error.response?.data);
+        setErrorData(error.response?.data.debugMessage!);
       }
     }
   };
@@ -128,96 +133,123 @@ function SignupPage() {
       className="flex items-center justify-center max-w-5xl min-h-screen md:p-16"
     >
       <div className="flex w-4/5 bg-opacity-50 shadow-2xl bottom-12 bg-memyo-yellow8 rounded-2xl">
-        <div className="flex flex-col w-7/12 m-auto">
-          <div className="text-center md:mt-8">
-            <h1 className="hidden text-4xl font-semibold text-white shadow-inner md:block">
-              묘한만남
-            </h1>
-            <h3 className="hidden text-gray-600 md:block text-md">Adopt your Life Partner</h3>
-          </div>
-          <div className="space-y-6 md:ml-10 md:mr-10">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSignUp();
-              }}
-              className="space-y-3 text-center"
-            >
-              <input
-                type="text"
-                className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
-                placeholder="이메일"
-                name="email"
-                value={email}
-                onChange={handleChangeInputs}
-                minLength={6}
-                maxLength={100}
-                required
-              />
-              <button
-                disabled={isEmailBtnDisabled}
-                className={`${isEmailBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'}`}
-                onClick={() => handleDuplicateEmailOrNickname('email')}
+        {!isCompleted ? (
+          <div className="flex flex-col w-7/12 m-auto">
+            <div className="text-center md:mt-8">
+              <h1 className="hidden text-4xl font-semibold text-white shadow-inner md:block">
+                묘한만남
+              </h1>
+              <h3 className="hidden text-gray-600 md:block text-md">Adopt your Life Partner</h3>
+            </div>
+
+            {Object.keys(errorData).length > 0 && (
+              <ul className="bg-white text-red-400 rounded-sm p-2 mt-2">
+                {Object.keys(errorData).map((key, index) => (
+                  <li key={index}>- {errorData[key]}</li>
+                ))}
+              </ul>
+            )}
+
+            <div className="space-y-6 md:ml-10 md:mr-10">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSignUp();
+                }}
+                className="space-y-3 text-center"
               >
-                이메일 중복 확인
-              </button>
-
-              <input
-                type="text"
-                className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
-                placeholder="닉네임"
-                name="nickname"
-                value={nickname}
-                onChange={handleChangeInputs}
-                minLength={1}
-                maxLength={11}
-                required
-              />
-              <button
-                disabled={isNicknameBtnDisabled}
-                className={`${isNicknameBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'}`}
-                onClick={() => handleDuplicateEmailOrNickname('nickname')}
-              >
-                닉네임 중복 확인
-              </button>
-
-              <input
-                type="password"
-                className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
-                placeholder="비밀번호"
-                name="password"
-                value={password}
-                onChange={handleChangeInputs}
-                minLength={6}
-                required
-              />
-
-              <input
-                type="text"
-                className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
-                placeholder="전화번호"
-                name="phoneNumber"
-                value={phoneNumber}
-                onChange={handleChangeInputs}
-                minLength={13}
-                maxLength={13}
-                required
-              />
-
-              <div className="flex items-center justify-center">
-                <button className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl">
-                  회원가입
+                <input
+                  type="text"
+                  className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                  placeholder="이메일"
+                  name="email"
+                  value={email}
+                  onChange={handleChangeInputs}
+                  minLength={6}
+                  maxLength={100}
+                  required
+                />
+                <button
+                  disabled={isEmailBtnDisabled}
+                  className={`${isEmailBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'}`}
+                  onClick={() => handleDuplicateEmailOrNickname('email')}
+                >
+                  이메일 중복 확인
                 </button>
+
+                <input
+                  type="text"
+                  className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                  placeholder="닉네임"
+                  name="nickname"
+                  value={nickname}
+                  onChange={handleChangeInputs}
+                  minLength={1}
+                  maxLength={11}
+                  required
+                />
+                <button
+                  disabled={isNicknameBtnDisabled}
+                  className={`${
+                    isNicknameBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'
+                  }`}
+                  onClick={() => handleDuplicateEmailOrNickname('nickname')}
+                >
+                  닉네임 중복 확인
+                </button>
+
+                <input
+                  type="password"
+                  className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                  placeholder="비밀번호"
+                  name="password"
+                  value={password}
+                  onChange={handleChangeInputs}
+                  minLength={8}
+                  maxLength={24}
+                  required
+                />
+
+                <input
+                  type="text"
+                  className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
+                  placeholder="전화번호"
+                  name="phoneNumber"
+                  value={phoneNumber}
+                  onChange={handleChangeInputs}
+                  minLength={13}
+                  maxLength={13}
+                  required
+                />
+
+                <div className="flex items-center justify-center">
+                  <button className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl">
+                    회원가입
+                  </button>
+                </div>
+              </form>
+              <div className="flex items-center justify-center text-sm pb-4 space-x-2">
+                <p>이미 회원이신가요? </p>
+                <Link to="/login" className="font-semibold">
+                  로그인하기
+                </Link>
               </div>
-            </form>
-            <div className="flex items-center justify-center text-sm pb-4 space-x-2">
-              <p>이미 회원이신가요? </p>
-              <Link to="/login" className="font-semibold">
-                로그인하기
-              </Link>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-center p-8">
+            <h2 className=" font-semibold">인증 이메일이 발송되었습니다!</h2>
+            <p>
+              가입을 완료하려면 이메일 인증이 필요합니다. 받은 메일함을 확인하시고 제공된 지시에
+              따라주십시오.
+            </p>
+            <p className="my-4">
+              발송된 메일 주소는{' '}
+              <span className="font-medium bg-gray-100 px-1">{isDuplicatedEmail || email}</span>{' '}
+              입니다.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

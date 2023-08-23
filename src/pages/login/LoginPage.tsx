@@ -109,6 +109,8 @@ function LoginPage() {
                 placeholder="비밀번호"
                 name="password"
                 value={password}
+                minLength={8}
+                maxLength={24}
                 onChange={handleChangeInputs}
                 required
               />
