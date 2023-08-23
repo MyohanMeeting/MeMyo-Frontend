@@ -1,12 +1,9 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
-
-const DUPLICATE_EMAIL_API_URL = 'v1/member/email';
-const DUPLICATE_NICKNAME_API_URL = 'v1/member/nickname';
-const DIRECT_SIGNUP_API_URL = 'v1/member/direct';
+import { checkDuplicateEmailOrNickname } from '../../services/authService';
 
 interface ErrorResponse {
   status: string;
@@ -64,29 +61,21 @@ function SignupPage() {
 
   const handleDuplicateEmailOrNickname = async (type: 'email' | 'nickname') => {
     const stateValue = type === 'email' ? email : nickname;
-    const url = type === 'email' ? DUPLICATE_EMAIL_API_URL : DUPLICATE_NICKNAME_API_URL;
     const stateName = type === 'email' ? 'isDuplicatedEmail' : 'isDuplicatedNickname';
-    try {
-      const data = await axios({
-        method: 'GET',
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        url: `${url}?${type}=${stateValue}`,
-        data: JSON.stringify(inputs),
-      });
 
-      if (data?.data.message === 'SUCCESS') {
+    try {
+      const data = await checkDuplicateEmailOrNickname(type, stateValue);
+      // console.log('data', data);
+      if (data?.message === 'SUCCESS') {
         alert(`사용가능한 ${type === 'email' ? '이메일' : '닉네임'}입니다.`);
         setDuplicated((prev) => ({
           ...prev,
           [stateName]: stateValue,
         }));
       }
-    } catch (error) {
-      if (axios.isAxiosError<ErrorResponse, any>(error)) {
-        console.log(error.response?.data);
+    } catch (err) {
+      // console.log('err', err);
+      if (axios.isAxiosError<ErrorResponse, any>(err)) {
         setDuplicated((prev) => ({
           ...prev,
           [stateName]: false,
@@ -103,7 +92,7 @@ function SignupPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        url: DIRECT_SIGNUP_API_URL,
+        url: 'v1/member/direct',
         data: JSON.stringify(inputs),
       });
 
