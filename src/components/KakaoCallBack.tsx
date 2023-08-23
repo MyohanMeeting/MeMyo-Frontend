@@ -83,7 +83,7 @@ function KakaoCallBack() {
         }
       )
       .then((res) => {
-        console.log('1', res);
+        // console.log('1', res);
         const { access_token } = res.data;
         if (access_token) {
           // console.log(`Bearer ${access_token}`);
@@ -101,8 +101,11 @@ function KakaoCallBack() {
             .then((res) => {
               handleKakaoSignin(String(res.data.id))
                 .then((res) => {
-                  // 로그인
-                  console.log('카카오 로그인 res', res);
+                  // console.log('카카오 로그인 res', res);
+                  const { accessToken, refreshToken } = res.data.data;
+                  localStorage.setItem('memyo_access_token', accessToken);
+                  localStorage.setItem('memyo_refresh_token', refreshToken);
+                  navigate('/');
                 })
                 .catch((err) => {
                   // 가입안됨 -> 회원가입
@@ -161,8 +164,6 @@ function KakaoCallBack() {
       }
     }
   };
-
-  console.log(userInfo);
 
   const handleKakaoSignup = () => {
     axios<SuccessResonse>({
