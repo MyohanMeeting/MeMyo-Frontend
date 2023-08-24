@@ -1,14 +1,29 @@
-const TOKEN_KEY = 'CURRENT_USER';
+interface TokenStorage {
+  saveToken(accessToken: string, refreshToken: string): void;
+  loadAccessToken(): string | null;
+  loadRefreshToken(): string | null;
+  removeToken(): void;
+}
 
-export const saveToken = (token: string) => {
-  localStorage.setItem(TOKEN_KEY, token);
-};
+export default class LocalStorageTokenStorage implements TokenStorage {
+  private readonly ACCESS_TOKEN_KEY = 'memyo_access_token';
+  private readonly REFRESH_TOKEN_KEY = 'memyo_refresh_token';
 
-export const loadToken = () => {
-  const token = localStorage.getItem(TOKEN_KEY);
-  return token && JSON.parse(token);
-};
+  saveToken(accessToken: string, refreshToken: string): void {
+    localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
+    localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
+  }
 
-export const removeToken = () => {
-  localStorage.removeItem(TOKEN_KEY);
-};
+  loadAccessToken(): string | null {
+    return localStorage.getItem(this.ACCESS_TOKEN_KEY);
+  }
+
+  loadRefreshToken(): string | null {
+    return localStorage.getItem(this.REFRESH_TOKEN_KEY);
+  }
+
+  removeToken(): void {
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+    localStorage.removeItem(this.REFRESH_TOKEN_KEY);
+  }
+}
