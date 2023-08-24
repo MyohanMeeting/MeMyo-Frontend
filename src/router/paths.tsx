@@ -1,10 +1,14 @@
 import { RouteObject } from 'react-router-dom';
 
-import Wrapper from '../components/layout/Wrapper';
-import HomePage from '../pages/home/HomePage';
-import LoginPage from '../pages/login/LoginPage';
-import SignupPage from '../pages/signup/SignupPage';
-import MyPage from '../pages/mypage/MyPage';
+import Wrapper from '@components/layout/Wrapper';
+import HomePage from '@pages/home/HomePage';
+import LoginPage from '@pages/login/LoginPage';
+import SignupPage from '@pages/signup/SignupPage';
+import AdoptPage from '@pages/adopt/AdoptPage';
+import AdoptDetail from '@pages/adopt/AdoptDetail';
+import MyPage from '@pages/mypage/MyPage';
+import AdoptForm from '@pages/adopt/AdoptForm';
+import AdoptApply from '@pages/adopt/AdoptApply';
 
 const paths: RouteObject[] = [
   {
@@ -23,9 +27,25 @@ const paths: RouteObject[] = [
         path: '/signup',
         element: <SignupPage />,
       },
+       {
+        path: '/adopt',
+        element: <AdoptPage />,
+      },
+      {
+        path: '/adopt/detail/:noticeId',
+        element: <AdoptDetail />,
+      },
+      {
+        path: '/adopt/register',
+        element: <AdoptForm />,
+      },
+       {
+        path: '/adopt/apply',
+        element: <AdoptApply />,
+      },
       {
         path: '/mypage',
-        element: <MyPage />,
+        element: <MyPage />
       },
     ],
   },

@@ -1,4 +1,4 @@
-import CatInfoCard from '../CatInfoCard';
+import CatInfoCard from '@pages/mypage/components/CatInfoCard';
 
 function MyLetterTab() {
   return (

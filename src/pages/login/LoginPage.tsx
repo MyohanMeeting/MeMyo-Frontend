@@ -1,6 +1,8 @@
+
 import kakaoLoginImg from '../../assets/login/kakao_login_medium_wide.png';
 import loginImg from '../../assets/login/login-cat-image.jpeg';
 import loginBgImg from '../../assets/login/login-background.jpeg';
+
 
 function LoginPage() {
   return (
