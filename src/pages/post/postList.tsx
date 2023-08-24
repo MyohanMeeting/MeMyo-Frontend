@@ -1,4 +1,4 @@
-import AdoptSelectBox from '../../components/adopt-post/AdoptSelectBox';
+import AdoptSelectBox from '@components/adopt-post/AdoptSelectBox';
 
 function PostList() {
   // 현재 https://www.behance.net/gallery/165319265/Pet-Scout-Animal-pet-search-web-service-UIUX-Design 피그마가 없어서 자세한 사이즈 조정을 못하여, 회의 지나고 조정 예정

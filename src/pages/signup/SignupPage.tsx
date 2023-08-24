@@ -14,6 +14,7 @@ interface ErrorResponse {
   };
 }
 
+
 function SignupPage() {
   const [errorData, setErrorData] = useState<ErrorResponse['debugMessage']>({});
   const [inputs, setInputs] = useState({

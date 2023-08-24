@@ -1,7 +1,9 @@
+
 import { Link } from 'react-router-dom';
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
+
 
 function HomePage() {
   return (

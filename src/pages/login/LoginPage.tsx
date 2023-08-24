@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import loginImg from '../../assets/login/login-cat-image.jpeg';
 import loginBgImg from '../../assets/login/login-background.jpeg';
-
 export interface ErrorResponse {
   status: string;
   timestamp: string;

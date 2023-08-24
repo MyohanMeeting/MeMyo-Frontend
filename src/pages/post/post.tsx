@@ -1,5 +1,5 @@
-import AdoptPictureInp from '../../components/adopt-post/AdoptPictureInp';
-import AdoptSelectBox from '../../components/adopt-post/AdoptSelectBox';
+import AdoptPictureInp from '@components/adopt-post/AdoptPictureInp';
+import AdoptSelectBox from '@components/adopt-post/AdoptSelectBox';
 
 function Post() {
   return (

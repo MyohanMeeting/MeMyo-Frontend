@@ -14,4 +14,15 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: [
+      { find: '@components', replacement: '/src/components' },
+      { find: '@hooks', replacement: '/src/hooks' },
+      { find: '@pages', replacement: '/src/pages' },
+      { find: '@types', replacement: '/src/types' },
+      { find: '@redux', replacement: '/src/redux' },
+      { find: '@reducers', replacement: '/src/reducers' },
+      { find: '@', replacement: '/src' },
+    ],
+  },
 });

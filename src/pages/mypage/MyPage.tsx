@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import AdoptionHandleTab from './components/adoptionHandleTab/AdoptionHandleTab';
-import FavoriteTab from './components/favoriteTab/FavoriteTab';
-import MyLetterTab from './components/myLetterTab/MyLetterTab';
+import AdoptionHandleTab from '@pages/mypage/components/adoptionHandleTab/AdoptionHandleTab';
+import FavoriteTab from '@pages/mypage/components/favoriteTab/FavoriteTab';
+import MyLetterTab from '@pages/mypage/components/myLetterTab/MyLetterTab';
 
 function MyPage() {
   const [activeIndex, setActiveIndex] = useState(0);

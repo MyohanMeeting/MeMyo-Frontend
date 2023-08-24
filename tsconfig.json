@@ -8,6 +8,17 @@
     "esModuleInterop": true,
     "strictNullChecks": true,
 
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages/*": ["src/pages/*"],
+      "@types/*": ["src/types/*"],
+      "@redux/*": ["src/redux/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@/*": ["src/*"]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
