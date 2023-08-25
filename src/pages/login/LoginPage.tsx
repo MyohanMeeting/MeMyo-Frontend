@@ -1,7 +1,10 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
+import type { RootState } from '@redux/store';
+import { emailSigninThunk } from '@redux/thunks/AuthThunk';
 import loginImg from '../../assets/login/login-cat-image.jpeg';
 import loginBgImg from '../../assets/login/login-background.jpeg';
 export interface ErrorResponse {
@@ -11,21 +14,9 @@ export interface ErrorResponse {
   debugMessage: string;
 }
 
-interface SignInResponseData {
-  accessToken: string;
-  refreshToken: string;
-}
-interface SignInResponse {
-  status: string;
-  timestamp: string;
-  message: string;
-  data: SignInResponseData;
-}
-
-const DIRECT_SIGNIN_API_URL = 'v1/auth/signin/direct';
-
 function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const REST_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
   const RIDIRECT_URL = import.meta.env.VITE_KAKAO_REDIRECT_URL;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${RIDIRECT_URL}&response_type=code`;
@@ -44,28 +35,15 @@ function LoginPage() {
     }));
   };
 
+  const { status } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (status === 'successed') navigate('/');
+  }, []);
+
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    try {
-      const resp = await axios<SignInResponse>({
-        method: 'post',
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        url: DIRECT_SIGNIN_API_URL,
-        data: JSON.stringify(inputs),
-      });
-      const { accessToken, refreshToken } = resp.data.data;
-      localStorage.setItem('memyo_access_token', accessToken);
-      localStorage.setItem('memyo_refresh_token', refreshToken);
-      navigate('/');
-    } catch (error) {
-      if (axios.isAxiosError<ErrorResponse, any>(error)) {
-        alert(error.response?.data.debugMessage);
-      }
-    }
+    (dispatch as ThunkDispatch<RootState, void, AnyAction>)(emailSigninThunk(inputs));
   };
 
   const handleKakaoLogin = () => {

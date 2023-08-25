@@ -1,23 +1,33 @@
 import { combineReducers } from 'redux';
-import adoptReducer from '@redux/slice/adoptSlice'
-import localStorage from 'redux-persist/es/storage';
 import { persistReducer } from 'redux-persist';
+import localStorage from 'redux-persist/es/storage';
+
+import authReducer from '@redux/slice/authSlice';
+import adoptReducer from '@redux/slice/adoptSlice';
 
 const rootPersistConfig = {
-    key: 'root',
-    storage: localStorage,
-    blacklist:['adopt']
-}
+  key: 'root',
+  storage: localStorage,
+  blacklist: ['adopt'],
+};
 
 const adoptPersistConfig = {
-    key: "adopt-regist",
-    storage: localStorage,
-    whitelist: ['adoptForm']
-}
+  key: 'adopt-regist',
+  storage: localStorage,
+  whitelist: ['adoptForm'],
+};
 
+const authPersistConfig = {
+  key: 'auth',
+  storage: localStorage,
+  whitelist: ['accessToken', 'refreshToken'],
+};
 
 const rootReducer = combineReducers({
-    adopt: persistReducer(adoptPersistConfig, adoptReducer)
+  adopt: persistReducer(adoptPersistConfig, adoptReducer),
+  auth: persistReducer(authPersistConfig, authReducer),
 });
 
-export const persistedReducer = persistReducer(rootPersistConfig,rootReducer);
+// export type RootState = ReturnType<typeof rootReducer>;
+
+export const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
