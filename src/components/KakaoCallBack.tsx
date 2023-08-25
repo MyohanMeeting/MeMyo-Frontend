@@ -1,8 +1,13 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-
-import type { ErrorResponse } from '../pages/login/LoginPage';
 import { useNavigate } from 'react-router';
+import type { RootState } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
+import { kakaoSigninThunk } from '@redux/thunks/AuthThunk';
+import { handleResponse } from '@/utils/ApiResponseHandler';
+import type { ErrorResponse } from '../pages/login/LoginPage';
 import { checkDuplicateEmailOrNickname } from '../services/authService';
 
 interface KakaoResponseData {
@@ -42,6 +47,9 @@ interface SuccessResonse {
 
 function KakaoCallBack() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { status } = useSelector((state: RootState) => state.auth);
+
   const searchParams = new URLSearchParams(window.location.search);
   const code = searchParams.get('code');
   const grant_type = 'authorization_code';
@@ -71,6 +79,10 @@ function KakaoCallBack() {
   };
 
   useEffect(() => {
+    if (status === 'successed') navigate('/');
+  }, []);
+
+  useEffect(() => {
     axios
       .post<KakaoResponseData>(
         `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${clientId}&redirect_uri=${redirectURL}&code=${code}`,
@@ -82,7 +94,7 @@ function KakaoCallBack() {
         }
       )
       .then((res) => {
-        // console.log('1', res);
+        console.log('1', res);
         const { access_token } = res.data;
         if (access_token) {
           // console.log(`Bearer ${access_token}`);
@@ -98,22 +110,15 @@ function KakaoCallBack() {
               }
             )
             .then((res) => {
-              handleKakaoSignin(String(res.data.id))
-                .then((res) => {
-                  // console.log('카카오 로그인 res', res);
-                  const { accessToken, refreshToken } = res.data.data;
-                  localStorage.setItem('memyo_access_token', accessToken);
-                  localStorage.setItem('memyo_refresh_token', refreshToken);
+              console.log('2', res);
+              (dispatch as ThunkDispatch<RootState, void, AnyAction>)(
+                kakaoSigninThunk(res.data.id)
+              ).then((actionResult) => {
+                if (kakaoSigninThunk.fulfilled.match(actionResult)) {
                   navigate('/');
-                })
-                .catch((err) => {
-                  // 가입안됨 -> 회원가입
-                  if (axios.isAxiosError<ErrorResponse, any>(err)) {
-                    console.log('카카오 로그인 에러', err.response?.data.debugMessage);
-                    if (err.response?.data.debugMessage === 'UNCERTIFIED') {
-                      alert('이메일이 인증되지 않았습니다. 메일을 확인해주세요.');
-                    }
-                  }
+                } else if (kakaoSigninThunk.rejected.match(actionResult)) {
+                  const errorMessage = handleResponse(actionResult.payload?.message ?? '');
+                  alert(errorMessage);
                   setInputs({
                     email: res.data.kakao_account.email ?? '',
                     nickname: res.data.kakao_account.profile?.nickname ?? '',
@@ -122,7 +127,8 @@ function KakaoCallBack() {
                     ...prev,
                     oauthId: String(res.data.id),
                   }));
-                });
+                }
+              });
             });
         }
       })
@@ -146,13 +152,20 @@ function KakaoCallBack() {
     } catch (error) {
       if (axios.isAxiosError<ErrorResponse, any>(error)) {
         console.log(error.response?.data);
-        setUserInfo((prev) => ({
-          ...prev,
-          [type]: '',
-        }));
+        alert(error.response?.data.debugMessage);
+        // setUserInfo((prev) => ({
+        //   ...prev,
+        //   [type]: '',
+        // }));
       }
     }
   };
+
+  useEffect(() => {
+    if (status === 'successed') {
+      navigate('/');
+    }
+  }, []);
 
   const handleKakaoSignup = () => {
     axios<SuccessResonse>({
@@ -171,23 +184,10 @@ function KakaoCallBack() {
       })
       .catch((err) => {
         console.log('err', err);
-        // 카카오가입실패
+        if (axios.isAxiosError<ErrorResponse, any>(err)) {
+          alert(err.response?.data.debugMessage);
+        }
       });
-  };
-
-  const handleKakaoSignin = (oauthId: string) => {
-    return axios({
-      method: 'post',
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      url: '/v1/auth/signin/oauth',
-      data: JSON.stringify({
-        oauthType: 'KAKAOTALK',
-        oauthId,
-      }),
-    });
   };
 
   return (

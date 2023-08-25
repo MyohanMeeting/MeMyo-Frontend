@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { emailSigninThunk, kakaoSigninThunk } from '@redux/thunks/AuthThunk';
 
-export interface ErrorResponse {
+export interface MessageResponse {
   status: string;
   timestamp: string;
   message: string;
@@ -13,14 +13,14 @@ interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   status: 'idle' | 'loading' | 'successed' | 'failed';
-  error: string | null | undefined;
+  message: string | null | undefined;
 }
 
 const initialState: AuthState = {
   accessToken: null,
   refreshToken: null,
   status: 'idle',
-  error: null,
+  message: null,
 };
 
 const authSlice = createSlice({
@@ -46,8 +46,23 @@ const authSlice = createSlice({
       })
       .addCase(emailSigninThunk.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload?.errorMessage;
+        state.message = action.payload?.message;
         console.log('emailSigninThunk failed');
+      })
+      .addCase(kakaoSigninThunk.pending, (state) => {
+        state.status = 'loading';
+        console.log('kakaoSigninThunk loading');
+      })
+      .addCase(kakaoSigninThunk.fulfilled, (state, action) => {
+        state.status = 'successed';
+        state.accessToken = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+        console.log('kakaoSigninThunk successed');
+      })
+      .addCase(kakaoSigninThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.message = action.payload?.message;
+        console.log('kakaoSigninThunk failed');
       });
   },
 });
