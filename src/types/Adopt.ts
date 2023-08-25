@@ -65,14 +65,22 @@ interface Thumbnail{
     uploadId: number,
     url:string
 }
+<<<<<<< HEAD
 interface catPicture{
+=======
+export interface catPicture{
+>>>>>>> develop
     uploadId: number,
     url:string
 }
 export type NoticeId = NonNullable<number | null>
 
 export interface AdoptDetail{
+<<<<<<< HEAD
     noticeId: number,
+=======
+    noticeId: NoticeId,
+>>>>>>> develop
     author: Author,
     cat: Cat,
     shelter: Shelter,
@@ -87,3 +95,16 @@ export interface AdoptDetail{
 }
 
 
+<<<<<<< HEAD
+=======
+export interface AdoptComment{
+    noticeId: NoticeId,
+    author: Author,
+    content: string,
+    createdAt: string,
+    noticeCommentId: number
+}
+
+export type userComment = Pick<AdoptComment,"noticeId" | "content">
+
+>>>>>>> develop

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Cat } from '../types/Adopt';
+=======
+import { Cat } from '@/types/Adopt';
+>>>>>>> develop
 
 export const UPDATE_CAT = 'UPDATE_CAT' as const;
 

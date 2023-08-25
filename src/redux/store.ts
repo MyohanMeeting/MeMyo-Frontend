@@ -1,14 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit'
+<<<<<<< HEAD
 import localStorage from 'redux-persist/es/storage';
 import rootReducer from './reducer';
 import {
     persistReducer,
+=======
+import { persistedReducer } from '@redux/reducer';
+import {
+>>>>>>> develop
     persistStore,
     FLUSH,
     REHYDRATE,
     PAUSE,
     PERSIST,
     PURGE,
+<<<<<<< HEAD
     REGISTER
 } from 'redux-persist';
 import { AdoptState } from './slice/adoptSlice';
@@ -39,6 +45,17 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+=======
+    REGISTER,
+} from 'redux-persist';
+
+
+
+
+
+
+
+>>>>>>> develop
 
 export const store = configureStore({
     reducer: persistedReducer,

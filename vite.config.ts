@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+<<<<<<< HEAD
       '/api': {
         target: 'http://34.125.176.70:8080/',
         changeOrigin: true,
@@ -14,5 +15,25 @@ export default defineConfig({
         ws: true,
       },
     },
+=======
+      '/v1': {
+        target: 'http://34.125.176.70:8080',
+        changeOrigin: true,
+        secure: false,
+        rewrite:(path)=>path.replace(/^\/v1/, "/v1/")
+      }
+    }
+  },
+  resolve: {
+    alias: [
+      { find: "@components", replacement: "/src/components" },
+      { find: "@hooks", replacement: "/src/hooks" },
+      { find: "@pages", replacement: "/src/pages" },
+      { find: "@types", replacement: "/src/types" },
+      { find: "@redux", replacement: "/src/redux" },
+      { find: "@reducers", replacement: "/src/reducers" },
+      { find: "@", replacement: "/src" },
+    ],
+>>>>>>> develop
   },
 });

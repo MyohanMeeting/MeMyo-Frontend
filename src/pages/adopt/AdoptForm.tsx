@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 import 냥이5 from '../../assets/adopt/냥이5.jpg'
 import AdoptCatForm from '../../components/adopt-post/regist/form/AdoptCatForm';
 import AdoptRegistNextBut from '../../components/adopt-post/regist/mobile/AdoptRegistNextBut';
 import AdoptShelterForm from '../../components/adopt-post/regist/form/AdoptShelterForm';
 import AdoptWebTemplate from '../../components/adopt-post/regist/pc/AdoptWebTemplate';
 import useResponsiveStatus from '../../hooks/useResponsiveStatus';
+=======
+import AdoptRegistNextBut from '@components/adopt-post/regist/mobile/AdoptRegistNextBut';
+import AdoptWebTemplate from '@components/adopt-post/regist/pc/AdoptWebTemplate';
+import useResponsiveStatus from '@hooks/useResponsiveStatus';
+>>>>>>> develop
 
 function AdoptForm() {
     const isMobile = useResponsiveStatus();

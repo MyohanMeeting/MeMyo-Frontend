@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import AdoptPostTheme from '../form/AdoptPostTheme';
 import AdoptShelterForm from '../form/AdoptShelterForm';
 import AdoptUploadPicForm from '../form/AdoptUploadPicForm';
@@ -6,6 +7,16 @@ import { setAdoptForm } from '../../../../redux/slice/adoptSlice';
 import { AdoptDetail } from '../../../../types/Adopt';
 import { useCallback } from 'react';
 import { setAdoptPostThunk } from '../../../../redux/thunks/AdoptThunk';
+=======
+import AdoptPostTheme from '@components/adopt-post/regist/form/AdoptPostTheme';
+import AdoptShelterForm from '@components/adopt-post/regist/form/AdoptShelterForm';
+import AdoptUploadPicForm from '@components/adopt-post/regist/form/AdoptUploadPicForm';
+import { useAppDispatch, useAppSelector, useThunkDispatch } from '@redux/hooks';
+import { setAdoptForm } from '@redux/slice/adoptSlice';
+import { AdoptDetail } from '@/types/Adopt';
+import { useCallback } from 'react';
+import { setAdoptPostThunk } from '@redux/thunks/AdoptThunk';
+>>>>>>> develop
 
 function AdoptWebTemplate() {
   const dispatch = useAppDispatch();
@@ -27,9 +38,15 @@ function AdoptWebTemplate() {
         <div className='flex flex-col'>
           <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center">
               <div className='flex justify-center'>
+<<<<<<< HEAD
                 <button className='w-20 flex bg-gray-100 p-1'>
                   공고 등록
                   </button>
+=======
+                <p className='w-20 flex bg-gray-100 p-1 text-sm justify-center font-pretendard'>
+                  공고 등록
+                  </p>
+>>>>>>> develop
                 </div>
                 <AdoptPostTheme children={<AdoptUploadPicForm/>} handleForm={handleForm} />
                 <AdoptShelterForm />

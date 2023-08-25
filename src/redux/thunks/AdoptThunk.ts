@@ -1,10 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+<<<<<<< HEAD
 import { getAdoptDetail, getAdoptPosts } from '../slice/adoptSlice';
 import  { AxiosResponse } from 'axios'
 import { searchFacet,AdoptPost, AdoptDetail, NoticeId } from '../../types/Adopt';
 import { basicApi } from '../api/axiosConfig';
 
 
+=======
+import { getAdoptComments, getAdoptDetail, getAdoptPosts } from '@redux/slice/adoptSlice';
+import  { AxiosResponse } from 'axios'
+import { searchFacet,AdoptPost, AdoptDetail, NoticeId, AdoptComment, userComment } from '@/types/Adopt';
+import { basicApi } from '@redux/api/axiosConfig';
+
+
+const token ="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkyNTg1OTk4fQ.6Y1L_XaKvQrqwn9bM4h7oySeOXT-w5rhoM5gGgm5THxB9eF7TpijB4fxZKCoveo0a1ljoMCljwrualDKc7T4Hw"
+
+>>>>>>> develop
 interface AdoptResultDataType<T> {
     status: string,
     timestamp: string,
@@ -20,7 +31,13 @@ export const getAdoptPostThunk = createAsyncThunk(
             await basicApi<AdoptResultDataType<AdoptPost[]>,AxiosResponse<AdoptResultDataType<AdoptPost[]>,Partial<searchFacet>>,Partial<searchFacet>>({
                 method: 'get',
                 url: '/v1/adoption/notices',
+<<<<<<< HEAD
                 headers: { 'withCredentials': true},
+=======
+                headers: {
+                    'withCredentials': true, 
+                },
+>>>>>>> develop
                 params:{...facet}
             }).then(result => {
                 if (result.data) {
@@ -40,7 +57,11 @@ export const getAdoptPostThunk = createAsyncThunk(
     }
 
 )
+<<<<<<< HEAD
 
+=======
+// 입양 공고 상세
+>>>>>>> develop
 export const getAdoptDetailThunk = createAsyncThunk(
     'adopt/getAdoptDetail',
     async (noticeId: number, thunkApi) => {
@@ -64,6 +85,12 @@ export const getAdoptDetailThunk = createAsyncThunk(
 
 )
 
+<<<<<<< HEAD
+=======
+
+
+// 입양 공고 올리기
+>>>>>>> develop
 export const setAdoptPostThunk = createAsyncThunk(
     'adopt/setAdoptPost',
     async (obj: Partial<Omit<AdoptDetail, 'noticeId'>>) => {
@@ -71,6 +98,12 @@ export const setAdoptPostThunk = createAsyncThunk(
             await basicApi({
                 method: 'post',
                 url: `/v1/adoption/notices`,
+<<<<<<< HEAD
+=======
+                headers: {
+                    'Authorization':`Bearer ${token}`
+                },
+>>>>>>> develop
                 data: {
                     ...obj, thumbnail: { uploadId: 1, url: 'https://storage.googleapis.com/myohanmeeting/cat/b590421e-afa0-4ebb-a6eb-88808e30dc0c-1692021140667.jpg' },
             catPictures:[{uploadId:2,url:"https://storage.googleapis.com/myohanmeeting/cat/a12373a0-b89d-4c19-9f4c-b5308a4629f6-1692021141642.jpg"}]    }
@@ -84,3 +117,58 @@ export const setAdoptPostThunk = createAsyncThunk(
     }
 
 )
+<<<<<<< HEAD
+=======
+
+// 내 코멘트 쓰기
+export const setAdoptComments = createAsyncThunk(
+    'adopt/setAdoptComment',
+    async (obj: userComment) => {
+       try {
+           await basicApi({
+               method: 'post',
+               url: `/v1/adoption/notices/comments`,
+               headers: {
+                   'Authorization': `Bearer ${token}`
+               },
+               data: { ...obj }
+           }).then(result => {
+                console.log('result', result);
+               
+            });
+        } catch(error) {
+             console.error('error',error);
+        }
+    }
+
+)
+
+// 코멘드 읽어오기
+export const getAdoptCommentsThunk = createAsyncThunk(
+    'adopt/getAdoptComments',
+    async (noticeId: NoticeId, thunkApi) => {
+       try {
+           await basicApi<AdoptResultDataType<Array<AdoptComment>>,AxiosResponse<AdoptResultDataType<Array<AdoptComment>>,NoticeId>,NoticeId>({
+               method: 'get',
+               url: `/v1/adoption/notices/${noticeId}/comments`,
+               headers: {
+                   'Authorization': `Bearer ${token}`
+               },
+           }).then(result => {
+                console.log('123result', result);
+                if (result.data) {
+                    const { data }  = result.data;
+                    if (data) {
+                        thunkApi.dispatch(getAdoptComments(data));
+                    }
+                }
+            });
+        } catch(error) {
+             console.error('error',error);
+        }
+    }
+
+)
+
+
+>>>>>>> develop

@@ -1,14 +1,30 @@
+<<<<<<< HEAD
 import { ReactNode, useCallback, useState } from 'react';
 import { AdoptDetail } from '../../../../types/Adopt';
+=======
+import { ReactNode, memo, useCallback, useState } from 'react';
+import { AdoptDetail } from '@/types/Adopt';
+import { useAppSelector } from '@redux/hooks';
+>>>>>>> develop
 
 interface Props{
     children?: ReactNode,
     handleForm: (value: Partial<Omit<AdoptDetail, 'noticeId'>>) => void,
 }
 function AdoptPostTheme({ children, handleForm }: Props) {
+<<<<<<< HEAD
     
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+=======
+    const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+    const [title, setTitle] = useState(() => {
+        if (adoptForm) return adoptForm.title
+    });
+    const [content, setContent] = useState(() => {
+        if (adoptForm) return adoptForm.content;
+    });
+>>>>>>> develop
     const handleTheme = useCallback(<T extends HTMLInputElement | HTMLTextAreaElement>(e: React.ChangeEvent<T>, type: string) => {
         if (type === 'title') {
             setTitle(e.target.value);
@@ -26,8 +42,13 @@ function AdoptPostTheme({ children, handleForm }: Props) {
 
     return (
         <>
+<<<<<<< HEAD
             <div className='flex mt-10'>
                   <h2 className='text-lg font-bold'>유기묘 공고를 등록합니다</h2>
+=======
+            <div className='flex mt-10 w-full'>
+                  <h2 className='text-lg font-bold font-pretendard'>유기묘 공고를 등록합니다</h2>
+>>>>>>> develop
               </div>
               <div className='p-2 mt-5'>
                   <h6 className='text-base font-bold'>등록한 유기묘 공고의 타이틀과 설명을 입력해주세요</h6>
@@ -41,5 +62,9 @@ function AdoptPostTheme({ children, handleForm }: Props) {
             );
 }
 
+<<<<<<< HEAD
 export default AdoptPostTheme;
+=======
+export default memo(AdoptPostTheme);
+>>>>>>> develop
 

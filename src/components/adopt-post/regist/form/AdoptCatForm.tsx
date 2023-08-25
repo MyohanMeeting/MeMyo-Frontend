@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useReducer, useState } from 'react';
+<<<<<<< HEAD
 import { UPDATE_CAT, catFormState, initialstate, reducer } from '../../../../reducers/Adopt';
 import { gender } from '../../../../types/Adopt';
 import { useAppDispatch } from '../../../../redux/hooks';
@@ -12,6 +13,26 @@ function AdoptCatForm() {
     const genderArr = [{ name: '암컷', english: 'FEMALE' }, { name: '수컷', english: 'MALE' }];
     const neuteredArr = [{ name: '예', english: 'NEUTERED' }, { name: '아니오', english: 'NONNEUTERED' }];
     const handleCatForm = useCallback((value:catFormState) => {
+=======
+import { UPDATE_CAT, catFormState, initialstate, reducer } from '@reducers/Adopt';
+import { Cat, gender } from '@/types/Adopt';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { setAdoptForm } from '@redux/slice/adoptSlice';
+
+
+function AdoptCatForm() {
+    const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+    const createInitialState = (form:Partial<Cat>) => {
+        if (form === null) return initialstate;
+        return form;
+    }
+    const [state, dispatch] = useReducer(reducer, createInitialState(adoptForm?.cat as Partial<Cat>));
+    const appDispatch = useAppDispatch();
+
+    const genderArr = [{ name: '암컷', english: 'FEMALE' }, { name: '수컷', english: 'MALE' }];
+    const neuteredArr = [{ name: '아니오', english: 'NONNEUTERED' },{ name: '예', english: 'NEUTERED' }];
+    const handleCatForm = useCallback((value: catFormState) => {
+>>>>>>> develop
         dispatch({ type: UPDATE_CAT, value });
     }, []);
    
@@ -32,6 +53,17 @@ function AdoptCatForm() {
     },[])
 
     useEffect(() => {
+<<<<<<< HEAD
+=======
+        if (state == null) return;
+        console.log('state', state?.neutered ==undefined)
+        if (!state?.neutered) {
+            handleCatForm({'neutered': 'NONNEUTERED'})
+        }
+        if (!state?.sex) {
+            handleCatForm({ 'sex': 'FEMALE' });
+        }
+>>>>>>> develop
         appDispatch(setAdoptForm({ cat: state }));
     },[state,appDispatch]);
     

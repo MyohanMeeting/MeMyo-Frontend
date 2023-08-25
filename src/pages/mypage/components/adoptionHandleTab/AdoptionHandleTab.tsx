@@ -1,4 +1,4 @@
-import AdoptionCard from './AdoptionCard';
+import AdoptionCard from '@pages/mypage/components/adoptionHandleTab/AdoptionCard';
 
 export default function AdoptionHandleTab() {
   return (

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/configureStore';
@@ -7,11 +8,15 @@ import {
   getRecentPostStart,
   getRecentPostSuccess,
 } from '../../redux/modules/recentPost';
+=======
+
+>>>>>>> develop
 import { Link } from 'react-router-dom';
 import { getRecentPost } from '../../apis/api/home/getRecentPost';
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
+
 
 function HomePage() {
   const dispatch = useDispatch<AppDispatch>();

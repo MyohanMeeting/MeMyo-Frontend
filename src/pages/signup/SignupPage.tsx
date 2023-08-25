@@ -1,6 +1,7 @@
 import signupMainImg from '../../assets/signup/signupMainImg.jpg';
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 
+
 function SignupPage() {
   return (
     <div
