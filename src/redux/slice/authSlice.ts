@@ -1,31 +1,32 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { emailSigninThunk } from '@redux/thunks/AuthThunk';
-import LocalStorageTokenStorage from '../../utils/tokenStorage';
+import { emailSigninThunk, kakaoSigninThunk } from '@redux/thunks/AuthThunk';
 
-const tokenStorage = new LocalStorageTokenStorage();
+export interface ErrorResponse {
+  status: string;
+  timestamp: string;
+  message: string;
+  debugMessage: string;
+}
 
 interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   status: 'idle' | 'loading' | 'successed' | 'failed';
+  error: string | null | undefined;
 }
 
 const initialState: AuthState = {
-  accessToken: tokenStorage.loadAccessToken(),
-  refreshToken: tokenStorage.loadRefreshToken(),
+  accessToken: null,
+  refreshToken: null,
   status: 'idle',
+  error: null,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<{ accessToken: string; refreshToken: string }>) => {
-      const { accessToken, refreshToken } = action.payload;
-      state.accessToken = accessToken;
-      state.refreshToken = refreshToken;
-    },
     removeAuth: (state) => {
       state.accessToken = null;
       state.refreshToken = null;
@@ -35,18 +36,21 @@ const authSlice = createSlice({
     builder
       .addCase(emailSigninThunk.pending, (state) => {
         state.status = 'loading';
-        console.log('loading');
+        console.log('emailSigninThunk loading');
       })
       .addCase(emailSigninThunk.fulfilled, (state, action) => {
         state.status = 'successed';
-        console.log('successed', action.type);
+        state.accessToken = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+        console.log('emailSigninThunk successed');
       })
       .addCase(emailSigninThunk.rejected, (state, action) => {
         state.status = 'failed';
-        console.log('failed', action.type);
+        state.error = action.payload?.errorMessage;
+        console.log('emailSigninThunk failed');
       });
   },
 });
 
-export const { setAuth, removeAuth } = authSlice.actions;
+export const { removeAuth } = authSlice.actions;
 export default authSlice.reducer;

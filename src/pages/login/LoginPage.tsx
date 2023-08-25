@@ -43,7 +43,14 @@ function LoginPage() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    (dispatch as ThunkDispatch<RootState, void, AnyAction>)(emailSigninThunk(inputs));
+    const actionResult = await (dispatch as ThunkDispatch<RootState, void, AnyAction>)(
+      emailSigninThunk(inputs)
+    );
+    if (emailSigninThunk.fulfilled.match(actionResult)) {
+      navigate('/');
+    } else if (emailSigninThunk.rejected.match(actionResult)) {
+      alert(actionResult.payload?.errorMessage);
+    }
   };
 
   const handleKakaoLogin = () => {
