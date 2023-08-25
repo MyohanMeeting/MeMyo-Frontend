@@ -7,14 +7,17 @@ interface Props{
     handleDelete: (id:string)=>void
 }
 function CatImg({ id, url, image, handleDelete }: Props) {
-    const onDelete = useCallback((e:React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        handleDelete(id)
+    
+    const onDelete = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+        console.log('e', e.currentTarget);
+        const { name } = e.currentTarget;
+        handleDelete(name)
     }, []);
+
     return (
         <div className='relative' id={id.toString()} >
             <img src={url} className='md:w-40 md:h-40 w-32 h-32' id={image.name} />
-            <button className='absolute top-1 right-1' onClick={onDelete}>
+            <button className='absolute top-1 right-1 w-4 h-4' onClick={onDelete} name={image.name}>
                 <AiFillCloseCircle size={20} />
             </button>
         </div>
