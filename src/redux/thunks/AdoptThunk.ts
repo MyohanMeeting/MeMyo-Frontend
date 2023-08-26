@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getAdoptComments, getAdoptDetail, getAdoptPosts } from '@redux/slice/adoptSlice';
+import { getAdoptComments, getAdoptDetail, getAdoptPosts, setAdoptForm } from '@redux/slice/adoptSlice';
 import  { AxiosResponse } from 'axios'
 import { searchFacet,AdoptPost, AdoptDetail, NoticeId, AdoptComment, userComment, uploadIdArr, AdoptForm } from '@/types/Adopt';
 import { basicApi } from '@redux/api/axiosConfig';
 
 
 const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkzMDE5MzE3fQ.45B_5hvRuykKNnOS0o_oIZ_MXHpKhbOs_-JQeBn9QAqyEsnPOYrnyuZDLDRcGB_7vwYvvOqnRJFcqyqKk2ejMw';
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkzMDIwMDg3fQ.5dluZsQWgu7yWwu8iwon3-qVFe_7St6OBRUIJtdFbOadvDeVoX2WT6wuHnMFKrXFz6EQ2Pp7t4PCfSBq3prdhg';
 
 interface AdoptResultDataType<T> {
     status: string,
@@ -74,7 +74,7 @@ export const getAdoptDetailThunk = createAsyncThunk(
 
 export const setAdoptPostImg = createAsyncThunk(
   'adopt/setAdoptPostImg',
-    async (files: File[]) => {
+    async (files: File[],thunkApi) => {
         console.log('files', files);
         const formData = new FormData();
         formData.append('category', 'CAT');
@@ -105,7 +105,8 @@ export const setAdoptPostImg = createAsyncThunk(
                 if (result.data) {
                   const { data } = result.data;
                     console.log('data', data)
-                    res= data;
+                    res = data;
+                    thunkApi.dispatch(setAdoptForm({}))
                 }
             });
         } catch (error) {

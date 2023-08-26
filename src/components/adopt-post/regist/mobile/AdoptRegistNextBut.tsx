@@ -20,13 +20,17 @@ function AdoptRegistNextBut() {
                 
                 console.log('result', result);
 
-                const {uploadId} = result.payload as {uploadId:catPicture[]}
+                const { uploadId } = result.payload as { uploadId: catPicture[] }
+                console.log('obj',{ thumbnailId: uploadId[0], catPictures: uploadId })
                 appDispatch(setAdoptForm({ thumbnailId: uploadId[0], catPictures: uploadId }));
-                thunkDispatch(setAdoptPostThunk(adoptForm as Required<AdoptForm>));
+                if (adoptForm as Required<AdoptForm>) {
+                    thunkDispatch(setAdoptPostThunk(adoptForm as Required<AdoptForm>));
+                }
+                
             }
         })
         
-    },[adoptPreviewImg])
+    },[adoptPreviewImg,adoptForm])
 
     return (
          <div className='w-full text-center flex justify-center'>    

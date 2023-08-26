@@ -25,7 +25,7 @@ function AdoptShelterForm({shelter}:Props) {
         { name: '경상북도', english: 'GYEONGSANG_BUK' }, { name: '경상남도', english: 'GYEONGSANG_NAM' },
         { name: '제주도', english: 'JEJU' }]
     const [city, setCity] = useState<string>(() => {
-        if (shelterVal.city) return cityName.find((city) => city.english === shelterVal.city)!.name;
+        if (shelterVal?.city) return cityName.find((city) => city.english === shelterVal.city)!.name;
         else return '서울시'
     });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

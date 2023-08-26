@@ -51,6 +51,9 @@ export const adoptSlice = createSlice({
         }
         
       }
+      if (Object.keys(action.payload).length == 0) {
+          adoptForm = {};
+      }
       console.log('adoptForm', adoptForm);
       return {...state,adoptForm:{...adoptForm}}
       },

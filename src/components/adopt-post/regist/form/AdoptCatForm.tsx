@@ -26,11 +26,11 @@ function AdoptCatForm({cat}:Props) {
     }, []);
    
     const [sex, setSex] = useState<string>(() => {
-        if (catVal.sex) return genderArr.find(gender => gender.english === catVal.sex)!.name;
+        if (catVal?.sex) return genderArr.find(gender => gender.english === catVal.sex)!.name;
         else return '암컷'
     });
     const [neutered, setNeutered] = useState<string>(() => {
-        if (catVal.neutered) return neuteredArr.find(neuter => neuter.english === catVal.neutered)!.name;
+        if (catVal?.neutered) return neuteredArr.find(neuter => neuter.english === catVal.neutered)!.name;
         else return '아니오'
     });
 
