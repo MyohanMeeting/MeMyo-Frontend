@@ -1,15 +1,20 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { CITY_NAME, Shelter } from '@/types/Adopt';
-import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { useAppDispatch } from '@redux/hooks';
 import { setAdoptForm } from '@redux/slice/adoptSlice';
 
-function AdoptShelterForm() {
+interface Props{
+    shelter: Partial<Shelter>
+}
+
+function AdoptShelterForm({shelter}:Props) {
     const dispatch = useAppDispatch();
-      const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
-    const [shelter, setShelter] = useState<Partial<Shelter>>(() => {
-        return adoptForm?.shelter as Partial<Shelter>;
+    const shelterVal = useMemo(() => shelter, [shelter]);
+
+    const [realshelter, setRealShelter] = useState<Partial<Shelter>>(() => {
+        return shelterVal as Partial<Shelter>;
     });
-    const [city, setCity] = useState<string>('');
+    
     const cityName = [{ name: '서울시', english: 'SEOUL' },
         { name: '세종시', english: 'SEJONG' },
         { name: '부산시', english: 'BUSAN' }, { name: '대구시', english: 'DAEGU' },
@@ -19,12 +24,16 @@ function AdoptShelterForm() {
         { name: '전라북도', english: 'JEOLLA_BUK' }, { name: '전라남도', english: 'JEOLLA_NAM' },
         { name: '경상북도', english: 'GYEONGSANG_BUK' }, { name: '경상남도', english: 'GYEONGSANG_NAM' },
         { name: '제주도', english: 'JEJU' }]
+    const [city, setCity] = useState<string>(() => {
+        if (shelterVal.city) return cityName.find((city) => city.english === shelterVal.city)!.name;
+        else return '서울시'
+    });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         console.log('name',name,value)
         if (name !== 'city') {
           
-            setShelter(prev => {
+            setRealShelter(prev => {
                 return {
                     ...prev,
                     [name]: value
@@ -36,7 +45,7 @@ function AdoptShelterForm() {
         if (name === 'city') {
             const city = cityName.find(city => city.name === value)?.english as CITY_NAME;
             setCity(value);
-            setShelter(prev => {
+            setRealShelter(prev => {
                 return {
                     ...prev,
                     city: city
@@ -47,8 +56,8 @@ function AdoptShelterForm() {
     }
 
     useEffect(() => {
-        dispatch(setAdoptForm({shelter:shelter}))
-    },[dispatch,shelter]);
+        dispatch(setAdoptForm({shelter:realshelter}))
+    },[dispatch,realshelter]);
 
     return (
         <>
@@ -76,17 +85,17 @@ function AdoptShelterForm() {
     <div className="grid md:grid-cols-2 md:gap-6 mt-4">
                          
     <div className="relative z-0 w-full mb-6 group">
-        <input type="text" name="name" id="name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-memyo-yellow4 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" placeholder=" " required value={shelter?.name || ''} onChange={handleChange} />
+        <input type="text" name="name" id="name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-memyo-yellow4 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" placeholder=" " required value={realshelter?.name || ''} onChange={handleChange} />
         <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">이름</label>
     </div>
     <div className="relative z-0 w-full mb-6 group">
-          <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="phoneNumber" id="phoneNumber" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" placeholder="010-0000-0000" required  value={shelter?.phoneNumber || ''}  onChange={handleChange} />
+          <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="phoneNumber" id="phoneNumber" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" placeholder="010-0000-0000" required  value={realshelter?.phoneNumber || ''}  onChange={handleChange} />
         <label htmlFor="phoneNumber" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-memyo-yellow4 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">전화번호</label>
     </div>
     </div>
   <div className="w-full">
     <div className="relative z-0 w-full mb-6 group">
-        <input type="text" name="address" id="address" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" placeholder=" " required  value={shelter?.address || ''}  onChange={handleChange}/>
+        <input type="text" name="address" id="address" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" placeholder=" " required  value={realshelter?.address || ''}  onChange={handleChange}/>
         <label htmlFor="address" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">주소</label>
     </div>
   </div>
@@ -96,5 +105,5 @@ function AdoptShelterForm() {
     );
 }
 
-export default AdoptShelterForm;
+export default memo(AdoptShelterForm);
 

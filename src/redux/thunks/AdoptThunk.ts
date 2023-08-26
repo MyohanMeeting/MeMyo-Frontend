@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getAdoptComments, getAdoptDetail, getAdoptPosts } from '@redux/slice/adoptSlice';
 import  { AxiosResponse } from 'axios'
-import { searchFacet,AdoptPost, AdoptDetail, NoticeId, AdoptComment, userComment } from '@/types/Adopt';
+import { searchFacet,AdoptPost, AdoptDetail, NoticeId, AdoptComment, userComment, uploadIdArr, AdoptForm } from '@/types/Adopt';
 import { basicApi } from '@redux/api/axiosConfig';
 
 
-const token ="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkyNTg1OTk4fQ.6Y1L_XaKvQrqwn9bM4h7oySeOXT-w5rhoM5gGgm5THxB9eF7TpijB4fxZKCoveo0a1ljoMCljwrualDKc7T4Hw"
+const token =
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkzMDE5MzE3fQ.45B_5hvRuykKNnOS0o_oIZ_MXHpKhbOs_-JQeBn9QAqyEsnPOYrnyuZDLDRcGB_7vwYvvOqnRJFcqyqKk2ejMw';
 
 interface AdoptResultDataType<T> {
     status: string,
@@ -30,6 +31,7 @@ export const getAdoptPostThunk = createAsyncThunk(
                 if (result.data) {
                     const { data }  = result.data;
                     if (data) {
+                        console.log('data',data)
                         thunkApi.dispatch(getAdoptPosts(data));
                     }
                 }
@@ -70,10 +72,55 @@ export const getAdoptDetailThunk = createAsyncThunk(
 
 
 
+export const setAdoptPostImg = createAsyncThunk(
+  'adopt/setAdoptPostImg',
+    async (files: File[]) => {
+        console.log('files', files);
+        const formData = new FormData();
+        formData.append('category', 'CAT');
+        for (const [_key, value] of Object.entries(files)) {
+            formData.append('files', value);
+        }
+            
+        
+        
+        console.log('폼데이터', formData);
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        }
+        let res;
+        try {
+            await basicApi<
+              AdoptResultDataType<uploadIdArr>,
+              AxiosResponse<AdoptResultDataType<uploadIdArr>, FormData>,
+              FormData
+            >({
+              method: 'post',
+              url: `/v1/files`,
+              headers: headers,
+              data: formData,
+            }).then((result) => {
+                console.log('result', result);
+                if (result.data) {
+                  const { data } = result.data;
+                    console.log('data', data)
+                    res= data;
+                }
+            });
+        } catch (error) {
+            res = error;
+            console.error('error', error);
+        }
+        return res;
+  }
+);
+
+
 // 입양 공고 올리기
 export const setAdoptPostThunk = createAsyncThunk(
     'adopt/setAdoptPost',
-    async (obj: Partial<Omit<AdoptDetail, 'noticeId'>>) => {
+    async (obj: Required<AdoptForm>) => {
        try {
             await basicApi({
                 method: 'post',
@@ -81,9 +128,7 @@ export const setAdoptPostThunk = createAsyncThunk(
                 headers: {
                     'Authorization':`Bearer ${token}`
                 },
-                data: {
-                    ...obj, thumbnail: { uploadId: 1, url: 'https://storage.googleapis.com/myohanmeeting/cat/b590421e-afa0-4ebb-a6eb-88808e30dc0c-1692021140667.jpg' },
-            catPictures:[{uploadId:2,url:"https://storage.googleapis.com/myohanmeeting/cat/a12373a0-b89d-4c19-9f4c-b5308a4629f6-1692021141642.jpg"}]    }
+                data:obj
             }).then(result => {
                 console.log('result', result);
                
@@ -144,5 +189,7 @@ export const getAdoptCommentsThunk = createAsyncThunk(
     }
 
 )
+
+
 
 

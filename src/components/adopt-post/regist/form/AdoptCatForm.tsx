@@ -1,18 +1,23 @@
-import { useCallback, useEffect, useReducer, useState } from 'react';
-import { UPDATE_CAT, catFormState, initialstate, reducer } from '@reducers/Adopt';
+import { memo, useCallback, useEffect, useMemo, useReducer, useState } from 'react';
+import { UPDATE_CAT, catFormState, reducer } from '@reducers/Adopt';
 import { Cat, gender } from '@/types/Adopt';
-import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { useAppDispatch } from '@redux/hooks';
 import { setAdoptForm } from '@redux/slice/adoptSlice';
 
-
-function AdoptCatForm() {
-    const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+interface Props{
+    cat: Partial<Cat>;
+}
+function AdoptCatForm({cat}:Props) {
     const createInitialState = (form:Partial<Cat>) => {
-        if (form === null) return initialstate;
+        if (form === null) return {};
         return form;
     }
-    const [state, dispatch] = useReducer(reducer, createInitialState(adoptForm?.cat as Partial<Cat>));
+    const catVal = useMemo(() => cat, [cat]);
+
     const appDispatch = useAppDispatch();
+    
+    const [state, dispatch] = useReducer(reducer, createInitialState(catVal as Partial<Cat>));
+    console.log('!state?.neutered')
 
     const genderArr = [{ name: '암컷', english: 'FEMALE' }, { name: '수컷', english: 'MALE' }];
     const neuteredArr = [{ name: '아니오', english: 'NONNEUTERED' },{ name: '예', english: 'NEUTERED' }];
@@ -20,8 +25,14 @@ function AdoptCatForm() {
         dispatch({ type: UPDATE_CAT, value });
     }, []);
    
-    const [sex, setSex] = useState<string>();
-    const [neutered, setNeutered] = useState<string>();
+    const [sex, setSex] = useState<string>(() => {
+        if (catVal.sex) return genderArr.find(gender => gender.english === catVal.sex)!.name;
+        else return '암컷'
+    });
+    const [neutered, setNeutered] = useState<string>(() => {
+        if (catVal.neutered) return neuteredArr.find(neuter => neuter.english === catVal.neutered)!.name;
+        else return '아니오'
+    });
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>,type:string) => {
       
@@ -38,15 +49,16 @@ function AdoptCatForm() {
 
     useEffect(() => {
         if (state == null) return;
-        console.log('state', state?.neutered ==undefined)
-        if (!state?.neutered) {
+        console.log('고양이호출?', state == null,state);
+        console.log('!state?.neutered', console.log('!state?.neutered'))
+        if (state.neutered==null) {
             handleCatForm({'neutered': 'NONNEUTERED'})
         }
-        if (!state?.sex) {
+        if (state.sex==null) {
             handleCatForm({ 'sex': 'FEMALE' });
         }
         appDispatch(setAdoptForm({ cat: state }));
-    },[state,appDispatch]);
+    },[state]);
     
     return (
                 <div className='w-full'>
@@ -58,7 +70,7 @@ function AdoptCatForm() {
                         <label className="block uppercase tracking-wide text-gray-700 font-bold mb-2" htmlFor="name">
                             이름
                         </label>
-                            <input className="border-b appearance-none bg-transparent w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" id="name" type="text" placeholder="000" value={state?.name || ''} onChange={(e)=>handleCatForm({'name':e.target.value})} />
+                            <input className="border-b appearance-none bg-transparent w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" id="name" type="text" placeholder="000" value={state?.name || ''} name='name' onChange={(e)=>handleCatForm({'name':e.target.value})} />
                         </div>
                         <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700  font-bold mb-2" htmlFor="age">
@@ -151,5 +163,4 @@ function AdoptCatForm() {
     );
 }
 
-export default AdoptCatForm;
-
+export default memo(AdoptCatForm);

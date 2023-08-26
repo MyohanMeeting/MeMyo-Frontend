@@ -1,10 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import CatImg from './CatImg';
+import { AdoptPostContext, UploadCatImg } from '@/context/AdoptFormContext';
+
 
 
 function AdoptUploadCatPic() {
     const [catImage, setCatImage] = useState<Array<File>>([]);
     const [urlArr, setUrlArr] = useState<Array<object>>([]);
+
+    const { dispatch, adoptPreviewImg } = useContext(AdoptPostContext);
     
     const visibleUrls = useMemo(() => urlArr,[urlArr]);
     const visibleCatImages = useMemo(() => catImage, [catImage]);
@@ -29,25 +33,22 @@ function AdoptUploadCatPic() {
     }, []);
 
     const removeFile = useCallback((id: string) => {
-        console.log('버튼',id)
+        
         if (id == null) return;
         setCatImage(catImage.filter((img) => img.name != id));
         setUrlArr(urlArr.filter((url) => !Object.keys(url).includes(id)))
     }, [visibleCatImages]);
 
     useEffect(() => {
-        if (catImage.length === 0) return;
-        catImage.forEach((image) => {
+        visibleCatImages?.forEach((image) => {
             const imageElem = document.getElementById(image.name);
             if (imageElem) return;
             const fileReader = new FileReader();
             fileReader.readAsDataURL(image);
             addEventListener(fileReader, image);
         });
-        
-        
-    
-    },[catImage]);
+        dispatch(UploadCatImg(visibleCatImages));
+    },[visibleCatImages]);
 
     
 
@@ -56,7 +57,7 @@ function AdoptUploadCatPic() {
         console.log('e', e);
         const files = e.target.files;
         if (!files) return;
-        setCatImage(prev => ([...prev as File[], ...files]))
+        setCatImage(prev => ([...prev as File[], ...files]));
     },[])
     const onFileDrag = useCallback((e: React.DragEvent<HTMLInputElement>) => {
         e.stopPropagation();
@@ -94,12 +95,12 @@ function AdoptUploadCatPic() {
                     <input id="cat-image" type="file" className="hidden" onChange={onFileUpdate}  multiple />
                 </label>
                 </div>    
-        {visibleCatImages.length > 0 &&
-                    (<div className='flex text-sm gap-3 flex-wrap bg-gray-100 p-2'>
-                        <div id="preview" className='w-full h-full grid grid-cols-3 gap-1'>
-                            {visibleUrls.length > 0 && visibleUrls.map((url, i) => (<CatImg url={Object.values(url)[0]} image={visibleCatImages[i]} key={i} id={Object.keys(url)[0]} handleDelete={removeFile} />))}
-                        </div>    
-                    </div>)
+            {visibleCatImages.length > 0 &&
+                (<div className='flex text-sm gap-3 flex-wrap bg-gray-100 p-2'>
+                    <div id="preview" className='w-full h-full grid grid-cols-3 gap-1'>
+                        {visibleUrls.length > 0 && visibleUrls.map((url, i) => (<CatImg url={Object.values(url)[0]} image={visibleCatImages[i]} key={i} id={Object.keys(url)[0]} handleDelete={removeFile} />))}
+                    </div>    
+                </div>)
             }
         </div>
             

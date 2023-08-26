@@ -21,16 +21,16 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => {
         const defaultMiddleware = getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [
-                    FLUSH,
-                    REHYDRATE,
-                    PAUSE,
-                    PERSIST,
-                    PURGE,
-                    REGISTER
-                ]
-            }
+          serializableCheck: {
+            ignoredActions: [
+              FLUSH,
+              REHYDRATE,
+              PAUSE,
+              PERSIST,
+              PURGE,
+              REGISTER,
+            ],
+          },
         });
         return [...defaultMiddleware];
     }    

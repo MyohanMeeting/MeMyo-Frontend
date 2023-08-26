@@ -29,7 +29,7 @@ export interface AdoptPost {
     createAt:string
 } 
 
-interface Author{
+export interface Author{
     authorId: number,
     nickname: string,
     profileImageUrl:string
@@ -61,7 +61,7 @@ export interface Shelter{
     address: string,
     phoneNumber:string
 }
-interface Thumbnail{
+export interface Thumbnail{
     uploadId: number,
     url:string
 }
@@ -69,7 +69,15 @@ export interface catPicture{
     uploadId: number,
     url:string
 }
+
+export interface AdoptPostTheme {
+    title: string,
+    content:string
+}
+
 export type NoticeId = NonNullable<number | null>
+
+export type uploadIdArr = number[];
 
 export interface AdoptDetail{
     noticeId: NoticeId,
@@ -97,3 +105,11 @@ export interface AdoptComment{
 
 export type userComment = Pick<AdoptComment,"noticeId" | "content">
 
+export interface AdoptForm {
+    cat: Partial<Cat>;
+    shelter: Partial<Shelter>;
+    thumbnailId: Thumbnail['uploadId'];
+    catPictures: catPicture[];
+    title: string;
+    content: string;
+}
