@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/configureStore';
 import { Link } from 'react-router-dom';
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
 import { useThunkDispatch } from '@redux/hooks';
 import { getRecentPostThunk } from '@redux/thunks/HomeThunk';
+import { RootState } from '@redux/store';
 
 function HomePage() {
   const dispatch = useThunkDispatch();

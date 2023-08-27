@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PostFavoritesRequest, postFavorites } from '../../apis/utils/postFavorites';
 
 interface PostData {
   noticeId: number;
@@ -19,18 +18,8 @@ interface PostData {
 function Card({ post }: { post: PostData }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  async function handleHeartClick() {
-    const postFavoritesRequest: PostFavoritesRequest = {
-      noticeId: post.noticeId,
-    };
-    try {
-      const res = await postFavorites(postFavoritesRequest);
-      if (res.status === 200) {
-        setIsFavorite(!isFavorite);
-      }
-    } catch (e) {
-      alert('최애친구 등록에 실패했습니다.');
-    }
+  function handleHeartClick() {
+    setIsFavorite(!isFavorite);
   }
 
   return (

@@ -15,14 +15,10 @@ interface RecentPostState {
     commentCount: number;
     createdAt: string;
   }[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
 }
 
 const initialState: RecentPostState = {
   recentPost: [],
-  status: 'idle',
-  error: null,
 };
 
 const recentPostSlice = createSlice({
