@@ -26,10 +26,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    removeAuth: (state) => {
-      state.accessToken = null;
-      state.refreshToken = null;
-    },
+    removeAuth: () => initialState,
   },
   extraReducers: (builder) => {
     builder
