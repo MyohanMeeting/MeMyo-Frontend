@@ -162,9 +162,9 @@ function KakaoCallBack() {
   };
 
   useEffect(() => {
-    if (status === 'successed') {
-      navigate('/');
-    }
+    // if (status === 'successed') {
+    //   navigate('/');
+    // }
   }, []);
 
   const handleKakaoSignup = () => {

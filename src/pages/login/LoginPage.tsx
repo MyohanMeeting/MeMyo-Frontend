@@ -39,7 +39,7 @@ function LoginPage() {
   const { status } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    if (status === 'successed') navigate('/');
+    // if (status === 'successed') navigate('/');
   }, []);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {

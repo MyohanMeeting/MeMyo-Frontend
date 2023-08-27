@@ -37,9 +37,6 @@ export const emailSigninThunk = createAsyncThunk<
     const res = await basicApi<SigninResponse>({
       method: 'POST',
       url: '/v1/auth/signin/direct',
-      headers: {
-        withCredentials: true,
-      },
       data: JSON.stringify(inputs),
     });
     return res.data.data;
@@ -60,13 +57,32 @@ export const kakaoSigninThunk = createAsyncThunk<
     const res = await basicApi<SigninResponse>({
       method: 'POST',
       url: '/v1/auth/signin/oauth',
-      headers: {
-        withCredentials: true,
-      },
       data: JSON.stringify({
         oauthType: 'KAKAOTALK',
         oauthId,
       }),
+    });
+    return res.data.data;
+  } catch (error) {
+    if (isAxiosError<ErrorResponse, any>(error)) {
+      return thunkAPI.rejectWithValue({
+        message: error.response?.data.status || 'UNKNOWN',
+      });
+    }
+    throw error;
+  }
+});
+
+export const refreshTokenThunk = createAsyncThunk<
+  SigninResponseData,
+  string,
+  { rejectValue: MyKnownError }
+>('auth/refreshTokenThunk', async (refreshToken, thunkAPI) => {
+  try {
+    const res = await basicApi<SigninResponse>({
+      method: 'POST',
+      url: '/v1/auth/refresh',
+      data: JSON.stringify({ refreshToken }),
     });
     return res.data.data;
   } catch (error) {
