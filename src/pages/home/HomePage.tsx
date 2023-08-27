@@ -1,39 +1,22 @@
-<<<<<<< HEAD
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../redux/configureStore';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/configureStore';
-import {
-  getRecentPostFailure,
-  getRecentPostStart,
-  getRecentPostSuccess,
-} from '../../redux/modules/recentPost';
-=======
-
->>>>>>> develop
 import { Link } from 'react-router-dom';
-import { getRecentPost } from '../../apis/api/home/getRecentPost';
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
-
+import { useThunkDispatch } from '@redux/hooks';
+import { getRecentPostThunk } from '@redux/thunks/HomeThunk';
 
 function HomePage() {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useThunkDispatch();
   const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
 
   useEffect(() => {
-    async function fetchRecentPost() {
-      try {
-        dispatch(getRecentPostStart());
-        const res = await getRecentPost();
-        dispatch(getRecentPostSuccess(res));
-      } catch (error) {
-        dispatch(getRecentPostFailure('error'));
-      }
-    }
-    fetchRecentPost();
+    dispatch(getRecentPostThunk({})); // 빈객체 dispatch 하는 이유?
   }, [dispatch]);
+
+  if (!recentPost) return null;
 
   return (
     <div className="mt-4">

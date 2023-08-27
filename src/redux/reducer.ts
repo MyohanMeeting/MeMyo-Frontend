@@ -1,33 +1,24 @@
 import { combineReducers } from 'redux';
-<<<<<<< HEAD
-import adoptReducer from './slice/adoptSlice';
-
-const rootReducer = combineReducers({
-  adopt: adoptReducer,
-});
-
-export default rootReducer;
-=======
-import adoptReducer from '@redux/slice/adoptSlice'
+import adoptReducer from '@redux/slice/adoptSlice';
 import localStorage from 'redux-persist/es/storage';
 import { persistReducer } from 'redux-persist';
+import recentPost from './slice/recentPostSlice';
 
 const rootPersistConfig = {
-    key: 'root',
-    storage: localStorage,
-    blacklist:['adopt']
-}
+  key: 'root',
+  storage: localStorage,
+  blacklist: ['adopt'],
+};
 
 const adoptPersistConfig = {
-    key: "adopt-regist",
-    storage: localStorage,
-    whitelist: ['adoptForm']
-}
-
+  key: 'adopt-regist',
+  storage: localStorage,
+  whitelist: ['adoptForm'],
+};
 
 const rootReducer = combineReducers({
-    adopt: persistReducer(adoptPersistConfig, adoptReducer)
+  adopt: persistReducer(adoptPersistConfig, adoptReducer),
+  recentPost: recentPost,
 });
 
-export const persistedReducer = persistReducer(rootPersistConfig,rootReducer);
->>>>>>> develop
+export const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

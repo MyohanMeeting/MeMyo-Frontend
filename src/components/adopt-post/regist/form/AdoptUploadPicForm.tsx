@@ -1,31 +1,25 @@
-<<<<<<< HEAD
-import AdoptCatForm from './AdoptCatForm';
-=======
 import AdoptCatForm from '@components/adopt-post/regist/form/AdoptCatForm';
->>>>>>> develop
-import 냥이5 from '../../../../assets/adopt/냥이5.jpg'
+import 냥이5 from '../../../../assets/adopt/냥이5.jpg';
 
 function AdoptUploadPicForm() {
-    return (
-        <>
-            <h6 className='text-base font-bold p-2 mt-5'>등록할 유기묘에 대한 정보를 입력해주세요</h6>
-            <h4 className='text-base font-bold mt-4 p-2'>사진 추가하기(필수)</h4>
-            <button className='text-center w-32 border-2 p-2 rounded-md hover:border-gray-700 mt-2'>
-                사진 첨부
-            </button>  
-            
-            <div className='flex w-full mt-5 gap-3 md:flex-row flex-col mb-20'>
-                <div className='md:w-3/5 w-full bg-gray-300 p-2 h-full pb-5 mt-7'>
-                    <img src={냥이5}/>
-                    <img src={냥이5} />
-                    <img src={냥이5} />
-                </div>
-                <AdoptCatForm/>
-                
-            </div>
-        </>
-    );
+  return (
+    <>
+      <h6 className="p-2 mt-5 text-base font-bold">등록할 유기묘에 대한 정보를 입력해주세요</h6>
+      <h4 className="p-2 mt-4 text-base font-bold">사진 추가하기(필수)</h4>
+      <button className="w-32 p-2 mt-2 text-center border-2 rounded-md hover:border-gray-700">
+        사진 첨부
+      </button>
+
+      <div className="flex flex-col w-full gap-3 mt-5 mb-20 md:flex-row">
+        <div className="w-full h-full p-2 pb-5 bg-gray-300 md:w-3/5 mt-7">
+          <img src={냥이5} />
+          <img src={냥이5} />
+          <img src={냥이5} />
+        </div>
+        <AdoptCatForm />
+      </div>
+    </>
+  );
 }
 
 export default AdoptUploadPicForm;
-
