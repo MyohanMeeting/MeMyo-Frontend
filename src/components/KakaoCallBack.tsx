@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import { kakaoSigninThunk } from '@redux/thunks/AuthThunk';
-import { handleResponse } from '@/utils/ApiResponseHandler';
+import { handleLoginResponse } from '@/utils/ApiResponseHandler';
 import type { ErrorResponse } from '../pages/login/LoginPage';
 import { checkDuplicateEmailOrNickname } from '../services/authService';
 
@@ -117,7 +117,7 @@ function KakaoCallBack() {
                 if (kakaoSigninThunk.fulfilled.match(actionResult)) {
                   navigate('/');
                 } else if (kakaoSigninThunk.rejected.match(actionResult)) {
-                  const errorMessage = handleResponse(actionResult.payload?.message ?? '');
+                  const errorMessage = handleLoginResponse(actionResult.payload?.message ?? '');
                   alert(errorMessage);
                   setInputs({
                     email: res.data.kakao_account.email ?? '',

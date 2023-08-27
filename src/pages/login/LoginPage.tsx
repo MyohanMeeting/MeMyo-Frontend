@@ -7,7 +7,7 @@ import type { RootState } from '@redux/store';
 import { emailSigninThunk } from '@redux/thunks/AuthThunk';
 import loginImg from '../../assets/login/login-cat-image.jpeg';
 import loginBgImg from '../../assets/login/login-background.jpeg';
-import { handleResponse } from '@/utils/ApiResponseHandler';
+import { handleLoginResponse } from '@/utils/ApiResponseHandler';
 export interface ErrorResponse {
   status: string;
   timestamp: string;
@@ -50,7 +50,7 @@ function LoginPage() {
     if (emailSigninThunk.fulfilled.match(actionResult)) {
       navigate('/');
     } else if (emailSigninThunk.rejected.match(actionResult)) {
-      const errorMessage = handleResponse(actionResult.payload?.message ?? '');
+      const errorMessage = handleLoginResponse(actionResult.payload?.message ?? '');
       alert(errorMessage);
     }
   };

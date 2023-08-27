@@ -1,4 +1,4 @@
-export function handleResponse(status: string) {
+export function handleLoginResponse(status: string) {
   switch (status) {
     case '200 OK':
       return '성공';

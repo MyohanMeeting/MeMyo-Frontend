@@ -1,10 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { basicApi } from '@redux/api/axiosConfig';
-import { type ErrorResponse } from '@redux/slice/authSlice';
 import { isAxiosError } from 'axios';
+import { basicApi } from '@redux/api/axiosConfig';
 
-// 통신 에러 시 보여줄 에러 메세지의 타입
+interface ErrorResponse {
+  status: string;
+  timestamp: string;
+  message: string;
+  debugMessage: {
+    [key: string]: string;
+  };
+}
+
 interface MyKnownError {
   message: string;
 }
@@ -38,7 +45,7 @@ export const emailSigninThunk = createAsyncThunk<
     return res.data.data;
   } catch (error) {
     if (isAxiosError<ErrorResponse, any>(error)) {
-      return thunkAPI.rejectWithValue({ message: error.response?.data.message || 'UNKNOWN' });
+      return thunkAPI.rejectWithValue({ message: error.response?.data.status || 'UNKNOWN' });
     }
     throw error;
   }
@@ -65,7 +72,7 @@ export const kakaoSigninThunk = createAsyncThunk<
   } catch (error) {
     if (isAxiosError<ErrorResponse, any>(error)) {
       return thunkAPI.rejectWithValue({
-        message: error.response?.data.message || 'UNKNOWN',
+        message: error.response?.data.status || 'UNKNOWN',
       });
     }
     throw error;
