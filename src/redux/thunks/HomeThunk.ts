@@ -3,11 +3,11 @@ import { getRecentPost } from '@redux/slice/recentPostSlice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkyNTg1OTk4fQ.6Y1L_XaKvQrqwn9bM4h7oySeOXT-w5rhoM5gGgm5THxB9eF7TpijB4fxZKCoveo0a1ljoMCljwrualDKc7T4Hw';
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE2OTMwODAzODd9.yM_EzxOw7sq0TWR-rSPTVFOVUFwtgs9Sce2xOvuyarQOvJ13CSy2Bnk5zl8qoOyl3IT2VAvEI36lc5AG5nTKYg';
 
 export const getRecentPostThunk = createAsyncThunk(
   'recentPost/getRecentPost',
-  async (facet: any, thunkApi) => {
+  async (recentPost: any, thunkApi) => {
     try {
       await basicApi({
         method: 'get',
@@ -15,7 +15,7 @@ export const getRecentPostThunk = createAsyncThunk(
         headers: {
           withCredentials: true,
         },
-        params: { ...facet },
+        params: { ...recentPost },
       }).then((result) => {
         if (result.data) {
           const { data } = result.data;

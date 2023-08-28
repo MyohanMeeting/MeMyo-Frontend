@@ -1,4 +1,12 @@
+import { useThunkDispatch } from '@redux/hooks';
+import { setIsFavoriteFriends } from '@redux/slice/favoriteFriendSlice';
+import { RootState } from '@redux/store';
+import {
+  deleteFavoriteFriendThunk,
+  setFavoriteFriendThunk,
+} from '@redux/thunks/FavoriteFriendThunk';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 interface PostData {
@@ -17,9 +25,18 @@ interface PostData {
 
 function Card({ post }: { post: PostData }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const isFavoriteFriend = useSelector((state: RootState) => state.favoriteFriend.isFavorite);
+  const thunkDispatch = useThunkDispatch();
+  const dispatch = useDispatch();
 
-  function handleHeartClick() {
+  function handleHeartClick(noticeId: number) {
     setIsFavorite(!isFavorite);
+    dispatch(setIsFavoriteFriends(!isFavorite));
+    if (isFavoriteFriend) {
+      thunkDispatch(deleteFavoriteFriendThunk(noticeId));
+    } else {
+      thunkDispatch(setFavoriteFriendThunk(noticeId));
+    }
   }
 
   return (
@@ -33,7 +50,7 @@ function Card({ post }: { post: PostData }) {
       <div className="p-2">
         <div className="flex items-center justify-between mb-2">
           <span className="font-semibold">{post.catName}</span>
-          <button onClick={() => handleHeartClick()}>
+          <button onClick={() => handleHeartClick(post.noticeId)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
