@@ -13,7 +13,7 @@ function HomePage() {
   const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
 
   useEffect(() => {
-    dispatch(getRecentPostThunk({})); // 빈객체 dispatch 하는 이유?
+    dispatch(getRecentPostThunk({}));
   }, [dispatch]);
 
   if (!recentPost) return null;
