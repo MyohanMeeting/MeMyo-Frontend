@@ -43,21 +43,23 @@ function NavBar() {
 
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       </nav>
-      <div className="hidden md:block">
+      <div className="hidden px-2 shadow-sm md:block">
         <nav className="flex items-center justify-between w-full py-8">
           <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
             묘한만남
           </Link>
           <ul className="flex items-center space-x-4">
             <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              <Link to="/signup">Signup</Link>
+              <Link to="/signup">회원가입</Link>
             </li>
             <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              <Link to="/login">Signin</Link>
+              <Link to="/login">로그인</Link>
             </li>
           </ul>
           <ul className="flex items-center space-x-8">
-            <li className="text-lg font-semibold">입양</li>
+            <li className="text-lg font-semibold">
+              <Link to='/adopt'>입양</Link>
+            </li>
             <li className="text-lg font-semibold">커뮤니티</li>
             <Link to="/mypage">
               <li className="text-lg font-semibold">마이페이지</li>

@@ -1,6 +1,7 @@
 import signupMainImg from '../../assets/signup/signupMainImg.jpg';
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 
+
 function SignupPage() {
   return (
     <div
@@ -10,9 +11,9 @@ function SignupPage() {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
       }}
-      className="relative flex items-center justify-center max-w-5xl min-h-screen md:p-16"
+      className="flex items-center justify-center max-w-5xl min-h-screen md:p-16"
     >
-      <div className="absolute flex w-4/5 bg-opacity-50 shadow-2xl bottom-12 bg-memyo-yellow8 rounded-2xl">
+      <div className="flex w-4/5 bg-opacity-50 shadow-2xl bottom-12 bg-memyo-yellow8 rounded-2xl">
         <div className="flex flex-col w-7/12 m-auto">
           <div className="text-center md:mt-8">
             <h1 className="hidden text-4xl font-semibold text-white shadow-inner md:block">

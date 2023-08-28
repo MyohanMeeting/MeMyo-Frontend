@@ -18,10 +18,16 @@
     "framer-motion": "^10.12.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
     "react-redux": "^8.0.5",
     "react-router": "^6.11.2",
     "react-router-dom": "^6.11.2",
+<<<<<<< HEAD
     "tailwind-scrollbar-hide": "^1.1.7"
+=======
+    "redux-persist": "^6.0.0",
+    "swiper": "^10.2.0"
+>>>>>>> develop
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

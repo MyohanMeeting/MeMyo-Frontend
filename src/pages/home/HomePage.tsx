@@ -13,6 +13,7 @@ import { getRecentPost } from '../../apis/api/home/getRecentPost';
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
 
+
 function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
   const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
@@ -31,7 +32,7 @@ function HomePage() {
   }, [dispatch]);
 
   return (
-    <main>
+    <div className="mt-4">
       <div className="mb-2 text-lg md:hidden">
         <div className="flex">
           <p>안녕하세요,</p>
@@ -40,6 +41,7 @@ function HomePage() {
         </div>
         <p>반려묘 찾는 것을 도와드릴게요</p>
       </div>
+
       <section className="flex items-center border border-memyo-yellow8 rounded-2xl md:border-0">
         <img
           className="hidden rounded-md md:block"
@@ -96,7 +98,7 @@ function HomePage() {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 
