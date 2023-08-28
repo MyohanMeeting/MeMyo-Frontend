@@ -1,7 +1,6 @@
 {
   "name": "memyo-frontend",
   "private": true,
-  "homepage": "https://myohanmeeting.github.io/MeMyo-Frontend/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
