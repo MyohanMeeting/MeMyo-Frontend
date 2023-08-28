@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { PayloadAction, createAction } from '@reduxjs/toolkit/dist/createAction';
+import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
 import App from './App';
 
 type stateType = {
