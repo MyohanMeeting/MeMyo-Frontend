@@ -60,7 +60,9 @@ const router = createBrowserRouter([
     path: "about",
     element: <div>About</div>,
   },
-]);
+], {
+  basename:"/MeMyo-Frontend/"
+});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
