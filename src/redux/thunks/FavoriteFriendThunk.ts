@@ -1,5 +1,5 @@
 import { basicApi } from '@redux/api/axiosConfig';
-import { getFavoriteFriends } from '@redux/slice/favoriteFriendSlice';
+import { getFavoriteFriends, getFavoriteFriendsId } from '@redux/slice/favoriteFriendSlice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const token =
@@ -7,17 +7,23 @@ const token =
 
 export const setFavoriteFriendThunk = createAsyncThunk(
   'favoriteFriend/setFavoriteFriend',
-  async (noticeId: number) => {
+  async (noticeId: number, thunkApi) => {
     try {
       await basicApi({
         method: 'post',
-        url: '/v1/favorite',
+        url: `/v1/favorite`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data: { noticeId: noticeId },
+        params: {
+          noticeId,
+        },
       }).then((result) => {
-        console.log('result', result);
+        if (result.data) {
+          const { data } = result.data;
+          thunkApi.dispatch(getFavoriteFriendsId(data));
+        }
+        console.log('result', result.statusText);
       });
     } catch (error) {
       console.log('error', error);
@@ -27,15 +33,15 @@ export const setFavoriteFriendThunk = createAsyncThunk(
 
 export const deleteFavoriteFriendThunk = createAsyncThunk(
   'favoriteFriend/deleteFavoriteFriend',
-  async (noticeId: number) => {
+  async (favoriteId: number) => {
     try {
       await basicApi({
         method: 'delete',
-        url: `/v1/favorite/${noticeId}`,
+        url: `/v1/favorite/${favoriteId}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data: noticeId,
+        // params: { favoriteId },
       }).then((result) => {
         console.log('result', result);
       });

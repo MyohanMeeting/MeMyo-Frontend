@@ -1,12 +1,11 @@
 import { useThunkDispatch } from '@redux/hooks';
-import { setIsFavoriteFriends } from '@redux/slice/favoriteFriendSlice';
 import { RootState } from '@redux/store';
 import {
   deleteFavoriteFriendThunk,
   setFavoriteFriendThunk,
 } from '@redux/thunks/FavoriteFriendThunk';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 interface PostData {
@@ -25,19 +24,17 @@ interface PostData {
 
 function Card({ post }: { post: PostData }) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const isFavoriteFriend = useSelector((state: RootState) => state.favoriteFriend.isFavorite);
   const thunkDispatch = useThunkDispatch();
-  const dispatch = useDispatch();
+  const favoriteId = useSelector((state: RootState) => state.favoriteFriend.favoriteId);
 
   function handleHeartClick(noticeId: number) {
     setIsFavorite(!isFavorite);
-    dispatch(setIsFavoriteFriends(!isFavorite));
-    if (isFavoriteFriend) {
+    if (isFavorite) {
       thunkDispatch(deleteFavoriteFriendThunk(noticeId));
     } else {
       thunkDispatch(setFavoriteFriendThunk(noticeId));
     }
-  }
+  } // favoriteId 받아야함
 
   return (
     <div className="box-border transition-all border rounded-md shadow-sm cursor-pointer border-memyo-yellow4 hover:bg-memyo-yellow2 hover:p-2 hover:shadow-md hover:border-memyo-yellow2">

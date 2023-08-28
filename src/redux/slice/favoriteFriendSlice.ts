@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   favoriteFriends: [],
   isFavorite: false,
+  favoriteId: '',
 };
 
 export const FavoriteFriendSlice = createSlice({
@@ -13,12 +14,12 @@ export const FavoriteFriendSlice = createSlice({
       state.favoriteFriends = action.payload;
       return state;
     },
-    setIsFavoriteFriends: (state, action) => {
-      state.isFavorite = action.payload;
+    getFavoriteFriendsId: (state, action) => {
+      state.favoriteId = action.payload;
       return state;
     },
   },
 });
 
-export const { getFavoriteFriends, setIsFavoriteFriends } = FavoriteFriendSlice.actions;
+export const { getFavoriteFriends, getFavoriteFriendsId } = FavoriteFriendSlice.actions;
 export default FavoriteFriendSlice.reducer;

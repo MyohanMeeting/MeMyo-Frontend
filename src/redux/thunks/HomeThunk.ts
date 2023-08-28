@@ -15,7 +15,6 @@ export const getRecentPostThunk = createAsyncThunk(
         headers: {
           withCredentials: true,
         },
-        params: { ...recentPost },
       }).then((result) => {
         if (result.data) {
           const { data } = result.data;
