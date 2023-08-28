@@ -40,7 +40,7 @@ const paths: RouteObject[] = [
         element: <AdoptForm />,
       },
        {
-        path: '/adopt/apply',
+        path: '/adopt/apply/:noticeId',
         element: <AdoptApply />,
       },
       {

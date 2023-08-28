@@ -19,7 +19,7 @@ function AdoptDetail() {
 
   return (
     <div className='flex flex-col'>
-          {adopt && <AdoptDetailCard adopt={adopt} />}
+          {adopt && <AdoptDetailCard adopt={adopt}  />}
     </div>
   );
 }

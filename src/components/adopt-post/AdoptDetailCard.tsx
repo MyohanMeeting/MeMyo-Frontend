@@ -15,7 +15,7 @@ import { Link, useParams } from 'react-router-dom';
 import AdoptAddMyReview from './detail/AdoptAddMyReview';
 
 interface Props{
-    adopt:AdoptDetail
+    adopt: AdoptDetail
 }
 function AdoptDetailCard({ adopt }: Props) {
     const {noticeId} = useParams();
@@ -87,7 +87,7 @@ function AdoptDetailCard({ adopt }: Props) {
                               <button className='w-10 h-10 mr-2 bg-gray-100 text-center flex justify-center items-center'>
                                   <AiOutlineHeart/>
                               </button>
-                              <Link to='/adopt/apply' className='w-full bg-memyo-yellow6 hover:bg-memyo-yellow8 text-white text-center flex justify-center items-center'>입양 신청하기</Link>
+                              <Link to={`/adopt/apply/${noticeId}`} className='w-full bg-memyo-yellow6 hover:bg-memyo-yellow8 text-white text-center flex justify-center items-center'>입양 신청하기</Link>
                           </div>    
                       </div>
                  </div>

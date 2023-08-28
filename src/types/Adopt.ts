@@ -1,3 +1,4 @@
+import { Survey } from './Adopt';
 export interface searchFacet {
   page: number;
   limit: number;
@@ -112,4 +113,36 @@ export interface AdoptForm {
     catPictures: catPicture[];
     title: string;
     content: string;
+}
+
+export type Marrried = 'MARRIED' | 'UNMARRIED';
+
+export interface ApplyUser{
+    name: string,
+    age: number,
+    gender: gender,
+    address: string,
+    phoneNumber: string,
+    job: string,
+    married:Marrried
+}
+
+export type Answer = 'YES' | 'NO';
+
+export interface Survey{
+    answer1_1: Answer,
+    answer1_2: string,
+    answer2_1: Answer,
+    answer2_2: string,
+    answer3: string,
+    answer4: Answer,
+    answer5: string,
+    answer6: Answer
+}
+
+export interface AdoptApply{
+    noticeId:NoticeId,
+    applicant: ApplyUser,
+    survey: Survey,
+    content:string
 }
