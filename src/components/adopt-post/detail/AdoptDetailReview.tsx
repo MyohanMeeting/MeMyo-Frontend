@@ -1,5 +1,5 @@
-import 냥이5 from '@/assets/adopt/냥이5.jpg';
-import { NoticeId } from '@/types/Adopt';
+
+import { AdoptComment, NoticeId } from '@/types/Adopt';
 import { useAppSelector, useThunkDispatch } from '@redux/hooks';
 import { getAdoptCommentsThunk } from '@redux/thunks/AdoptThunk';
 import { useEffect } from 'react';
@@ -19,7 +19,7 @@ function AdoptDetailReview({ noticeId }: Props) {
         <>
             <div className='border-b border-black'>
                 <h2 className='p-2 text-md font-semibold border-b'>댓글 보기</h2>
-            {comments?.map((comment) => {
+            {comments?.map((comment:AdoptComment) => {
                 return (
                     
                     <div className='w-full p-2 flex border-b'>
