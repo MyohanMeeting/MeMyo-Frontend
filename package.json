@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "deploy": "gh-pages -d dist",
-    "postbuild": "copy dist\\index.html dist\\404.html",
+    "postbuild": "cp dist/index.html dist/404.html",
     "predeploy": "npm run build",
     "preview": "vite preview",
     "test": "jest"
