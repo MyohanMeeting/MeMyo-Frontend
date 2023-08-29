@@ -1,6 +1,6 @@
+import { isAxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { isAxiosError } from 'axios';
 import { basicApi } from '@redux/api/axiosConfig';
 
 interface ErrorResponse {
@@ -17,6 +17,9 @@ interface MyKnownError {
 }
 
 interface SigninResponseData {
+  email: string;
+  nickName: string;
+  profileImageUrl: string;
   accessToken: string;
   refreshToken: string;
 }

@@ -1,5 +1,7 @@
+import { RootState } from '@redux/store';
 import { createSlice } from '@reduxjs/toolkit';
-import { emailSigninThunk, kakaoSigninThunk, refreshTokenThunk } from '@redux/thunks/AuthThunk';
+
+import { emailSigninThunk, kakaoSigninThunk } from '@redux/thunks/AuthThunk';
 
 export interface MessageResponse {
   status: string;
@@ -13,6 +15,7 @@ interface AuthState {
   refreshToken: string | null;
   status: 'idle' | 'loading' | 'successed' | 'failed';
   message: string | null | undefined;
+  user: { email: string; nickName: string; profileImageUrl: string } | null;
 }
 
 const initialState: AuthState = {
@@ -20,6 +23,7 @@ const initialState: AuthState = {
   refreshToken: null,
   status: 'idle',
   message: null,
+  user: null,
 };
 
 const authSlice = createSlice({
@@ -36,9 +40,11 @@ const authSlice = createSlice({
       })
       .addCase(emailSigninThunk.fulfilled, (state, action) => {
         console.log('emailSigninThunk successed');
+        const { email, nickName, profileImageUrl, accessToken, refreshToken } = action.payload;
         state.status = 'successed';
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
+        state.user = { email, nickName, profileImageUrl };
       })
       .addCase(emailSigninThunk.rejected, (state, action) => {
         console.log('emailSigninThunk failed');
@@ -51,27 +57,14 @@ const authSlice = createSlice({
       })
       .addCase(kakaoSigninThunk.fulfilled, (state, action) => {
         console.log('kakaoSigninThunk successed');
+        const { email, nickName, profileImageUrl, accessToken, refreshToken } = action.payload;
         state.status = 'successed';
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
+        state.user = { email, nickName, profileImageUrl };
       })
       .addCase(kakaoSigninThunk.rejected, (state, action) => {
         console.log('kakaoSigninThunk failed');
-        state.status = 'failed';
-        state.message = action.payload?.message;
-      })
-      .addCase(refreshTokenThunk.pending, (state) => {
-        console.log('refreshTokenThunk loading');
-        state.status = 'loading';
-      })
-      .addCase(refreshTokenThunk.fulfilled, (state, action) => {
-        console.log('refreshTokenThunk successed');
-        state.status = 'successed';
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-      })
-      .addCase(refreshTokenThunk.rejected, (state, action) => {
-        console.log('refreshTokenThunk failed');
         state.status = 'failed';
         state.message = action.payload?.message;
       });
@@ -80,3 +73,7 @@ const authSlice = createSlice({
 
 export const { removeAuth } = authSlice.actions;
 export default authSlice.reducer;
+
+export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const selectCurrentAccessToken = (state: RootState) => state.auth.accessToken;
+export const selectCurrentRefreshToken = (state: RootState) => state.auth.refreshToken;

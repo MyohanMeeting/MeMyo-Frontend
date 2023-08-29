@@ -1,24 +1,10 @@
-import { removeAuth } from '@redux/slice/authSlice';
-import { RootState } from '@redux/store';
-import jwtDecode from 'jwt-decode';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-interface JwtPayload {
-  sub: string;
-  auth: 'ROLE_USER';
-  memberId: number;
-  exp: number;
-}
+import { selectCurrentUser } from '@redux/slice/authSlice';
 
 function NavBar() {
-  const dispatch = useDispatch();
-  const { accessToken } = useSelector((state: RootState) => state.auth);
-  const decodedToken: JwtPayload | null = accessToken ? jwtDecode(accessToken) : null;
-
-  const signOut = () => {
-    dispatch(removeAuth());
-  };
+  const user = useSelector(selectCurrentUser);
 
   return (
     <>
@@ -56,12 +42,19 @@ function NavBar() {
           <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
             묘한만남
           </Link>
-          {decodedToken ? (
+          {user ? (
             <div className="flex items-center gap-x-2">
-              <div>
-                <span className="font-medium">{decodedToken.sub.split('@')[0]}</span>님 안녕하세요
-              </div>
-              <button onClick={signOut} className="px-1 rounded-sm bg-red-100">
+              <img
+                src={user.profileImageUrl}
+                className=" border border-gray-200 rounded-full w-10 h-10"
+              />
+              <p>
+                <span className="font-medium">{user.nickName}</span>님 안녕하세요
+              </p>
+              <button
+                onClick={() => {}}
+                className="px-1 rounded-sm text-sm bg-opacity-20 hover:bg-opacity-40 transition-colors bg-memyo-yellow10"
+              >
                 Sign Out
               </button>
             </div>
@@ -79,7 +72,6 @@ function NavBar() {
             <li className="text-lg font-semibold">
               <Link to="/adopt">입양</Link>
             </li>
-            <li className="text-lg font-semibold">커뮤니티</li>
             <li className="text-lg font-semibold">공지사항</li>
           </ul>
         </nav>

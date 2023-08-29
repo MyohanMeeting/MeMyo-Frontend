@@ -20,7 +20,7 @@ const adoptPersistConfig = {
 const authPersistConfig = {
   key: 'auth',
   storage: localStorage,
-  whitelist: ['accessToken', 'refreshToken'],
+  whitelist: ['accessToken', 'refreshToken', 'user'],
 };
 
 const rootReducer = combineReducers({
