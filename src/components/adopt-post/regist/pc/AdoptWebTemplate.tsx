@@ -3,7 +3,7 @@ import AdoptShelterForm from '@components/adopt-post/regist/form/AdoptShelterFor
 import AdoptUploadPicForm from '@components/adopt-post/regist/form/AdoptUploadPicForm';
 import { useAppSelector } from '@redux/hooks';
 import { Cat, Shelter } from '@/types/Adopt';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import AdoptRegistNextBut from '../mobile/AdoptRegistNextBut';
 
 
@@ -37,5 +37,5 @@ function AdoptWebTemplate() {
     );
 }
 
-export default AdoptWebTemplate;
+export default memo(AdoptWebTemplate);
 

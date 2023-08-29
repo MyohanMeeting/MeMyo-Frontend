@@ -1,17 +1,18 @@
 import AdoptFormContextProvider from '@/context/AdoptFormContext';
-import AdoptRegistNextBut from '@components/adopt-post/regist/mobile/AdoptRegistNextBut';
+// import AdoptRegistNextBut from '@components/adopt-post/regist/mobile/AdoptRegistNextBut';
 import AdoptWebTemplate from '@components/adopt-post/regist/pc/AdoptWebTemplate';
-import useResponsiveStatus from '@hooks/useResponsiveStatus';
-import { useMemo } from 'react';
+// import useResponsiveStatus from '@hooks/useResponsiveStatus';
+// import { useMemo } from 'react';
 
 function AdoptForm() {
   
-  const isMobile = useResponsiveStatus();
-  const isModileVal = useMemo(() => isMobile, [isMobile]);
+  // const isMobile = useResponsiveStatus();
+  // const isModileVal = useMemo(() => isMobile, [isMobile]);
   return (
       <>
         <AdoptFormContextProvider>
-        {!isModileVal && <AdoptWebTemplate />}
+          <AdoptWebTemplate />
+        {/* {!isModileVal && <AdoptWebTemplate />}
           {isModileVal && 
               ( <div className='flex flex-col'>
                 <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center">
@@ -33,7 +34,7 @@ function AdoptForm() {
                     <AdoptRegistNextBut/>
               </section>
         </div>)
-      }
+      } */}
         </AdoptFormContextProvider>
       </>
   );

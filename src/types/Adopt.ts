@@ -1,4 +1,3 @@
-import { Survey } from './Adopt';
 export interface searchFacet {
   page: number;
   limit: number;
@@ -36,7 +35,7 @@ export interface Author{
     profileImageUrl:string
 }
 
-export type gender = 'MALE' | 'FEMALE';
+export type gender = 'MALE' | 'FEMALE'|'OTHER';
 
 export interface Cat{
     name: string,

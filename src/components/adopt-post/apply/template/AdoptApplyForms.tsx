@@ -1,12 +1,11 @@
 import AdoptApplyUser from '@components/adopt-post/apply/form/AdoptApplyUser';
 import AdoptApplyCheck from '@components/adopt-post/apply/form/AdoptApplyCheck';
-import AdoptAgreeCheck from '@components/adopt-post/apply/form/AdoptAgreeCheck';
 import AdoptAgreePromise from '@components/adopt-post/apply/form/AdoptAgreePromise';
 import { useParams } from 'react-router';
 import { useAppSelector, useThunkDispatch } from '@redux/hooks';
 import { useEffect, useMemo } from 'react';
 import { getAdoptDetailThunk } from '@redux/thunks/AdoptThunk';
-import { ApplyUser, Survey } from '@types/Adopt';
+import { ApplyUser, Survey } from '@/types/Adopt';
 function AdoptApplyForms() {
     const { noticeId } = useParams();
     const dispatch = useThunkDispatch();
@@ -34,8 +33,7 @@ function AdoptApplyForms() {
                 <input id="title" className="border-b appearance-none bg-transparent w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" value={adoptCatName || ''} readOnly />
                 <AdoptApplyUser applicant={applicant as Partial<ApplyUser>} />
                 <AdoptApplyCheck survey={survey as Partial<Survey>} />
-                <AdoptAgreeCheck content={content as string} />
-                <AdoptAgreePromise/>
+                <AdoptAgreePromise />
             </div>
      </div> 
     );
