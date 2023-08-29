@@ -1,6 +1,7 @@
 import { isAxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { RootState } from '@redux/store';
 import { basicApi } from '@redux/api/axiosConfig';
 
 interface ErrorResponse {
@@ -29,6 +30,18 @@ interface SigninResponse {
   timestamp: string;
   message: string;
   data: SigninResponseData;
+}
+
+interface RefreshTokenData {
+  accessToken: string;
+  refreshToken: string;
+}
+
+interface RefreshTokenResponse {
+  status: '200 OK';
+  timestamp: '2023-08-29T04:08:15.868Z';
+  message: 'SUCCESS';
+  data: RefreshTokenData;
 }
 
 export const emailSigninThunk = createAsyncThunk<
@@ -77,12 +90,12 @@ export const kakaoSigninThunk = createAsyncThunk<
 });
 
 export const refreshTokenThunk = createAsyncThunk<
-  SigninResponseData,
+  RefreshTokenData,
   string,
   { rejectValue: MyKnownError }
 >('auth/refreshTokenThunk', async (refreshToken, thunkAPI) => {
   try {
-    const res = await basicApi<SigninResponse>({
+    const res = await basicApi<RefreshTokenResponse>({
       method: 'POST',
       url: '/v1/auth/refresh',
       data: JSON.stringify({ refreshToken }),

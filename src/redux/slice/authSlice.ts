@@ -1,7 +1,7 @@
 import { RootState } from '@redux/store';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { emailSigninThunk, kakaoSigninThunk } from '@redux/thunks/AuthThunk';
+import { emailSigninThunk, kakaoSigninThunk, refreshTokenThunk } from '@redux/thunks/AuthThunk';
 
 export interface MessageResponse {
   status: string;
@@ -67,6 +67,22 @@ const authSlice = createSlice({
         console.log('kakaoSigninThunk failed');
         state.status = 'failed';
         state.message = action.payload?.message;
+      })
+      .addCase(refreshTokenThunk.pending, (state) => {
+        console.log('refreshTokenThunk loading');
+        state.status = 'loading';
+      })
+      .addCase(refreshTokenThunk.fulfilled, (state, action) => {
+        console.log('refreshTokenThunk successed');
+        const { accessToken, refreshToken } = action.payload;
+        state.status = 'successed';
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
+      })
+      .addCase(refreshTokenThunk.rejected, (state, action) => {
+        console.log('refreshTokenThunk failed');
+        state.status = 'failed';
+        state.message = action.payload?.message;
       });
   },
 });
@@ -75,5 +91,7 @@ export const { removeAuth } = authSlice.actions;
 export default authSlice.reducer;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
-export const selectCurrentAccessToken = (state: RootState) => state.auth.accessToken;
-export const selectCurrentRefreshToken = (state: RootState) => state.auth.refreshToken;
+export const selectCurrentToken = (state: RootState) => ({
+  accessToken: state.auth.accessToken,
+  refreshToken: state.auth.refreshToken,
+});
