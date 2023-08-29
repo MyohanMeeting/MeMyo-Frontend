@@ -42,7 +42,7 @@ function AdoptApplyUser({ applicant }: Props) {
          <div className="h-full mb-20 mt-16">
                             <h6>신청인 정보</h6>
                             <form className='border  p-2 rounded-md'>
-                                <div className="grid md:grid-cols-3 md:gap-6 mt-4">
+                                <div className="grid md:grid-cols-3 md:gap-6 mt-4 md:justify-center md:items-center">
                                     <div className="relative z-0 w-full mb-6 group">
                                         <input type="text" name="name" id="name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-memyo-yellow4 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" placeholder=" " value={state?.name || ''} onChange={handleUpdate}/>
                                             <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">이름</label>
@@ -51,13 +51,9 @@ function AdoptApplyUser({ applicant }: Props) {
                                         <input type="text" name="age" id="phoneNumber" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" value={state?.age || ''} onChange={handleUpdate} placeholder='00'/>
                                             <label htmlFor="age" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-memyo-yellow4 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">연령</label>
                                     </div>
-                                    {/* <div className="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="gender"  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-memyo-yellow4" value={state?.gender || ''} onChange={handleUpdate} />
-                                        <label htmlFor="gender" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-memyo-yellow4 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">성별</label>
-                                    </div> */}
-                                <div className="flex flex-wrap">
-                                    <div className="w-full px-3">
-                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="sex">
+                                <div className="flex flex-wrap relative z-0 w-full mb-6 group mt-2">
+                                    <div className="w-full">
+                                    <label className="block uppercase tracking-wide peer-focus:font-medium absolute text-sm ext-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-memyo-yellow4 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" htmlFor="sex">
                                         성별
                                     </label>
                                     <div className="relative">
