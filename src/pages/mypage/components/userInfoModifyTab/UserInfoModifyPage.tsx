@@ -10,19 +10,19 @@ function UserInfoModifyPage() {
   const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector((state: RootState) => state.userInfo.getUserInfo);
 
-  useEffect(() => {
-    async function fetchUserInfo() {
-      try {
-        const res = await getUserInfo();
-        if (res.status === 200) {
-          dispatch(getUserInfoSuccess(res.data));
-        }
-      } catch (e) {
-        dispatch(getUserInfoFailure('error'));
-      }
-    }
-    fetchUserInfo();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   async function fetchUserInfo() {
+  //     try {
+  //       const res = await getUserInfo();
+  //       if (res.status === 200) {
+  //         dispatch(getUserInfoSuccess(res.data));
+  //       }
+  //     } catch (e) {
+  //       dispatch(getUserInfoFailure('error'));
+  //     }
+  //   }
+  //   fetchUserInfo();
+  // }, [dispatch]);
 
   async function handleClickDeleteBtn() {
     const res = await deleteUser();

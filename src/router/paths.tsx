@@ -9,6 +9,9 @@ import AdoptDetail from '@pages/adopt/AdoptDetail';
 import MyPage from '@pages/mypage/MyPage';
 import AdoptForm from '@pages/adopt/AdoptForm';
 import AdoptApply from '@pages/adopt/AdoptApply';
+import UserInfoModifyPage from '@pages/mypage/components/userInfoModifyTab/UserInfoModifyPage';
+import MyLetterTab from '@pages/mypage/components/myLetterTab/MyLetterTab';
+import FavoriteTab from '@pages/mypage/components/favoriteTab/FavoriteTab';
 
 const paths: RouteObject[] = [
   {
@@ -27,7 +30,7 @@ const paths: RouteObject[] = [
         path: '/signup',
         element: <SignupPage />,
       },
-       {
+      {
         path: '/adopt',
         element: <AdoptPage />,
       },
@@ -39,13 +42,19 @@ const paths: RouteObject[] = [
         path: '/adopt/register',
         element: <AdoptForm />,
       },
-       {
+      {
         path: '/adopt/apply',
         element: <AdoptApply />,
       },
       {
         path: '/mypage',
-        element: <MyPage />
+        element: <MyPage />,
+        children: [
+          { index: true, element: <MyLetterTab /> },
+          { path: '/mypage/myPosting', element: <MyLetterTab /> },
+          { path: 'favoriteFriend', element: <FavoriteTab /> },
+          { path: 'userInfoModifying', element: <UserInfoModifyPage /> },
+        ],
       },
     ],
   },

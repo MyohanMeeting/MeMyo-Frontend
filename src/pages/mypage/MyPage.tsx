@@ -1,4 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+import kittenIcon from '../../assets/mypage/kitten.png';
+import postingIcon from '../../assets/mypage/posting.png';
+import userModifyingIcon from '../../assets/mypage/modifying.png';
+import favoriteFriendIcon from '../../assets/mypage/favoriteCat.png';
 
 function MyPage() {
   return (
@@ -22,18 +26,34 @@ function MyPage() {
               <p>핸드폰번호:</p>
             </div>
           </div>
-          <div className="bg-yellow-400 border border-gray-400 h-80 rounded-2xl">
-            <h1 className="p-2 text-sm">내가 올린 공고</h1>
-            <div className="h-64 m-2 bg-yellow-600 bg-opacity-30"></div>
+          <div className="flex items-center justify-between h-32 p-2">
+            <Link to="myPosting">
+              <div className="flex flex-col items-center space-y-2">
+                <img src={postingIcon} alt="kitten-icon" className="w-20 h-20" />
+                <p className="text-sm font-bold">내가 올린 공고</p>
+              </div>
+            </Link>
+            <div className="flex flex-col items-center space-y-2">
+              <img src={kittenIcon} alt="kitten-icon" className="w-20 h-20" />
+              <p className="text-sm font-bold">내가 한 분양신청</p>
+            </div>
+            <Link to="favoriteFriend">
+              <div className="flex flex-col items-center space-y-2">
+                <img src={favoriteFriendIcon} alt="kitten-icon" className="w-20 h-20" />
+                <p className="text-sm font-bold">최애 친구</p>
+              </div>
+            </Link>
+            <Link to="userInfoModifying">
+              <div className="flex flex-col items-center space-y-2">
+                <img src={userModifyingIcon} alt="kitten-icon" className="w-20 h-20" />
+                <p className="text-sm font-bold">회원 정보 수정</p>
+              </div>
+            </Link>
           </div>
-          <div className="border border-gray-400 h-80 rounded-2xl">
-            <h1 className="p-2 text-sm">내가 한 분양신청</h1>
-            <div className="h-64 m-2 bg-yellow-600 bg-opacity-30"></div>
-          </div>
+          <Outlet />
         </div>
       </section>
     </div>
   );
 }
-// 내가올린 공고 내가 한 분양 신청 내 정보 수정
 export default MyPage;
