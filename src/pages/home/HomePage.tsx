@@ -78,7 +78,7 @@ function HomePage() {
             })}
         </ul>
         <div className="flex items-center justify-center h-40">
-          <Link to="/adoptionPost">
+          <Link to="/adopt">
             <button className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white">
               모든 공고 보기
             </button>

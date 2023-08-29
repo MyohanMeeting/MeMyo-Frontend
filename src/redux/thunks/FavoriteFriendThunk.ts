@@ -3,7 +3,7 @@ import { getFavoriteFriends, getFavoriteFriendsId } from '@redux/slice/favoriteF
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJleHAiOjE2OTMwODAzODd9.yM_EzxOw7sq0TWR-rSPTVFOVUFwtgs9Sce2xOvuyarQOvJ13CSy2Bnk5zl8qoOyl3IT2VAvEI36lc5AG5nTKYg';
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkzMjc0OTE2fQ.A7tqB0-7Wpc3x1AsBLtuhdcK2gCgYpVtSaQJVU7ujhTVnJlglySjxwboJE_Kwy2AR70nY12VeawsIDcpsCv-EQ';
 
 export const setFavoriteFriendThunk = createAsyncThunk(
   'favoriteFriend/setFavoriteFriend',

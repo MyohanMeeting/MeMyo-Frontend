@@ -46,8 +46,13 @@ function NavBar() {
             <li className="text-lg font-semibold">
               <Link to="/adopt">입양</Link>
             </li>
-            <li className="text-lg font-semibold">커뮤니티</li>
-            <li className="text-lg font-semibold">공지사항</li>
+            <Link to="/adopt/register">
+              <li className="text-lg font-semibold">신청서 작성</li>
+            </Link>
+
+            <Link to="/mypage">
+              <li className="text-lg font-semibold">마이페이지</li>
+            </Link>
           </ul>
         </nav>
       </div>

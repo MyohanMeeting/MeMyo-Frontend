@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { SidebarProps } from '../../../components/layout/NavBar';
+import { Link } from 'react-router-dom';
 
 function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
   const outside = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -59,10 +60,15 @@ function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
         </button>
         <div className="mt-10 font-semibold text-white">
           <ul className="space-y-4">
-            <li>마이페이지</li>
-            <li>입양페이지</li>
-            <li>공고 올리기</li>
-            <li>로그아웃</li>
+            <Link to="/mypage">
+              <li>마이페이지</li>
+            </Link>
+            <Link to="/adopt">
+              <li>입양 페이지</li>
+            </Link>
+            <Link to="/adopt/register">
+              <li>입양 신청서 작성</li>
+            </Link>
           </ul>
         </div>
       </div>
