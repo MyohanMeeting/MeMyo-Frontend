@@ -67,16 +67,18 @@ function HomePage() {
             </p>
           </Link>
         </div>
-        <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
-          {recentPost &&
-            recentPost.map((item) => {
-              return (
-                <li key={item.noticeId}>
-                  <Card post={item} />
-                </li>
-              );
-            })}
-        </ul>
+        <div className="h-60">
+          <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
+            {recentPost &&
+              recentPost.map((item) => {
+                return (
+                  <li key={item.noticeId}>
+                    <Card post={item} />
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
         <div className="flex items-center justify-center h-40">
           <Link to="/adopt">
             <button className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white">
