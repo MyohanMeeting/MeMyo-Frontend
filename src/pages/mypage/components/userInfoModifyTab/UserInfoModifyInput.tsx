@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../redux/configureStore';
-import { setUserCurrentPassword, setUserNewPassword } from '../../../../redux/modules/userInfo';
+import { setUserCurrentPassword, setUserNewPassword } from '../../../../redux/slice/userInfoSlice';
 import Modal from '../modal/Modal';
 import { putUserPassword } from '../../../../apis/api/mypage/putUserPassword';
 

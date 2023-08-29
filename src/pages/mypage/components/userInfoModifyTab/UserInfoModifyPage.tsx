@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { getUserInfo } from '../../../../apis/api/mypage/getUserInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../redux/configureStore';
-import { getUserInfoFailure, getUserInfoSuccess } from '../../../../redux/modules/userInfo';
+import { getUserInfoFailure, getUserInfoSuccess } from '../../../../redux/slice/userInfoSlice';
 import { deleteUser } from '../../../../apis/api/mypage/deleteUser';
 import UserInfoModifyInput from './UserInfoModifyInput';
 

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import recentPostReducer from './modules/recentPost';
-import userInfo from './modules/userInfo';
+import userInfo from './slice/userInfoSlice';
 
 export const store = configureStore({
   reducer: {

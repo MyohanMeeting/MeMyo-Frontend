@@ -1,4 +1,4 @@
-import { PatchUserInfoResponse } from './../../apis/api/mypage/patchUserInfo';
+import { PatchUserInfoResponse } from '../../apis/api/mypage/patchUserInfo';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { GetUserInfoResponse } from '../../apis/api/mypage/getUserInfo';
 
