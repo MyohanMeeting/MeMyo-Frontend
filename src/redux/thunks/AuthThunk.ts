@@ -1,7 +1,6 @@
 import { isAxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { RootState } from '@redux/store';
 import { basicApi } from '@redux/api/axiosConfig';
 
 interface ErrorResponse {
@@ -38,9 +37,9 @@ interface RefreshTokenData {
 }
 
 interface RefreshTokenResponse {
-  status: '200 OK';
-  timestamp: '2023-08-29T04:08:15.868Z';
-  message: 'SUCCESS';
+  status: string;
+  timestamp: string;
+  message: string;
   data: RefreshTokenData;
 }
 
