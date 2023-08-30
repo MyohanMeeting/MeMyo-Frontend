@@ -1,38 +1,35 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Sidebar from '../../pages/home/components/Sidebar';
 
+export interface SidebarProps {
+  showSidebar: boolean;
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+}
 function NavBar() {
+  let navigate = useNavigate();
+  const [showSidebar, setShowSidebar] = useState(false);
   return (
     <>
-      <nav className="flex items-center justify-between py-6 md:hidden shadow-sm">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          className="w-12 h-8 text-memyo-yellow8"
-        >
-          <path strokeLinecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
-        <h1 className="text-3xl font-semibold text-memyo-yellow9">
-          <Link to="/">묘한만남</Link>
-        </h1>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          className="w-12 h-8 text-memyo-yellow8"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-          />
-        </svg>
+      <nav className="flex items-center justify-between py-6 md:hidden">
+        <button onClick={() => navigate(-1)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            className="w-12 h-8 text-memyo-yellow8"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <Link to="/">
+          <h1 className="text-3xl font-semibold text-memyo-yellow9">묘한만남</h1>
+        </Link>
+        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       </nav>
-      <div className="hidden md:block shadow-sm px-2">
+      <div className="hidden px-2 shadow-sm md:block">
         <nav className="flex items-center justify-between w-full py-8">
           <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
             묘한만남
@@ -47,10 +44,15 @@ function NavBar() {
           </ul>
           <ul className="flex items-center space-x-8">
             <li className="text-lg font-semibold">
-              <Link to='/adopt'>입양</Link>
+              <Link to="/adopt">입양</Link>
             </li>
-            <li className="text-lg font-semibold">커뮤니티</li>
-            <li className="text-lg font-semibold">공지사항</li>
+            <Link to="/adopt/register">
+              <li className="text-lg font-semibold">신청서 작성</li>
+            </Link>
+
+            <Link to="/mypage">
+              <li className="text-lg font-semibold">마이페이지</li>
+            </Link>
           </ul>
         </nav>
       </div>

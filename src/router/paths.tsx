@@ -27,7 +27,7 @@ const paths: RouteObject[] = [
         path: '/signup',
         element: <SignupPage />,
       },
-       {
+      {
         path: '/adopt',
         element: <AdoptPage />,
       },
@@ -39,13 +39,21 @@ const paths: RouteObject[] = [
         path: '/adopt/register',
         element: <AdoptForm />,
       },
-       {
+      {
         path: '/adopt/apply',
         element: <AdoptApply />,
       },
       {
+        path: '/adopt',
+        element: <AdoptPage />,
+      },
+      {
+        path: '/adopt/detail/:noticeId',
+        element: <AdoptDetail />,
+      },
+      {
         path: '/mypage',
-        element: <MyPage />
+        element: <MyPage />,
       },
     ],
   },

@@ -1,11 +1,23 @@
-
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
-
+import { useThunkDispatch } from '@redux/hooks';
+import { getRecentPostThunk } from '@redux/thunks/HomeThunk';
+import { RootState } from '@redux/store';
 
 function HomePage() {
+  const dispatch = useThunkDispatch();
+  const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
+
+  useEffect(() => {
+    dispatch(getRecentPostThunk({}));
+  }, [dispatch]);
+
+  if (!recentPost) return null;
+
   return (
     <div className="mt-4">
       <div className="mb-2 text-lg md:hidden">
@@ -14,7 +26,7 @@ function HomePage() {
           <p className="font-bold">미묘</p>
           <p>님!</p>
         </div>
-        <p>고양이 가족 찾는 것을 도와드릴게요</p>
+        <p>반려묘 찾는 것을 도와드릴게요</p>
       </div>
 
       <section className="flex items-center border border-memyo-yellow8 rounded-2xl md:border-0">
@@ -49,31 +61,30 @@ function HomePage() {
       <section className="my-8">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold">최근 올라온 공고</h2>
-          <p className="h-6 text-center border-b md:hidden w-14 text-memyo-yellow8 border-memyo-yellow8">
-            더보기
-          </p>
-        </div>
-        <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
-          {[1, 2, 3, 4].map((i) => (
-            <Card key={i} id={i} />
-          ))}
-        </ul>
-        <div className="flex items-center justify-between h-40">
-          <div className="w-1/3"></div>
-          <ul className="hidden md:flex md:items-center md:justify-center md:w-1/3">
-            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
-            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
-            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
-            <li className="w-8 h-1 mx-1 rounded-sm bg-memyo-yellow2"></li>
-          </ul>
-          <div className="w-1/3 text-end">
-            <Link
-              to="adopt"
-              className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white"
-            >
+          <Link to="/공고전체주소">
+            <p className="h-6 text-center border-b md:hidden w-14 text-memyo-yellow8 border-memyo-yellow8">
               더보기
-            </Link>
-          </div>
+            </p>
+          </Link>
+        </div>
+        <div className="h-60">
+          <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
+            {recentPost &&
+              recentPost.map((item) => {
+                return (
+                  <li key={item.noticeId}>
+                    <Card post={item} />
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+        <div className="flex items-center justify-center h-40">
+          <Link to="/adopt">
+            <button className="hidden md:inline md:px-10 md:py-1 md:font-medium md:transition-all md:border md:rounded-md md:border-memyo-yellow4 md:hover:bg-memyo-yellow4 md:hover:text-white">
+              모든 공고 보기
+            </button>
+          </Link>
         </div>
       </section>
     </div>
