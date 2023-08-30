@@ -3,24 +3,15 @@ import {
   deleteFavoriteFriendThunk,
   setFavoriteFriendThunk,
 } from '@redux/thunks/FavoriteFriendThunk';
+import { Notice } from '../../types/FavoriteFriend';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-interface PostData {
-  noticeId: number;
-  noticeTitle: string;
-  noticeStatus: string;
-  thumbnail: string;
-  authorName: string;
-  catName: string;
-  catSpecies: string;
-  shelterCity: string;
-  applicationCount: number;
-  commentCount: number;
-  createdAt: string;
+export interface PostProps {
+  post: Notice;
 }
 
-function Card({ post }: { post: PostData }) {
+function Card({ post }: PostProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const thunkDispatch = useThunkDispatch();
 

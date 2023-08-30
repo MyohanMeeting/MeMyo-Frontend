@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
 import { useThunkDispatch } from '@redux/hooks';
@@ -10,10 +9,12 @@ import { RootState } from '@redux/store';
 
 function HomePage() {
   const dispatch = useThunkDispatch();
-  const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
+  const recentPost = useSelector(
+    (state: RootState) => state.persistedReducer.recentPost.recentPost
+  );
 
   useEffect(() => {
-    dispatch(getRecentPostThunk({}));
+    dispatch(getRecentPostThunk());
   }, [dispatch]);
 
   if (!recentPost) return null;
@@ -70,9 +71,9 @@ function HomePage() {
         <div className="h-60">
           <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
             {recentPost &&
-              recentPost.map((item) => {
+              recentPost.map((item: any) => {
                 return (
-                  <li key={item.noticeId}>
+                  <li key={item.catId}>
                     <Card post={item} />
                   </li>
                 );

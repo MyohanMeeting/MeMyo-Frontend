@@ -1,4 +1,4 @@
-import { MyAdoption } from '@types/Mypage';
+import { MyAdoption } from '../../../../types/Mypage';
 import adoptionHeart from '../../../../assets/mypage/adoptHeart.png';
 
 export interface AdoptionCardProps {

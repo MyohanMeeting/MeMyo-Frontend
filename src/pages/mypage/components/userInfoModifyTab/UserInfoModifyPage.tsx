@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import UserInfoModifyInput from './UserInfoModifyInput';
-import { AppDispatch, RootState } from '@redux/store';
+import { RootState } from '@redux/store';
 import { useThunkDispatch } from '@redux/hooks';
 import { getUserInfo } from '@redux/slice/mypageSlice';
 
 function UserInfoModifyPage() {
   const dispatch = useThunkDispatch();
-  const userInfo = useSelector((state: RootState) => state.mypage);
+  const userInfo = useSelector((state: RootState) => state.persistedReducer.recentPost);
   useEffect(() => {
     dispatch(getUserInfo({}));
   }, [dispatch]);

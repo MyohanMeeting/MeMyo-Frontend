@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Modal from '../modal/Modal';
 
 function UserInfoModifyInput() {
-  const [isEmailModifyMode, setIsEmailModifyMode] = useState(false);
-  const [isPasswordModifyMode, setIsPasswordModifyMode] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleModalClose() {
@@ -71,7 +69,7 @@ function UserInfoModifyInput() {
             <input
               type="password"
               className="w-full h-12 focus:outline-none"
-              readOnly={!isPasswordModifyMode}
+              readOnly
               value="12341234"
               id="password"
             />
@@ -107,7 +105,7 @@ function UserInfoModifyInput() {
             <input
               type="email"
               className="w-full h-12 focus:outline-none"
-              readOnly={!isEmailModifyMode}
+              readOnly
               value="test1@gmail.com"
               id="email"
             />

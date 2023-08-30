@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 function MyLetterTab() {
   const dispatch = useThunkDispatch();
-  const myNotices = useSelector((state: RootState) => state.mypage.myNotice);
+  const myNotices = useSelector((state: RootState) => state.persistedReducer.mypage.myNotice);
 
   useEffect(() => {
     dispatch(getMyNoticeThunk());

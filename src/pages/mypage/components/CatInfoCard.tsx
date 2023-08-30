@@ -1,4 +1,4 @@
-import { MyNotice } from '@types/Mypage';
+import { MyNotice } from '../../../types/Mypage';
 import { BiCommentDetail } from 'react-icons/bi';
 
 interface CatInfoCardProps {

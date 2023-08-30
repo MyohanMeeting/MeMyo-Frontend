@@ -5,7 +5,7 @@ import { setAdoptForm } from '@redux/slice/adoptSlice';
 
 function AdoptShelterForm() {
   const dispatch = useAppDispatch();
-  const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+  const adoptForm = useAppSelector((state) => state.persistedReducer.adopt.adoptForm);
   const [shelter, setShelter] = useState<Partial<Shelter>>(() => {
     return adoptForm?.shelter as Partial<Shelter>;
   });

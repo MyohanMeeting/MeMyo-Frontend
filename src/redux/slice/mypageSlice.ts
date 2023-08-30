@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { MyAdoption, MyNotice, UserInfo } from '@types/Mypage';
+import { MyAdoption, MyNotice, UserInfo } from '../../types/Mypage';
 
 export interface MypageState {
   userInfo?: UserInfo;

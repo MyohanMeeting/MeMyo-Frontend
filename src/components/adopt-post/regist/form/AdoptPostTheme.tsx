@@ -7,7 +7,7 @@ interface Props {
   handleForm: (value: Partial<Omit<AdoptDetail, 'noticeId'>>) => void;
 }
 function AdoptPostTheme({ children, handleForm }: Props) {
-  const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+  const adoptForm = useAppSelector((state) => state.persistedReducer.adopt.adoptForm);
   const [title, setTitle] = useState(() => {
     if (adoptForm) return adoptForm.title;
   });
