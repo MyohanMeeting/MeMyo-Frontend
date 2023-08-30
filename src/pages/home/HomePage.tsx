@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getRecentPost } from '../../apis/api/home/getRecentPost';
 
 import Card from '../../components/layout/Card';
 import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
