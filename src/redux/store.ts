@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistedReducer } from '@redux/reducer';
 import { persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import mypageSlice from './slice/mypageSlice';
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: { persistedReducer, mypage: mypageSlice },
   middleware: (getDefaultMiddleware) => {
     const defaultMiddleware = getDefaultMiddleware({
       serializableCheck: {

@@ -1,35 +1,16 @@
 import { useEffect } from 'react';
-import { getUserInfo } from '../../../../apis/api/mypage/getUserInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../../redux/configureStore';
-import { getUserInfoFailure, getUserInfoSuccess } from '../../../../redux/slice/userInfoSlice';
-import { deleteUser } from '../../../../apis/api/mypage/deleteUser';
 import UserInfoModifyInput from './UserInfoModifyInput';
+import { AppDispatch, RootState } from '@redux/store';
+import { useThunkDispatch } from '@redux/hooks';
+import { getUserInfo } from '@redux/slice/mypageSlice';
 
 function UserInfoModifyPage() {
-  const dispatch = useDispatch<AppDispatch>();
-  const userInfo = useSelector((state: RootState) => state.userInfo.getUserInfo);
-
-  // useEffect(() => {
-  //   async function fetchUserInfo() {
-  //     try {
-  //       const res = await getUserInfo();
-  //       if (res.status === 200) {
-  //         dispatch(getUserInfoSuccess(res.data));
-  //       }
-  //     } catch (e) {
-  //       dispatch(getUserInfoFailure('error'));
-  //     }
-  //   }
-  //   fetchUserInfo();
-  // }, [dispatch]);
-
-  async function handleClickDeleteBtn() {
-    const res = await deleteUser();
-    if (res.status === 200) {
-      alert('회원탈퇴되었습니다.');
-    }
-  }
+  const dispatch = useThunkDispatch();
+  const userInfo = useSelector((state: RootState) => state.mypage);
+  useEffect(() => {
+    dispatch(getUserInfo({}));
+  }, [dispatch]);
 
   return (
     <article className="flex flex-col h-screen md:max-w-md md:m-auto">
@@ -41,10 +22,7 @@ function UserInfoModifyPage() {
           </div>
         ))}
       <div className="mt-10 text-center ">
-        <button
-          onClick={handleClickDeleteBtn}
-          className="w-24 p-2 text-white bg-memyo-yellow7 rounded-2xl hover:bg-blue-500"
-        >
+        <button className="w-24 p-2 text-white bg-memyo-yellow7 rounded-2xl hover:bg-blue-500">
           회원탈퇴
         </button>
       </div>

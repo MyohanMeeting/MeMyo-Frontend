@@ -51,7 +51,7 @@ const paths: RouteObject[] = [
         element: <MyPage />,
         children: [
           { index: true, element: <MyLetterTab /> },
-          { path: '/mypage/myPosting', element: <MyLetterTab /> },
+          { path: '/mypage/myNotice', element: <MyLetterTab /> },
           { path: 'favoriteFriend', element: <FavoriteTab /> },
           { path: 'userInfoModifying', element: <UserInfoModifyPage /> },
         ],

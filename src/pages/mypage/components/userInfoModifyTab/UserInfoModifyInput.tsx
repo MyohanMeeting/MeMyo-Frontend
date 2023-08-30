@@ -1,26 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../../redux/configureStore';
-import { setUserCurrentPassword, setUserNewPassword } from '../../../../redux/slice/userInfoSlice';
+import React, { useState } from 'react';
 import Modal from '../modal/Modal';
-import { putUserPassword } from '../../../../apis/api/mypage/putUserPassword';
 
 function UserInfoModifyInput() {
-  const patchedUserInfo = useSelector((state: RootState) => state.userInfo.patchUserInfo);
-  const currentPassword = useSelector((state: RootState) => state.userInfo.currentPassword);
-  const newPassword = useSelector((state: RootState) => state.userInfo.newPassword);
-  const dispatch = useDispatch<AppDispatch>();
   const [isEmailModifyMode, setIsEmailModifyMode] = useState(false);
   const [isPasswordModifyMode, setIsPasswordModifyMode] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  function handleChangeCurrentPwInput(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(setUserCurrentPassword(e.target.value));
-  }
-
-  function handleChangeNewPwInput(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(setUserNewPassword(e.target.value));
-  }
 
   function handleModalClose() {
     setIsModalOpen(false);
@@ -32,23 +16,6 @@ function UserInfoModifyInput() {
 
   function handleForm(e: React.MouseEvent<HTMLFormElement>) {
     e.preventDefault();
-  }
-
-  function handleClickPasswordModifyBtn() {
-    useEffect(() => {
-      async function modifyUserPassword() {
-        const putUserPasswordRequest = { currentPassword, newPassword };
-        try {
-          const res = await putUserPassword(putUserPasswordRequest);
-          if (res.status === 200) {
-            alert('비밀번호를 수정했습니다.');
-          }
-        } catch (e) {
-          alert('비밀번호를 변경하지 못했습니다.');
-        }
-      }
-      modifyUserPassword();
-    }, []);
   }
 
   return (
@@ -63,7 +30,7 @@ function UserInfoModifyInput() {
               type="text"
               className="w-full h-12 focus:outline-none"
               readOnly
-              value={patchedUserInfo?.member.nickname || ''}
+              value=""
               id="nickname"
             />
           </div>
@@ -77,7 +44,7 @@ function UserInfoModifyInput() {
               type="text"
               className="w-full h-12 focus:outline-none"
               readOnly
-              value={patchedUserInfo?.member.nickname || ''}
+              value=""
               id="nickName"
             />
           </div>
@@ -91,7 +58,7 @@ function UserInfoModifyInput() {
               type="text"
               className="w-full h-12 focus:outline-none"
               readOnly
-              value={patchedUserInfo?.member.phoneNumber || ''}
+              value=""
               id="phoneNumber"
             />
           </div>
@@ -108,7 +75,7 @@ function UserInfoModifyInput() {
               value="12341234"
               id="password"
             />
-            <div className="w-28 p-1 bg-memyo-yellow6 rounded-lg text-center">
+            <div className="p-1 text-center rounded-lg w-28 bg-memyo-yellow6">
               <button onClick={handleModalOpen}>비밀번호 변경</button>
             </div>
           </div>
@@ -116,27 +83,20 @@ function UserInfoModifyInput() {
             <label htmlFor="currentPassword">
               <input
                 type="password"
-                className="border border-memyo-yellow6 rounded-lg indent-1"
+                className="border rounded-lg border-memyo-yellow6 indent-1"
                 placeholder="현재 비밀번호"
-                value={currentPassword}
-                onChange={handleChangeCurrentPwInput}
+                value=""
               />
             </label>
             <label htmlFor="newPassword">
               <input
                 type="password"
-                className="border border-memyo-yellow6 rounded-lg indent-1"
+                className="border rounded-lg border-memyo-yellow6 indent-1"
                 placeholder="새로운 비밀번호"
-                value={newPassword}
-                onChange={handleChangeNewPwInput}
+                value=""
               />
             </label>
-            <button
-              onClick={handleClickPasswordModifyBtn}
-              className="bg-memyo-yellow6 text-white rounded-lg p-1"
-            >
-              비밀번호 변경
-            </button>
+            <button className="p-1 text-white rounded-lg bg-memyo-yellow6">비밀번호 변경</button>
           </Modal>
         </label>
         <label htmlFor="email">
