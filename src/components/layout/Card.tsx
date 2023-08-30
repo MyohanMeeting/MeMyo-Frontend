@@ -1,36 +1,41 @@
+import { useThunkDispatch } from '@redux/hooks';
+import {
+  deleteFavoriteFriendThunk,
+  setFavoriteFriendThunk,
+} from '@redux/thunks/FavoriteFriendThunk';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PostFavoritesRequest, postFavorites } from '../../apis/utils/postFavorites';
 
 interface PostData {
-  adoptNoticeId: number;
-  catId: number;
-  name: string;
+  noticeId: number;
+  noticeTitle: string;
+  noticeStatus: string;
   thumbnail: string;
-  registNumber: number;
-  species: string;
+  authorName: string;
+  catName: string;
+  catSpecies: string;
+  shelterCity: string;
+  applicationCount: number;
+  commentCount: number;
+  createdAt: string;
 }
 
 function Card({ post }: { post: PostData }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const thunkDispatch = useThunkDispatch();
 
-  async function handleHeartClick() {
-    const postFavoritesRequest: PostFavoritesRequest = {
-      catid: post.catId,
-    };
-    try {
-      const res = await postFavorites(postFavoritesRequest);
-      if (res.status === 200) {
-        setIsFavorite(!isFavorite);
-      }
-    } catch (e) {
-      alert('최애친구 등록에 실패했습니다.');
+  function handleHeartClick(noticeId: number) {
+    setIsFavorite(!isFavorite);
+    if (isFavorite) {
+      thunkDispatch(deleteFavoriteFriendThunk(noticeId));
+    } else {
+      thunkDispatch(setFavoriteFriendThunk(noticeId));
     }
   }
 
   return (
     <div className="box-border transition-all border rounded-md shadow-sm cursor-pointer border-memyo-yellow4 hover:bg-memyo-yellow2 hover:p-2 hover:shadow-md hover:border-memyo-yellow2">
-      <Link to={`adoption/detail/${post.adoptNoticeId}`}>
+      <Link to={`adoption/detail/${post.noticeId}`}>
         <img
           className="object-cover w-full h-48 border-b border-memyo-yellow4 rounded-t-md hover:rounded-md"
           src={post.thumbnail}
@@ -38,8 +43,8 @@ function Card({ post }: { post: PostData }) {
       </Link>
       <div className="p-2">
         <div className="flex items-center justify-between mb-2">
-          <span className="font-semibold">{post.name}</span>
-          <button onClick={() => handleHeartClick()}>
+          <span className="font-semibold">{post.catName}</span>
+          <button onClick={() => handleHeartClick(post.noticeId)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -62,7 +67,7 @@ function Card({ post }: { post: PostData }) {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-sm font-semibold">묘종</span>
-          <span className="text-sm">{post.species}</span>
+          <span className="text-sm">{post.catSpecies}</span>
         </div>
       </div>
     </div>

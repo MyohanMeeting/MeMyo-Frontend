@@ -48,6 +48,14 @@ const paths: RouteObject[] = [
         element: <AdoptApply />,
       },
       {
+        path: '/adopt',
+        element: <AdoptPage />,
+      },
+      {
+        path: '/adopt/detail/:noticeId',
+        element: <AdoptDetail />,
+      },
+      {
         path: '/mypage',
         element: <MyPage />,
         children: [
