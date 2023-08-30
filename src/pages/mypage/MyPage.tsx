@@ -69,7 +69,7 @@ function MyPage() {
       </section>
       <section>
         <ul className="flex justify-around mt-4 border-b-2 cursor-pointer">
-          {tabContArr.map((item, index) => {
+          {tabContArr.map((item, _index) => {
             return item.tabTitle;
           })}
         </ul>
