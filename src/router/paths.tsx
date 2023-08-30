@@ -9,6 +9,10 @@ import AdoptDetail from '@pages/adopt/AdoptDetail';
 import MyPage from '@pages/mypage/MyPage';
 import AdoptForm from '@pages/adopt/AdoptForm';
 import AdoptApply from '@pages/adopt/AdoptApply';
+import UserInfoModifyPage from '@pages/mypage/components/userInfoModifyTab/UserInfoModifyPage';
+import MyLetterTab from '@pages/mypage/components/myLetterTab/MyLetterTab';
+import FavoriteTab from '@pages/mypage/components/favoriteTab/FavoriteTab';
+import AdoptionHandleTab from '@pages/mypage/components/adoptionHandleTab/AdoptionHandleTab';
 
 const paths: RouteObject[] = [
   {
@@ -54,6 +58,13 @@ const paths: RouteObject[] = [
       {
         path: '/mypage',
         element: <MyPage />,
+        children: [
+          { index: true, element: <MyLetterTab /> },
+          { path: 'myNotice', element: <MyLetterTab /> },
+          { path: 'myAdoption', element: <AdoptionHandleTab /> },
+          { path: 'favoriteFriend', element: <FavoriteTab /> },
+          { path: 'userInfoModifying', element: <UserInfoModifyPage /> },
+        ],
       },
     ],
   },

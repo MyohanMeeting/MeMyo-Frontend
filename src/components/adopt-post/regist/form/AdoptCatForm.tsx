@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { setAdoptForm } from '@redux/slice/adoptSlice';
 
 function AdoptCatForm() {
-  const adoptForm = useAppSelector((state) => state.adopt.adoptForm);
+  const adoptForm = useAppSelector((state) => state.persistedReducer.adopt.adoptForm);
   const createInitialState = (form: Partial<Cat>) => {
     if (form === null) return initialstate;
     return form;

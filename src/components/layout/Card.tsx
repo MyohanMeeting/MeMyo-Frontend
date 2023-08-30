@@ -1,31 +1,19 @@
 import { useThunkDispatch } from '@redux/hooks';
-import { RootState } from '@redux/store';
 import {
   deleteFavoriteFriendThunk,
   setFavoriteFriendThunk,
 } from '@redux/thunks/FavoriteFriendThunk';
+import { Notice } from '../../types/FavoriteFriend';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-interface PostData {
-  noticeId: number;
-  noticeTitle: string;
-  noticeStatus: string;
-  thumbnail: string;
-  authorName: string;
-  catName: string;
-  catSpecies: string;
-  shelterCity: string;
-  applicationCount: number;
-  commentCount: number;
-  createdAt: string;
+export interface PostProps {
+  post: Notice;
 }
 
-function Card({ post }: { post: PostData }) {
+function Card({ post }: PostProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const thunkDispatch = useThunkDispatch();
-  const favoriteId = useSelector((state: RootState) => state.favoriteFriend.favoriteId);
 
   function handleHeartClick(noticeId: number) {
     setIsFavorite(!isFavorite);
@@ -34,7 +22,7 @@ function Card({ post }: { post: PostData }) {
     } else {
       thunkDispatch(setFavoriteFriendThunk(noticeId));
     }
-  } // favoriteId 받아야함
+  }
 
   return (
     <div className="box-border transition-all border rounded-md shadow-sm cursor-pointer border-memyo-yellow4 hover:bg-memyo-yellow2 hover:p-2 hover:shadow-md hover:border-memyo-yellow2">

@@ -10,7 +10,7 @@ import { setAdoptPostThunk } from '@redux/thunks/AdoptThunk';
 function AdoptWebTemplate() {
   const dispatch = useAppDispatch();
   const thunkDispatch = useThunkDispatch();
-  const AdoptRegistState = useAppSelector((state) => state.adopt.adoptForm);
+  const AdoptRegistState = useAppSelector((state) => state.persistedReducer.adopt.adoptForm);
   const handleForm = useCallback(
     (value: Partial<Omit<AdoptDetail, 'noticeId'>>) => {
       dispatch(setAdoptForm(value));

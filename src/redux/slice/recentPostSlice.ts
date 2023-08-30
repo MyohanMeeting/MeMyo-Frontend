@@ -1,7 +1,7 @@
 import { getRecentPostThunk } from '@redux/thunks/HomeThunk';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface RecentPostState {
+export interface RecentPostState {
   recentPost: {
     noticeId: number;
     noticeTitle: string;

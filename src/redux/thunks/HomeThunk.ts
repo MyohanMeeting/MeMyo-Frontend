@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getRecentPostThunk = createAsyncThunk(
   'recentPost/getRecentPost',
-  async (recentPost: any, thunkApi) => {
+  async (_, thunkApi) => {
     try {
       await basicApi({
         method: 'get',
@@ -14,7 +14,7 @@ export const getRecentPostThunk = createAsyncThunk(
         },
       }).then((result) => {
         if (result.data) {
-          const { data } = result.data;
+          const data = result.data;
           if (data) {
             thunkApi.dispatch(getRecentPost(data));
           }
