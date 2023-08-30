@@ -50,3 +50,28 @@ export const deleteFavoriteFriendThunk = createAsyncThunk(
     }
   }
 );
+
+export const getFavoriteFriendThunk = createAsyncThunk(
+  'favoriteFriend/getFavoriteFriend',
+  async (favoriteFriends: any, thunkApi) => {
+    try {
+      await basicApi({
+        method: 'get',
+        url: '/v1/favorite',
+        headers: {
+          withCredentials: true,
+        },
+        params: { ...favoriteFriends },
+      }).then((result) => {
+        if (result.data) {
+          const { data } = result.data;
+          if (data) {
+            thunkApi.dispatch(getFavoriteFriends(data));
+          }
+        }
+      });
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
+);
