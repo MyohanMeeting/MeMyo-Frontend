@@ -1,10 +1,19 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import type { RootState } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+// import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
-import { selectCurrentUser } from '@redux/slice/authSlice';
+// import { signoutThunk } from '@redux/thunks/AuthThunk';
+import { removeAuth, selectCurrentUser } from '@redux/slice/authSlice';
 
 function NavBar() {
+  const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
+  // const { accessToken } = useSelector(selectCurrentToken);
+
+  const handleSignout = () => {
+    dispatch(removeAuth());
+  };
 
   return (
     <>
@@ -52,7 +61,7 @@ function NavBar() {
                 <span className="font-medium">{user.nickName}</span>님 안녕하세요
               </p>
               <button
-                onClick={() => {}}
+                onClick={handleSignout}
                 className="px-1 rounded-sm text-sm bg-opacity-20 hover:bg-opacity-40 transition-colors bg-memyo-yellow10"
               >
                 Sign Out

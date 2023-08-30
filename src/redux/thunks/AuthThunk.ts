@@ -44,6 +44,28 @@ interface RefreshTokenResponse {
   data: RefreshTokenData;
 }
 
+export const signoutThunk = createAsyncThunk<null, string, { rejectValue: MyKnownError }>(
+  'auth/signout',
+  async (token, thunkAPI) => {
+    try {
+      const res = await basicApi<SigninResponse>({
+        method: 'POST',
+        url: '/v1/auth/signin/direct',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res);
+      return null;
+    } catch (error) {
+      if (isAxiosError<ErrorResponse, any>(error)) {
+        return thunkAPI.rejectWithValue({ message: error.response?.data.status || 'UNKNOWN' });
+      }
+      throw error;
+    }
+  }
+);
+
 export const emailSigninThunk = createAsyncThunk<
   SigninResponseData,
   { email: string; password: string },
