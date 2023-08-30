@@ -58,10 +58,12 @@ function MyPage() {
                 <p className="text-sm font-bold">내가 올린 공고</p>
               </div>
             </Link>
-            <div className="flex flex-col items-center space-y-2">
-              <img src={kittenIcon} alt="kitten-icon" className="w-20 h-20" />
-              <p className="text-sm font-bold">내가 한 분양신청</p>
-            </div>
+            <Link to="myAdoption">
+              <div className="flex flex-col items-center space-y-2">
+                <img src={kittenIcon} alt="kitten-icon" className="w-20 h-20" />
+                <p className="text-sm font-bold">내가 한 분양신청</p>
+              </div>
+            </Link>
             <Link to="favoriteFriend">
               <div className="flex flex-col items-center space-y-2">
                 <img src={favoriteFriendIcon} alt="kitten-icon" className="w-20 h-20" />

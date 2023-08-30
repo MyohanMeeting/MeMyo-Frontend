@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { MyNotice, UserInfo } from '@types/Mypage';
+import { MyAdoption, MyNotice, UserInfo } from '@types/Mypage';
 
 export interface MypageState {
   userInfo?: UserInfo;
   myNotice?: Array<MyNotice>;
+  myAdoption?: Array<MyAdoption>;
 }
 
 const initialState: MypageState = {
@@ -15,6 +16,7 @@ const initialState: MypageState = {
     oauthType: '',
   },
   myNotice: [],
+  myAdoption: [],
 };
 
 const mypageSlice = createSlice({
@@ -29,9 +31,13 @@ const mypageSlice = createSlice({
       state.myNotice = action.payload;
       return state;
     },
+    getMyAdoption: (state, action) => {
+      state.myAdoption = action.payload;
+      return state;
+    },
   },
 });
 
-export const { getUserInfo, getMyNotice } = mypageSlice.actions;
+export const { getUserInfo, getMyNotice, getMyAdoption } = mypageSlice.actions;
 
 export default mypageSlice.reducer;

@@ -4,6 +4,7 @@ import { RootState } from '@redux/store';
 import { getMyNoticeThunk } from '@redux/thunks/MyThunk';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function MyLetterTab() {
   const dispatch = useThunkDispatch();
@@ -20,7 +21,9 @@ function MyLetterTab() {
           return (
             <div key={item.noticeId} className="overflow-auto max-h-96 scrollbar-hide">
               <div className="flex flex-col items-center justify-center space-y-4">
-                <CatInfoCard noticeInfo={item} />
+                <Link to={`/adopt/detail/${item.noticeId}`}>
+                  <CatInfoCard noticeInfo={item} />
+                </Link>
               </div>
             </div>
           );
