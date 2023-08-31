@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import Modal from '../modal/Modal';
+import { UserInfo } from '../../../../types/Mypage';
+import { useThunkDispatch } from '@redux/hooks';
+import { updateUserInfoThunk } from '@redux/thunks/MyThunk';
 
-function UserInfoModifyInput() {
+export interface userInfoProps {
+  info: UserInfo;
+}
+function UserInfoModifyInput({ info }: userInfoProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModifyMode, setIsModifyMode] = useState(false);
+  const [updatedUserInfo, setUpdatedUserInfo] = useState({
+    nickname: info.nickname,
+    phoneNumber: info.phoneNumber,
+  });
+
+  const thunkDispatch = useThunkDispatch();
 
   function handleModalClose() {
     setIsModalOpen(false);
@@ -16,35 +29,69 @@ function UserInfoModifyInput() {
     e.preventDefault();
   }
 
+  function handleClickModifyBtn(e: React.MouseEvent<HTMLButtonElement>) {
+    setIsModifyMode(!isModifyMode);
+    if (isModifyMode) {
+      thunkDispatch(updateUserInfoThunk(updatedUserInfo));
+    }
+  }
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+
+    setUpdatedUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      [name]: value,
+    }));
+  }
+
+  console.log(updatedUserInfo);
   return (
     <div>
       <form onClick={handleForm}>
         <label htmlFor="nickname">
           <div className="flex items-center justify-between mb-4 text-xs border-b border-black">
             <div className="flex">
-              <p className="w-14">이름:</p>
-            </div>
-            <input
-              type="text"
-              className="w-full h-12 focus:outline-none"
-              readOnly
-              value=""
-              id="nickname"
-            />
-          </div>
-        </label>
-        <label htmlFor="nickName">
-          <div className="flex items-center justify-between mb-4 text-xs border-b border-black">
-            <div className="flex">
               <p className="w-14">닉네임:</p>
             </div>
             <input
+              onChange={handleInputChange}
               type="text"
               className="w-full h-12 focus:outline-none"
-              readOnly
-              value=""
-              id="nickName"
+              readOnly={!isModifyMode}
+              value={updatedUserInfo.nickname}
+              name="nickname"
             />
+            {isModifyMode ? (
+              <div className="flex items-center">
+                <button
+                  className="btn btn-outline btn-warning btn-xs"
+                  onClick={handleClickModifyBtn}
+                >
+                  수정완료
+                </button>
+                <button className="btn btn-circle btn-xs btn-outline btn-warning">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <button className="btn btn-outline btn-warning btn-xs" onClick={handleClickModifyBtn}>
+                수정하기
+              </button>
+            )}
           </div>
         </label>
         <label htmlFor="phoneNumber">
@@ -53,30 +100,17 @@ function UserInfoModifyInput() {
               <p className="w-14">전화번호:</p>
             </div>
             <input
+              onChange={handleInputChange}
               type="text"
               className="w-full h-12 focus:outline-none"
               readOnly
-              value=""
-              id="phoneNumber"
+              value={info.phoneNumber}
+              name="phoneNumber"
             />
+            <button className="btn btn-outline btn-warning btn-xs">수정하기</button>
           </div>
         </label>
         <label htmlFor="password">
-          <div className="flex items-center justify-between mb-4 text-xs border-b border-black">
-            <div className="flex">
-              <p className="w-14">비밀번호:</p>
-            </div>
-            <input
-              type="password"
-              className="w-full h-12 focus:outline-none"
-              readOnly
-              value="12341234"
-              id="password"
-            />
-            <div className="p-1 text-center rounded-lg w-28 bg-memyo-yellow6">
-              <button onClick={handleModalOpen}>비밀번호 변경</button>
-            </div>
-          </div>
           <Modal isModalOpen={isModalOpen} closeModal={handleModalClose}>
             <label htmlFor="currentPassword">
               <input
@@ -97,26 +131,12 @@ function UserInfoModifyInput() {
             <button className="p-1 text-white rounded-lg bg-memyo-yellow6">비밀번호 변경</button>
           </Modal>
         </label>
-        <label htmlFor="email">
-          <div className="flex items-center justify-between mb-8 text-xs border-b border-black">
-            <div className="flex">
-              <p className="w-14">이메일:</p>
-            </div>
-            <input
-              type="email"
-              className="w-full h-12 focus:outline-none"
-              readOnly
-              value="test1@gmail.com"
-              id="email"
-            />
-          </div>
-        </label>
       </form>
       <div className="relative flex items-center justify-center h-48 border border-black">
         <p className="absolute text-xs top-2 left-2">프로필 이미지</p>
         <div className="relative">
           <img
-            src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+            src={info.profileImage}
             alt="modifyPageProfileImage"
             className="w-32 h-32 rounded-full"
           />

@@ -20,7 +20,7 @@ export default function FavoriteFriendCard({ info }: FavoriteFriendProps) {
               backgroundRepeat: 'no-repeat',
             }}
           ></div>
-          <div className="flex items-center p-4 shadow-2xl rounded-2xl md:h-24 md:p-4">
+          <div className="flex items-center p-3 rounded-2xl md:h-24 md:p-4">
             <div className="flex w-96">
               <img
                 className="object-cover w-24 h-24 mr-4 rounded-full md:w-full md:h-full md:p-0 md:hidden md:mr-0"
@@ -55,7 +55,7 @@ export default function FavoriteFriendCard({ info }: FavoriteFriendProps) {
                             clip-rule="evenodd"
                           />
                         </svg>
-                        <p className="text-xs "></p>
+                        <p className="text-xs ">{info.notice.shelterCity}</p>
                       </div>
                       <div className="flex items-center">
                         <BiCommentDetail className="w-3 h-3 mr-1 text-memyo-yellow8" />

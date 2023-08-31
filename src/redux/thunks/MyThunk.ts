@@ -1,9 +1,10 @@
+import { toast } from 'react-toastify';
 import { basicApi } from '@redux/api/axiosConfig';
-import { getMyAdoption, getMyNotice, getUserInfo } from '@redux/slice/mypageSlice';
+import { getMyAdoption, getMyNotice, getUserInfo, setUserInfo } from '@redux/slice/mypageSlice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { UserInfo } from '../../types/Mypage';
 
-const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkzMzc1NjE2fQ.RZluEktaDlvSJv6bamo_rjaSahoK95OR_JeJv48hCYJjV0yEfP2zE7ZJVkETQMi0MU464UticvYHMszg1zCDHg';
+const token = localStorage.getItem('access_token');
 
 export const getUserInfoThunk = createAsyncThunk('mypage/getUserInfo', async (_, thunkApi) => {
   try {
@@ -65,5 +66,51 @@ export const getMyAdoptionThunk = createAsyncThunk('mypage/getMyAdoption', async
     });
   } catch (error) {
     console.log(error);
+  }
+});
+
+export const updateUserInfoThunk = createAsyncThunk(
+  'mypage/setUserinfo',
+  async (obj: Partial<UserInfo>, thunkApi) => {
+    try {
+      await basicApi({
+        method: 'patch',
+        url: '/v1/member',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          ...obj,
+        },
+      }).then((res) => {
+        if (res.data) {
+          const { data } = res.data;
+          if (data) {
+            thunkApi.dispatch(setUserInfo(data));
+            toast('수정되었습니다!');
+          }
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteUserThunk = createAsyncThunk('mypage/deleteUser', async () => {
+  try {
+    await basicApi({
+      method: 'delete',
+      url: '/v1/member',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.data) {
+        toast('회원 탈퇴 되었습니다.');
+      }
+    });
+  } catch (error) {
+    toast('회원탈퇴에 실패했습니다.');
   }
 });

@@ -2,8 +2,7 @@ import { basicApi } from '@redux/api/axiosConfig';
 import { getFavoriteFriends, getFavoriteFriendsId } from '@redux/slice/favoriteFriendSlice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkzNDUwNDM3fQ.4npDBhlmIOgYbkOC_ilbu40Cmd3sHUf-GGgZ3C59fN1DFIj64oFol_b1LlGbIwmj_eY-jePj_YCivmxapGBs1Q';
+const token = localStorage.getItem('access_token');
 
 export const setFavoriteFriendThunk = createAsyncThunk(
   'favoriteFriend/setFavoriteFriend',

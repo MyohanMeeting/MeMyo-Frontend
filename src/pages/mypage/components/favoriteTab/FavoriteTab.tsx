@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
 import { useEffect } from 'react';
 import { getFavoriteFriendThunk } from '@redux/thunks/FavoriteFriendThunk';
-import { Link } from 'react-router-dom';
 
 function FavoriteTab() {
   const dispatch = useThunkDispatch();
@@ -12,18 +11,16 @@ function FavoriteTab() {
     (state: RootState) => state.persistedReducer.favoriteFriend.favoriteFriends
   );
 
-  console.log(favoriteFriend);
-
   useEffect(() => {
     dispatch(getFavoriteFriendThunk());
   }, [dispatch]);
 
   return (
     <div>
-      <section className="max-w-lg pt-4 m-auto space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4 md:max-w-none md:place-items-center">
+      <section className="max-w-lg max-h-screen pt-4 m-auto space-y-4 overflow-scroll md:space-y-0 md:grid md:grid-cols-2 md:gap-4 md:max-w-none md:place-items-center scrollbar-hide">
         {favoriteFriend.map((item) => {
           return (
-            <div>
+            <div className="overflow-scroll max-h-96 scrollbar-hide">
               <FavoriteFriendCard info={item} />
             </div>
           );
