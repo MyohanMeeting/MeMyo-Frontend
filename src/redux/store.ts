@@ -4,9 +4,6 @@ import { persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 
 
 export const store = configureStore({
   reducer: persistedReducer,
-  reducer: {
-    persistedReducer,
-  },
   middleware: (getDefaultMiddleware) => {
     const defaultMiddleware = getDefaultMiddleware({
       serializableCheck: {
