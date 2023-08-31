@@ -1,6 +1,20 @@
 import { Link } from 'react-router-dom';
+// import type { RootState } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+// import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
+// import { signoutThunk } from '@redux/thunks/AuthThunk';
+import { removeAuth, selectCurrentUser } from '@redux/slice/authSlice';
 
 function NavBar() {
+  const dispatch = useDispatch();
+  const user = useSelector(selectCurrentUser);
+  // const { accessToken } = useSelector(selectCurrentToken);
+
+  const handleSignout = () => {
+    dispatch(removeAuth());
+  };
+
   return (
     <>
       <nav className="flex items-center justify-between py-6 md:hidden shadow-sm">
@@ -12,7 +26,7 @@ function NavBar() {
           stroke="currentColor"
           className="w-12 h-8 text-memyo-yellow8"
         >
-          <path strokeLinecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
         <h1 className="text-3xl font-semibold text-memyo-yellow9">
           <Link to="/">묘한만남</Link>
@@ -37,19 +51,36 @@ function NavBar() {
           <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
             묘한만남
           </Link>
-          <ul className="flex items-center space-x-4">
-            <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              <Link to="/signup">회원가입</Link>
-            </li>
-            <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              <Link to="/login">로그인</Link>
-            </li>
-          </ul>
+          {user ? (
+            <div className="flex items-center gap-x-2">
+              <img
+                src={user.profileImageUrl}
+                className=" border border-gray-200 rounded-full w-10 h-10"
+              />
+              <p>
+                <span className="font-medium">{user.nickName}</span>님 안녕하세요
+              </p>
+              <button
+                onClick={handleSignout}
+                className="px-1 rounded-sm text-sm bg-opacity-20 hover:bg-opacity-40 transition-colors bg-memyo-yellow10"
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <ul className="flex items-center space-x-4">
+              <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
+                <Link to="/signup">회원가입</Link>
+              </li>
+              <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
+                <Link to="/login">로그인</Link>
+              </li>
+            </ul>
+          )}
           <ul className="flex items-center space-x-8">
             <li className="text-lg font-semibold">
-              <Link to='/adopt'>입양</Link>
+              <Link to="/adopt">입양</Link>
             </li>
-            <li className="text-lg font-semibold">커뮤니티</li>
             <li className="text-lg font-semibold">공지사항</li>
           </ul>
         </nav>
