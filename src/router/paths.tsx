@@ -11,6 +11,10 @@ import AdoptPage from '@pages/adopt/AdoptPage';
 import AdoptDetail from '@pages/adopt/AdoptDetail';
 import AdoptForm from '@pages/adopt/AdoptForm';
 import AdoptApply from '@pages/adopt/AdoptApply';
+import UserInfoModifyPage from '@pages/mypage/components/userInfoModifyTab/UserInfoModifyPage';
+import MyLetterTab from '@pages/mypage/components/myLetterTab/MyLetterTab';
+import FavoriteTab from '@pages/mypage/components/favoriteTab/FavoriteTab';
+import AdoptionHandleTab from '@pages/mypage/components/adoptionHandleTab/AdoptionHandleTab';
 
 const paths: RouteObject[] = [
   {
@@ -46,6 +50,14 @@ const paths: RouteObject[] = [
         element: <AdoptApply />,
       },
       {
+        path: '/adopt',
+        element: <AdoptPage />,
+      },
+      {
+        path: '/adopt/detail/:noticeId',
+        element: <AdoptDetail />,
+      },
+      {
         path: '/mypage',
         element: <MyPage />,
       },
@@ -56,6 +68,13 @@ const paths: RouteObject[] = [
       {
         path: '/certification',
         element: <CertificationPage />,
+        children: [
+          { index: true, element: <MyLetterTab /> },
+          { path: 'myNotice', element: <MyLetterTab /> },
+          { path: 'myAdoption', element: <AdoptionHandleTab /> },
+          { path: 'favoriteFriend', element: <FavoriteTab /> },
+          { path: 'userInfoModifying', element: <UserInfoModifyPage /> },
+        ],
       },
     ],
   },
