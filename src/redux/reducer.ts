@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import authReducer from '@redux/slice/authSlice';
 import adoptReducer from '@redux/slice/adoptSlice';
 import localStorage from 'redux-persist/es/storage';
 import { persistReducer } from 'redux-persist';
@@ -18,7 +19,14 @@ const adoptPersistConfig = {
   whitelist: ['adoptForm'],
 };
 
+const authPersistConfig = {
+  key: 'auth',
+  storage: localStorage,
+  whitelist: ['accessToken', 'refreshToken', 'user'],
+};
+
 const rootReducer = combineReducers({
+  auth: persistReducer(authPersistConfig, authReducer),
   adopt: persistReducer(adoptPersistConfig, adoptReducer),
   mypage: mypageSlice,
   recentPost: recentPostSlice,

@@ -1,12 +1,14 @@
 import { RouteObject } from 'react-router-dom';
 
-import Wrapper from '@components/layout/Wrapper';
-import HomePage from '@pages/home/HomePage';
-import LoginPage from '@pages/login/LoginPage';
-import SignupPage from '@pages/signup/SignupPage';
+import Wrapper from '../components/layout/Wrapper';
+import HomePage from '../pages/home/HomePage';
+import LoginPage from '../pages/login/LoginPage';
+import SignupPage from '../pages/signup/SignupPage';
+import MyPage from '../pages/mypage/MyPage';
+import KakaoCallBack from '../components/KakaoCallBack';
+import CertificationPage from '../pages/certification/CertificationPage';
 import AdoptPage from '@pages/adopt/AdoptPage';
 import AdoptDetail from '@pages/adopt/AdoptDetail';
-import MyPage from '@pages/mypage/MyPage';
 import AdoptForm from '@pages/adopt/AdoptForm';
 import AdoptApply from '@pages/adopt/AdoptApply';
 import UserInfoModifyPage from '@pages/mypage/components/userInfoModifyTab/UserInfoModifyPage';
@@ -58,6 +60,14 @@ const paths: RouteObject[] = [
       {
         path: '/mypage',
         element: <MyPage />,
+      },
+      {
+        path: '/oauth/kakao/callback',
+        element: <KakaoCallBack />,
+      },
+      {
+        path: '/certification',
+        element: <CertificationPage />,
         children: [
           { index: true, element: <MyLetterTab /> },
           { path: 'myNotice', element: <MyLetterTab /> },
