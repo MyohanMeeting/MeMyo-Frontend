@@ -70,14 +70,15 @@ function HomePage() {
         </div>
         <div className="h-60">
           <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
-            {recentPost &&
-              recentPost.map((item: any) => {
-                return (
-                  <li key={item.catId}>
-                    <Card post={item} />
-                  </li>
-                );
-              })}
+            {Array.isArray(recentPost)
+              ? recentPost?.map((item) => {
+                  return (
+                    <li key={item.noticeId}>
+                      <Card post={item} />
+                    </li>
+                  );
+                })
+              : null}
           </ul>
         </div>
         <div className="flex items-center justify-center h-40">

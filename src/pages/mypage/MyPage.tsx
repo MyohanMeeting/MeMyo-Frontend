@@ -12,7 +12,6 @@ import { basicApi } from '@redux/api/axiosConfig';
 
 function MyPage() {
   const userinfo = useSelector((state: RootState) => state.persistedReducer.mypage.userInfo);
-  console.log(userinfo);
   const dispatch = useThunkDispatch();
   useEffect(() => {
     dispatch(getUserInfoThunk());
