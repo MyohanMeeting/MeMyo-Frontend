@@ -40,7 +40,7 @@ function AdoptPage() {
       <AdoptSearchFacet  />
       
       
-      <section className="flex flex-wrap p-2 md:w-2/3 w-full">
+      <section className="flex flex-wrap p-2 md:w-2/3 w-full h-screen">
         <ul className="grid md:grid-cols-3 grid-cols-2 gap-3 my-4 h-72">
           {AdoptPosts.map((adopt) => (
             <AdoptCard key={adopt.noticeId} adopt={adopt} />
