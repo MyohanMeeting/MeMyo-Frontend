@@ -26,7 +26,7 @@ function Card({ post }: PostProps) {
 
   return (
     <div className="box-border transition-all border rounded-md shadow-sm cursor-pointer border-memyo-yellow4 hover:bg-memyo-yellow2 hover:p-2 hover:shadow-md hover:border-memyo-yellow2">
-      <Link to={`adoption/detail/${post.noticeId}`}>
+      <Link to={`/adopt/detail/${post.noticeId}`}>
         <img
           className="object-cover w-full h-48 border-b border-memyo-yellow4 rounded-t-md hover:rounded-md"
           src={post.thumbnail}

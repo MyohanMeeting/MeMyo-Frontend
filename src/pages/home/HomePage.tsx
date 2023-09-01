@@ -10,12 +10,14 @@ import { RootState } from '@redux/store';
 function HomePage() {
   const dispatch = useThunkDispatch();
   const recentPost = useSelector(
-    (state: RootState) => state.persistedReducer.recentPost.recentPost
+    (state: RootState) => state.recentPost.recentPost
   );
 
   useEffect(() => {
     dispatch(getRecentPostThunk());
   }, [dispatch]);
+  console.log('rescent',recentPost)
+
 
   if (!recentPost) return null;
 
@@ -68,7 +70,7 @@ function HomePage() {
             </p>
           </Link>
         </div>
-        <div className="h-60">
+        <div className="h-full">
           <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
             {recentPost &&
               recentPost.map((item: any) => {
