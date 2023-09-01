@@ -4,7 +4,7 @@ interface Props{
     survey:Partial<Survey>
 }
 function AdoptApplyCheck({ survey }: Props) {
-    console.log('survey', survey);
+    
     const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, checked } = e.target;
        

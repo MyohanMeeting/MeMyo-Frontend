@@ -1,4 +1,4 @@
-import AdoptApplyForms from '@components/adopt-post/apply/template/AdoptApplyForms';
+import AdoptApplyForm from '@components/adopt-post/apply/template/AdoptApplyForm';
 
 function AdoptApplyTemplate() {
     
@@ -11,13 +11,7 @@ function AdoptApplyTemplate() {
                 <div>
                     <h2 className='font-semibold mb-9'>입양 신청 진행을 위해 입양신청서를 작성해주세요</h2>
                 </div>
-                <AdoptApplyForms/>
-                <div className='w-full flex justify-center mt-10'>
-                    <div className='grid grid-cols-2 gap-1'>
-                        <button className="w-40 p-2 bg-memyo-yellow6 hover:bg-memyo-yellow8 text-white text-center flex justify-center items-center">입양 신청 포기하기</button>
-                        <button className="w-48 p-2 bg-memyo-yellow6 hover:bg-memyo-yellow8 text-white text-center flex justify-center items-center">입양 신청을 완료합니다</button>
-                    </div>
-                </div>    
+                <AdoptApplyForm/>
             </section>
     );
 }

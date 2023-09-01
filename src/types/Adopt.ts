@@ -1,3 +1,5 @@
+import { applicationId } from './Adopt';
+
 export interface searchFacet {
   page: number;
   limit: number;
@@ -79,6 +81,8 @@ export type NoticeId = NonNullable<number | null>
 
 export type uploadIdArr = number[];
 
+export type applicationId = {applicationId:number};
+
 export interface AdoptDetail{
     noticeId: NoticeId,
     author: Author,
@@ -123,10 +127,12 @@ export interface ApplyUser{
     address: string,
     phoneNumber: string,
     job: string,
-    married:Marrried
+    married:Married
 }
 
 export type Answer = 'YES' | 'NO';
+
+export type Married = 'MARRIED' | 'UNMARRIED'
 
 export interface Survey{
     answer1_1: Answer,
@@ -145,3 +151,8 @@ export interface AdoptApply{
     survey: Survey,
     content:string
 }
+
+export type AdoptApplyKey = keyof AdoptApply;
+export type AdoptApplyValue = AdoptApply[AdoptApplyKey];
+
+export type AdoptApplyObj = { AdoptApplyKey: AdoptApplyValue };

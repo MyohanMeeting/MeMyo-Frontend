@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk'
-import { AdoptApply, AdoptComment, AdoptDetail, AdoptForm, AdoptPost } from '@/types/Adopt'
+import { AdoptApply, AdoptApplyObj, AdoptComment, AdoptDetail, AdoptForm, AdoptPost } from '@/types/Adopt'
 
 
 
@@ -9,7 +9,8 @@ export interface AdoptState {
   limit: number;
   adoptDetail?: AdoptDetail;
   adoptApply?: Partial<AdoptApply>;
-  adoptForm: Partial<AdoptForm>
+  adoptApplyObj?: AdoptApplyObj;
+  adoptForm: Partial<AdoptForm>;
   adoptPosts?: Array<AdoptPost>;
   adoptComments?: Array<AdoptComment>;
 }

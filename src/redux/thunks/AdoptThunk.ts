@@ -1,14 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getAdoptComments, getAdoptDetail, getAdoptPosts, setAdoptForm } from '@redux/slice/adoptSlice';
 import  { AxiosResponse } from 'axios'
-import { searchFacet,AdoptPost, AdoptDetail, NoticeId, AdoptComment, userComment, uploadIdArr, AdoptForm } from '@/types/Adopt';
+import { searchFacet,AdoptPost, AdoptDetail, NoticeId, AdoptComment, userComment, uploadIdArr, AdoptForm, AdoptApply, applicationId } from '@/types/Adopt';
 import { basicApi } from '@redux/api/axiosConfig';
 
 
 const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkzMDIwMDg3fQ.5dluZsQWgu7yWwu8iwon3-qVFe_7St6OBRUIJtdFbOadvDeVoX2WT6wuHnMFKrXFz6EQ2Pp7t4PCfSBq3prdhg';
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoyLCJleHAiOjE2OTM1NzcwNDZ9.x1chfbjCipTsnLBKQUvgHyPExzMOE3Qool0U7673naUHIrUPpIL_Yl0iQlCrgIAoExUR13hHIU9SWyUMbxGvKQ';
 
 interface AdoptResultDataType<T> {
+    applicationId: any;
     status: string,
     timestamp: string,
     message: string,
@@ -121,7 +122,7 @@ export const setAdoptPostImg = createAsyncThunk(
 // 입양 공고 올리기
 export const setAdoptPostThunk = createAsyncThunk(
     'adopt/setAdoptPost',
-    async (obj: Required<AdoptForm>) => {
+       async (obj: Required<AdoptForm>) => {
        try {
             await basicApi({
                 method: 'post',
@@ -138,6 +139,7 @@ export const setAdoptPostThunk = createAsyncThunk(
              console.error('error',error);
         }
     }
+
 
 )
 
@@ -192,5 +194,32 @@ export const getAdoptCommentsThunk = createAsyncThunk(
 )
 
 
+// 입양 신청 등록
+export const setAdoptApplyThunk = createAsyncThunk(
+    'adopt/setAdoptApply',
+    async (obj: Required<AdoptApply>) => {
+        let res;
+        try {
+            await basicApi<AdoptResultDataType<applicationId>,
+              AxiosResponse<AdoptResultDataType<applicationId>, Required<AdoptApply>>,Required<AdoptApply>>({
+                method: 'post',
+                url: `/v1/adoption/applications`,
+                headers: {
+                    'Authorization':`Bearer ${token}`
+                },
+                data:obj
+              }).then(result => {
+                  const { data } = result;
+                res = data
+                console.log('data',data,res)  
+                
+            });
+        } catch(error) {
+           console.error('error', error);
+            res = error;
+        }
+        return res;
+    }
 
+)
 
