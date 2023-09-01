@@ -3,7 +3,7 @@ import { persistedReducer } from '@redux/reducer';
 import { persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: { persistedReducer },
   middleware: (getDefaultMiddleware) => {
     const defaultMiddleware = getDefaultMiddleware({
       serializableCheck: {

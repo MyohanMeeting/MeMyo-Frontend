@@ -36,11 +36,11 @@ function LoginPage() {
     }));
   };
 
-  const { status } = useSelector((state: RootState) => state.auth);
+  // const { status } = useSelector((state: RootState) => state.persistedReducer.auth);
 
-  useEffect(() => {
-    // if (status === 'successed') navigate('/');
-  }, []);
+  // useEffect(() => {
+  //  if (status === 'successed') navigate('/');
+  // }, []);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
