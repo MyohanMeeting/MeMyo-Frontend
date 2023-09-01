@@ -11,7 +11,7 @@ export default defineConfig({
         target: 'http://34.125.176.70:8080/',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/v1/, '/MeMyo-Frontend/v1/'),
+        rewrite: (path) => path.replace(/^\/v1/, '/v1/'),
       },
     },
   },
