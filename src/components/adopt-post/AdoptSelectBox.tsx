@@ -6,6 +6,8 @@ interface AdoptSelectBoxProps {
 }
 
 function AdoptSelectBox({ id, label, options, selectedValue }: AdoptSelectBoxProps) {
+  console.log('id', id);
+  console.log('selected', selectedValue);
   return (
     <button type="button" disabled className="relative w-full   mb-52">
       <div className="relative w-full flex items-center justify-between border-2 border-memyo-yellow4 rounded-md px-2 py-1 ">

@@ -1,4 +1,3 @@
-
 import { useParams } from 'react-router';
 import AdoptDetailCard from '@components/adopt-post/AdoptDetailCard';
 import { useEffect } from 'react';

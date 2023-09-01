@@ -38,4 +38,3 @@ function AdoptWebTemplate() {
 }
 
 export default memo(AdoptWebTemplate);
-

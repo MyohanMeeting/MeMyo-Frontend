@@ -1,30 +1,52 @@
+import { useThunkDispatch } from '@redux/hooks';
+import {
+  deleteFavoriteFriendThunk,
+  setFavoriteFriendThunk,
+} from '@redux/thunks/FavoriteFriendThunk';
+import { Notice } from '../../types/FavoriteFriend';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const tempImgUrl =
-  'https://mblogthumb-phinf.pstatic.net/MjAxOTExMjJfMTk5/MDAxNTc0NDA0OTcwNzM3.YlP2NHVh9AsnIQ12kJpA1kAQ7Q7_6JkfsIMGKfH_g-sg.MuvPx9aqyJC-ULPKzgxk0FgCQoZupoPDhKu0NAvtmSAg.JPEG.rlatjsgkr92/5d3d58633158005938b3beb2107726ce-20191122-153323.jpg?type=w800';
+export interface PostProps {
+  post: Notice;
+}
 
-function Card({ id }: { id: number }) {
+function Card({ post }: PostProps) {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const thunkDispatch = useThunkDispatch();
+
+  function handleHeartClick(noticeId: number) {
+    setIsFavorite(!isFavorite);
+    if (isFavorite) {
+      thunkDispatch(deleteFavoriteFriendThunk(noticeId));
+    } else {
+      thunkDispatch(setFavoriteFriendThunk(noticeId));
+    }
+  }
+
   return (
-    <Link
-      className="border border-memyo-yellow4 hover:bg-memyo-yellow2 rounded-md transition-all 
-      cursor-pointer hover:p-2 shadow-sm hover:shadow-md hover:border-memyo-yellow2 box-border"
-      to={`/adopt/${id}`}
-    >
-      <img
-        className="border-b border-memyo-yellow4 rounded-t-md hover:rounded-md"
-        src={tempImgUrl}
-      />
+    <div className="box-border transition-all border rounded-md shadow-sm cursor-pointer border-memyo-yellow4 hover:bg-memyo-yellow2 hover:p-2 hover:shadow-md hover:border-memyo-yellow2">
+      <Link to={`adoption/detail/${post.noticeId}`}>
+        <img
+          className="object-cover w-full h-48 border-b border-memyo-yellow4 rounded-t-md hover:rounded-md"
+          src={post.thumbnail}
+        />
+      </Link>
       <div className="p-2">
         <div className="flex items-center justify-between mb-2">
-          <span className="font-semibold">루루</span>
-          <button className="">
+          <span className="font-semibold">{post.catName}</span>
+          <button onClick={() => handleHeartClick(post.noticeId)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-7 h-7 text-memyo-yellow4 hover:fill-current"
+              className={
+                isFavorite
+                  ? 'text-red-500 fill-red-500 w-7 h-7 hover:fill-current'
+                  : 'text-memyo-yellow6 hover:text-red-500 w-7 h-7 hover:fill-current'
+              }
             >
               <path
                 strokeLinecap="round"
@@ -36,10 +58,10 @@ function Card({ id }: { id: number }) {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-sm font-semibold">묘종</span>
-          <span className="text-sm">스코티시폴드</span>
+          <span className="text-sm">{post.catSpecies}</span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

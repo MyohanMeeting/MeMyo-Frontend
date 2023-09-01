@@ -38,5 +38,3 @@ function AdoptPostTheme({ title, content }: Props) {
 }
 
 export default memo(AdoptPostTheme);
-
-
