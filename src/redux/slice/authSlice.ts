@@ -84,7 +84,7 @@ const authSlice = createSlice({
         state.accessToken = accessToken;
         state.refreshToken = refreshToken;
       })
-      .addCase(refreshTokenThunk.rejected, (state, action) => {
+      .addCase(refreshTokenThunk.rejected, () => {
         // console.log('refreshTokenThunk failed');
         // state.status = 'failed';
         // state.message = action.payload?.message;

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import type { RootState } from '@redux/store';
@@ -35,12 +35,6 @@ function LoginPage() {
       [name]: value,
     }));
   };
-
-  // const { status } = useSelector((state: RootState) => state.persistedReducer.auth);
-
-  // useEffect(() => {
-  //  if (status === 'successed') navigate('/');
-  // }, []);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

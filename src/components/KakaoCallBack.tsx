@@ -48,7 +48,7 @@ interface SuccessResonse {
 function KakaoCallBack() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { status } = useSelector((state: RootState) => state.auth);
+  const { status } = useSelector((state: RootState) => state.persistedReducer.auth);
 
   const searchParams = new URLSearchParams(window.location.search);
   const code = searchParams.get('code');
