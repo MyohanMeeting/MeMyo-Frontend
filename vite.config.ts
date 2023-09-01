@@ -8,10 +8,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/v1': {
-        target: 'http://34.125.176.70:8080',
+        target: 'http://34.125.176.70:8080/',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/v1/, '/v1/'),
+        rewrite: (path) => path.replace(/^\/v1/, '/MeMyo-Frontend/v1/'),
       },
     },
   },
