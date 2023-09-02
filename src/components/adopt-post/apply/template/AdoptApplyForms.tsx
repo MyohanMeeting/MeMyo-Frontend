@@ -6,7 +6,7 @@ import { useAppSelector, useThunkDispatch } from '@redux/hooks';
 import { useEffect, useMemo } from 'react';
 import { getAdoptDetailThunk } from '@redux/thunks/AdoptThunk';
 import { useForm } from 'react-hook-form';
-import { AdoptApply } from '@types/Adopt';
+import { AdoptApply } from '@/types/Adopt';
 // import { ApplyUser, Survey } from '@/types/Adopt';
 function AdoptApplyForms() {
     const { noticeId } = useParams();
@@ -28,7 +28,7 @@ function AdoptApplyForms() {
         dispatch(getAdoptDetailThunk(parseInt(noticeId)));
     }, [dispatch]);
 
-    const {handleSubmit:onSubmit,register,control} = useForm<Required<AdoptApply>>({mode:'onSubmit'})
+    const {handleSubmit:onSubmit} = useForm<Required<AdoptApply>>({mode:'onSubmit'})
     const handleSubmit = (data: Required<AdoptApply>) => {
         console.log('hi',data)
     }
