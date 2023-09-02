@@ -8,7 +8,7 @@ function AdoptUploadCatPic() {
     const [catImage, setCatImage] = useState<Array<File>>([]);
     const [urlArr, setUrlArr] = useState<Array<object>>([]);
 
-    const { dispatch, adoptPreviewImg } = useContext(AdoptPostContext);
+    const { dispatch } = useContext(AdoptPostContext);
     
     const visibleUrls = useMemo(() => urlArr,[urlArr]);
     const visibleCatImages = useMemo(() => catImage, [catImage]);

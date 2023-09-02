@@ -1,5 +1,5 @@
-import { Answer, ApplyUser } from '@/types/Adopt';
-import { DetailedHTMLProps, InputHTMLAttributes, ReactNode, SelectHTMLAttributes, forwardRef, useState } from 'react';
+import { ApplyUser } from '@/types/Adopt';
+import { DetailedHTMLProps, InputHTMLAttributes, ReactNode, SelectHTMLAttributes, forwardRef } from 'react';
 import { FieldValues, SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
 
 type InputProps = DetailedHTMLProps<
