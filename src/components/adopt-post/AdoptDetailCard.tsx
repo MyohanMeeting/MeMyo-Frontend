@@ -21,7 +21,10 @@ function AdoptDetailCard({ adopt }: Props) {
     const {noticeId} = useParams();
     
 
-    const { title,cat,catPictures } = adopt;
+    const { title, cat, catPictures, thumbnail } = adopt;
+    const calUrl = catPictures.length > 0 ? catPictures : [thumbnail]
+    
+
     return (
          <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center">
               <div className='flex justify-center'>
@@ -37,7 +40,7 @@ function AdoptDetailCard({ adopt }: Props) {
                     modules={[Navigation, Pagination, Scrollbar, A11y]}
                     navigation
                     pagination={{ clickable: true }}>
-                    {catPictures.map((picture) => {
+                    {calUrl.map((picture) => {
                         return (
                          <SwiperSlide key={picture.uploadId}>
                             <div className='w-full flex justify-center md:h-80 h-72'> 
