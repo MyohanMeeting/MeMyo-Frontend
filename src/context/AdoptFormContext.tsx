@@ -1,19 +1,15 @@
-import { AdoptDetail, AdoptPostTheme, Author, Cat, Shelter, Thumbnail, catPicture } from '@/types/Adopt';
-import AdoptForm from '@pages/adopt/AdoptForm';
-import { useAppDispatch, useAppSelector, useThunkDispatch } from '@redux/hooks';
-import { setAdoptForm } from '@redux/slice/adoptSlice';
-import { setAdoptPostThunk } from '@redux/thunks/AdoptThunk';
-import { Dispatch, ReactNode, createContext, useCallback, useEffect, useMemo, useReducer } from 'react';
+import { AdoptDetail, AdoptPostTheme, Cat } from '@/types/Adopt';
+import { Dispatch, ReactNode, createContext, useMemo, useReducer } from 'react';
 
 export const UPDATE_FORM = "UPDATE_FORM" as const;
 export const UPLOAD_IMG = 'UPLOAD_IMG' as const;
 export const UPLOAD_CATINFO = "UPLOAD_CATINFO" as const;
 export const UPLOAD_THEME = 'UPLOAD_THEME' as const;
 
-interface UpdateFormAction {
-    type: typeof UPDATE_FORM,
-    adoptForm: Partial<Omit<AdoptDetail, 'noticeId'>>,
-}
+// interface UpdateFormAction {
+//     type: typeof UPDATE_FORM,
+//     adoptForm: Partial<Omit<AdoptDetail, 'noticeId'>>,
+// }
 
 export const UpdateForm = (adoptForm: Partial<Omit<AdoptDetail, 'noticeId'>>) => {
     return {
