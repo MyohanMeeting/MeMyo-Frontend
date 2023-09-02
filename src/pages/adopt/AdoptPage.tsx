@@ -6,7 +6,6 @@ import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk';
 import AdoptMobileFacet from '@components/adopt-post/AdoptMobileFacet';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AdoptCards from '@components/adopt-post/AdoptCards';
 import Loading from '@components/loading/Loading';
 
 

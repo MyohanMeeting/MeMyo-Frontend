@@ -12,14 +12,14 @@ interface SuccessResonse {
   };
 }
 
-interface ErrorResponse {
-  status: string;
-  timestamp: string;
-  message: string;
-  debugMessage: {
-    [key: string]: string;
-  };
-}
+// interface ErrorResponse {
+//   status: string;
+//   timestamp: string;
+//   message: string;
+//   debugMessage: {
+//     [key: string]: string;
+//   };
+// }
 
 export const checkDuplicateEmailOrNickname = async (
   type: 'email' | 'nickname',
