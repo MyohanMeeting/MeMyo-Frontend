@@ -17,10 +17,10 @@ function FavoriteTab() {
 
   return (
     <div>
-      <section className="max-w-lg max-h-screen pt-4 m-auto space-y-4 overflow-scroll md:space-y-0 md:grid md:grid-cols-2 md:gap-4 md:max-w-none md:place-items-center scrollbar-hide">
+      <section className="max-w-lg max-h-screen pt-4 m-auto space-y-4 overflow-auto md:space-y-0 md:grid md:grid-cols-2 md:gap-4 md:max-w-none md:place-items-center scrollbar-hide">
         {favoriteFriend.map((item) => {
           return (
-            <div className="overflow-scroll max-h-96 scrollbar-hide">
+            <div>
               <FavoriteFriendCard info={item} />
             </div>
           );

@@ -56,3 +56,8 @@ export interface MyAdoption {
   content: string;
   createdAt: string;
 }
+
+export interface UserPassword {
+  currentPassword: string;
+  newPassword: string;
+}

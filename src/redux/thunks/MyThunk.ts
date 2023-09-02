@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { basicApi } from '@redux/api/axiosConfig';
 import { getMyAdoption, getMyNotice, getUserInfo, setUserInfo } from '@redux/slice/mypageSlice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { UserInfo } from '../../types/Mypage';
+import { UserInfo, UserPassword } from '../../types/Mypage';
 
 const token = localStorage.getItem('access_token');
 
@@ -107,10 +107,32 @@ export const deleteUserThunk = createAsyncThunk('mypage/deleteUser', async () =>
       },
     }).then((res) => {
       if (res.data) {
-        toast('회원 탈퇴 되었습니다.');
+        toast('회원 탈퇴 되었습니다. 그동안 이용해 주셔서 감사합니다.');
       }
     });
   } catch (error) {
     toast('회원탈퇴에 실패했습니다.');
   }
 });
+
+export const updateUserPasswordThunk = createAsyncThunk(
+  'mypage/updateUserPassword',
+  async (obj: UserPassword) => {
+    try {
+      await basicApi({
+        method: 'put',
+        url: '/v1/member/password',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: { ...obj },
+      }).then((res) => {
+        if (res.data) {
+          toast('비밀번호가 성공적으로 변경되었습니다.');
+        }
+      });
+    } catch (error) {
+      toast('비밀번호가 수정에 실패했습니다.');
+    }
+  }
+);

@@ -35,7 +35,7 @@ export default function FavoriteFriendCard({ info }: FavoriteFriendProps) {
                         <p className="font-bold text-memyo-yellow8 text-md md:text-lg">
                           {info.notice.noticeTitle}
                         </p>
-                        <p className="text-xs font-bold">이름:{info.notice.catName} </p>
+                        <p className="text-xs font-bold">이름: {info.notice.catName} </p>
                       </div>
                     </div>
                     <div className="md:block md:flex md:space-x-2">
@@ -59,7 +59,7 @@ export default function FavoriteFriendCard({ info }: FavoriteFriendProps) {
                       </div>
                       <div className="flex items-center">
                         <BiCommentDetail className="w-3 h-3 mr-1 text-memyo-yellow8" />
-                        <p className="text-xs">댓글:{info.notice.commentCount}</p>
+                        <p className="text-xs">댓글: {info.notice.commentCount}</p>
                       </div>
                     </div>
                   </div>

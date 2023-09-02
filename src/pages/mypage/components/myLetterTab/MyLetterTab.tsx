@@ -15,7 +15,7 @@ function MyLetterTab() {
   }, [dispatch]);
 
   return (
-    <article className="max-w-lg max-h-screen pt-4 m-auto space-y-4 overflow-scroll md:space-y-0 md:grid md:grid-cols-2 md:gap-4 md:max-w-none md:place-items-center scrollbar-hide">
+    <article className="max-w-lg max-h-screen pt-4 m-auto space-y-4 overflow-auto md:space-y-0 md:grid md:grid-cols-2 md:gap-4 md:max-w-none md:place-items-center scrollbar-hide">
       {myNotices &&
         myNotices.map((item) => {
           return (
