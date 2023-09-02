@@ -7,7 +7,7 @@ import { getUserInfo } from '@redux/slice/mypageSlice';
 
 function UserInfoModifyPage() {
   const dispatch = useThunkDispatch();
-  const userInfo = useSelector((state: RootState) => state.persistedReducer.recentPost);
+  const userInfo = useSelector((state: RootState) => state.recentPost);
   useEffect(() => {
     dispatch(getUserInfo({}));
   }, [dispatch]);

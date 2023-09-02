@@ -1,5 +1,4 @@
 import { useParams } from 'react-router';
-import AdoptDetailCard from '@components/adopt-post/AdoptDetailCard';
 import { Suspense, lazy, useEffect } from 'react';
 import { useAppSelector, useThunkDispatch } from '@redux/hooks';
 import { getAdoptDetailThunk } from '@redux/thunks/AdoptThunk';

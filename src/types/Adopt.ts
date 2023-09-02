@@ -1,5 +1,3 @@
-import { applicationId } from './Adopt';
-
 export interface searchFacet {
   page: number;
   limit: number;
