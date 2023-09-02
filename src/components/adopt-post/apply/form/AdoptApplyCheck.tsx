@@ -1,9 +1,4 @@
-import { Survey } from '@/types/Adopt';
-
-interface Props{
-    survey:Partial<Survey>
-}
-function AdoptApplyCheck({ survey }: Props) {
+function AdoptApplyCheck() {
     
     const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, checked } = e.target;
