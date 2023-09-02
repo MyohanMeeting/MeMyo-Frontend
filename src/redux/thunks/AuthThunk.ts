@@ -1,7 +1,6 @@
 import { isAxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { RootState } from '@redux/store';
 import { basicApi } from '@redux/api/axiosConfig';
 
 interface ErrorResponse {
