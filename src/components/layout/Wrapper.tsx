@@ -9,6 +9,7 @@ import Footer from '@components/layout/Footer';
 import { isTokenExpired } from '@/utils/jwtUtils';
 import { selectCurrentToken } from '@redux/slice/authSlice';
 import { refreshTokenThunk } from '@redux/thunks/AuthThunk';
+import { ToastContainer } from 'react-toastify';
 
 function Wrapper() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function Wrapper() {
       <NavBar />
       <Outlet />
       <Footer />
+      
     </div>
   );
 }

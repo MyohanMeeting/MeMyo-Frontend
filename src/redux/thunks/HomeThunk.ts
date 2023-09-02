@@ -14,7 +14,7 @@ export const getRecentPostThunk = createAsyncThunk(
         },
       }).then((result) => {
         if (result.data) {
-          const data = result.data;
+          const data = result.data.data;
           if (data) {
             thunkApi.dispatch(getRecentPost(data));
           }

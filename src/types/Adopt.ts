@@ -1,3 +1,5 @@
+import { applicationId } from './Adopt';
+
 export interface searchFacet {
   page: number;
   limit: number;
@@ -29,13 +31,13 @@ export interface AdoptPost {
   createAt: string;
 }
 
-interface Author {
+export interface Author {
   authorId: number;
   nickname: string;
   profileImageUrl: string;
 }
 
-export type gender = 'MALE' | 'FEMALE';
+export type gender = 'MALE' | 'FEMALE' | 'OTHER';
 
 export interface Cat {
   name: string;
@@ -77,7 +79,7 @@ export interface Shelter {
   address: string;
   phoneNumber: string;
 }
-interface Thumbnail {
+export interface Thumbnail {
   uploadId: number;
   url: string;
 }
@@ -85,7 +87,17 @@ export interface catPicture {
   uploadId: number;
   url: string;
 }
+
+export interface AdoptPostTheme {
+  title: string;
+  content: string;
+}
+
 export type NoticeId = NonNullable<number | null>;
+
+export type uploadIdArr = number[];
+
+export type applicationId = { applicationId: number };
 
 export interface AdoptDetail {
   noticeId: NoticeId;
@@ -111,3 +123,51 @@ export interface AdoptComment {
 }
 
 export type userComment = Pick<AdoptComment, 'noticeId' | 'content'>;
+
+export interface AdoptForm {
+  cat: Partial<Cat>;
+  shelter: Partial<Shelter>;
+  thumbnailId: Thumbnail['uploadId'];
+  catPictures: catPicture[];
+  title: string;
+  content: string;
+}
+
+export type Marrried = 'MARRIED' | 'UNMARRIED';
+
+export interface ApplyUser {
+  name: string;
+  age: number;
+  gender: gender;
+  address: string;
+  phoneNumber: string;
+  job: string;
+  married: Married;
+}
+
+export type Answer = 'YES' | 'NO';
+
+export type Married = 'MARRIED' | 'UNMARRIED';
+
+export interface Survey {
+  answer1_1: Answer;
+  answer1_2: string;
+  answer2_1: Answer;
+  answer2_2: string;
+  answer3: string;
+  answer4: Answer;
+  answer5: string;
+  answer6: Answer;
+}
+
+export interface AdoptApply {
+  noticeId: NoticeId;
+  applicant: ApplyUser;
+  survey: Survey;
+  content: string;
+}
+
+export type AdoptApplyKey = keyof AdoptApply;
+export type AdoptApplyValue = AdoptApply[AdoptApplyKey];
+
+export type AdoptApplyObj = { AdoptApplyKey: AdoptApplyValue };

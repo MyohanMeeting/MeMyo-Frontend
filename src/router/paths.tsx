@@ -10,7 +10,7 @@ import CertificationPage from '../pages/certification/CertificationPage';
 import AdoptPage from '@pages/adopt/AdoptPage';
 import AdoptDetail from '@pages/adopt/AdoptDetail';
 import AdoptForm from '@pages/adopt/AdoptForm';
-import AdoptApply from '@pages/adopt/AdoptApply';
+import AdoptApplying from '@pages/adopt/AdoptApplying';
 import UserInfoModifyPage from '@pages/mypage/components/userInfoModifyTab/UserInfoModifyPage';
 import MyLetterTab from '@pages/mypage/components/myLetterTab/MyLetterTab';
 import FavoriteTab from '@pages/mypage/components/favoriteTab/FavoriteTab';
@@ -45,9 +45,9 @@ const paths: RouteObject[] = [
         path: '/adopt/register',
         element: <AdoptForm />,
       },
-      {
-        path: '/adopt/apply',
-        element: <AdoptApply />,
+       {
+        path: '/adopt/apply/:noticeId',
+        element: <AdoptApplying />,
       },
       {
         path: '/adopt',

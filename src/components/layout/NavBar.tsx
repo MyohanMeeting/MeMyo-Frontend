@@ -3,16 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 // import type { RootState } from '@redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 // import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import Sidebar from '../../pages/home/components/Sidebar';
 // import { signoutThunk } from '@redux/thunks/AuthThunk';
 import { removeAuth, selectCurrentUser } from '@redux/slice/authSlice';
-
+        
 export interface SidebarProps {
   showSidebar: boolean;
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 function NavBar() {
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
@@ -35,7 +33,6 @@ function NavBar() {
   const location = useLocation();
   const pathName = pathToTitle[location.pathname] || '묘한만남';
   const [showSidebar, setShowSidebar] = useState(false);
-
   return (
     <>
       <nav className="flex items-center justify-between py-6 md:hidden">
