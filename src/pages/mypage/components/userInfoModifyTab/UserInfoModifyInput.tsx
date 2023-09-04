@@ -15,7 +15,6 @@ export interface userInfoProps {
 }
 function UserInfoModifyInput({ info }: userInfoProps) {
   const thunkDispatch = useThunkDispatch();
-  const newUserInfo = useSelector((state: RootState) => state.persistedReducer.mypage.newUserInfo);
   const newUserProfileId = useSelector(
     (state: RootState) => state.persistedReducer.mypage.newUserProfileId
   );
@@ -23,6 +22,7 @@ function UserInfoModifyInput({ info }: userInfoProps) {
   const [updatedUserInfo, setUpdatedUserInfo] = useState({
     nickname: info.nickname,
     phoneNumber: info.phoneNumber,
+    profileImageId: newUserProfileId,
   });
   const [image, setImage] = useState({
     image_file: '',
