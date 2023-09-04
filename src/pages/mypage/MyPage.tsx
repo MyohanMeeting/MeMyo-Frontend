@@ -51,7 +51,7 @@ function MyPage() {
         <div className="space-y-4">
           <div className="flex items-center h-32 border border-gray-400 rounded-2xl ">
             <img
-              src="https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg"
+              src={userinfo?.profileImage}
               alt="profileImage"
               className="w-24 h-24 m-4 rounded-full"
             />

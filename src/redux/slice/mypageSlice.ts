@@ -6,6 +6,7 @@ export interface MypageState {
   myNotice?: Array<MyNotice>;
   myAdoption?: Array<MyAdoption>;
   newUserInfo?: Partial<UserInfo>;
+  newUserProfileId?: number;
 }
 
 const initialState: MypageState = {
@@ -18,7 +19,7 @@ const initialState: MypageState = {
   },
   myNotice: [],
   myAdoption: [],
-  newUserInfo: {},
+  newUserProfileId: 0,
 };
 
 const mypageSlice = createSlice({
@@ -38,11 +39,17 @@ const mypageSlice = createSlice({
       return state;
     },
     setUserInfo: (state, action) => {
-      state.newUserInfo = action.payload;
+      state.userInfo = action.payload;
+      return state;
+    },
+    getUserProfileId: (state, action) => {
+      state.newUserProfileId = action.payload;
+      return state;
     },
   },
 });
 
-export const { getUserInfo, getMyNotice, getMyAdoption, setUserInfo } = mypageSlice.actions;
+export const { getUserInfo, getMyNotice, getMyAdoption, setUserInfo, getUserProfileId } =
+  mypageSlice.actions;
 
 export default mypageSlice.reducer;

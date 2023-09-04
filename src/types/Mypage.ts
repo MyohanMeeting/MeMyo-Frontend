@@ -6,6 +6,12 @@ export interface UserInfo {
   oauthType: string;
 }
 
+export interface newUserInfo {
+  nickname: string;
+  phoneNumber: string;
+  profileImageId: number;
+}
+
 export interface MyNotice {
   noticeId: number;
   noticeTitle: string;
