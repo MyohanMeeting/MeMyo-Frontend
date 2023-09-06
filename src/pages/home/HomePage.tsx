@@ -9,15 +9,11 @@ import { RootState } from '@redux/store';
 
 function HomePage() {
   const dispatch = useThunkDispatch();
-  const recentPost = useSelector(
-    (state: RootState) => state.recentPost.recentPost
-  );
+  const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
 
   useEffect(() => {
     dispatch(getRecentPostThunk());
   }, [dispatch]);
-  console.log('rescent',recentPost)
-
 
   if (!recentPost) return null;
 
@@ -64,22 +60,23 @@ function HomePage() {
       <section className="my-8">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold">최근 올라온 공고</h2>
-          <Link to="/공고전체주소">
+          <Link to="/adopt">
             <p className="h-6 text-center border-b md:hidden w-14 text-memyo-yellow8 border-memyo-yellow8">
               더보기
             </p>
           </Link>
         </div>
-        <div className="h-full">
-          <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
-            {recentPost &&
-              recentPost.map((item: any) => {
-                return (
-                  <li key={item.catId}>
-                    <Card post={item} />
-                  </li>
-                );
-              })}
+        <div className="h-full overflow-auto scrollbar-hide">
+          <ul className="grid h-full grid-cols-2 gap-2 my-4 md:grid-cols-4">
+            {Array.isArray(recentPost)
+              ? recentPost?.map((item) => {
+                  return (
+                    <li key={item.noticeId}>
+                      <Card post={item} />
+                    </li>
+                  );
+                })
+              : null}
           </ul>
         </div>
         <div className="flex items-center justify-center h-40">
