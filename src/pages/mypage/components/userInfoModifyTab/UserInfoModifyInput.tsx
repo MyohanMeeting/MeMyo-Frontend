@@ -15,9 +15,7 @@ export interface userInfoProps {
 }
 function UserInfoModifyInput({ info }: userInfoProps) {
   const thunkDispatch = useThunkDispatch();
-  const newUserProfileId = useSelector(
-    (state: RootState) => state.persistedReducer.mypage.newUserProfileId
-  );
+  const newUserProfileId = useSelector((state: RootState) => state.mypage.newUserProfileId);
   const [isModifyMode, setIsModifyMode] = useState(false);
   const [updatedUserInfo, setUpdatedUserInfo] = useState({
     nickname: info.nickname,
