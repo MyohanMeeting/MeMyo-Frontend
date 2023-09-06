@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
@@ -8,6 +8,7 @@ import { emailSigninThunk } from '@redux/thunks/AuthThunk';
 import loginImg from '../../assets/login/login-cat-image.jpeg';
 import loginBgImg from '../../assets/login/login-background.jpeg';
 import { handleLoginResponse } from '@/utils/ApiResponseHandler';
+
 export interface ErrorResponse {
   status: string;
   timestamp: string;
@@ -15,12 +16,13 @@ export interface ErrorResponse {
   debugMessage: string;
 }
 
+const REST_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
+const RIDIRECT_URL = import.meta.env.VITE_KAKAO_REDIRECT_URL;
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${RIDIRECT_URL}&response_type=code`;
+
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const REST_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
-  const RIDIRECT_URL = import.meta.env.VITE_KAKAO_REDIRECT_URL;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${RIDIRECT_URL}&response_type=code`;
 
   const [inputs, setInputs] = useState({
     email: '',
@@ -36,20 +38,26 @@ function LoginPage() {
     }));
   };
 
-  
+  const handleSubmit = useCallback(
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const actionResult = await (dispatch as ThunkDispatch<RootState, void, AnyAction>)(
-      emailSigninThunk(inputs)
-    );
-    if (emailSigninThunk.fulfilled.match(actionResult)) {
-      navigate('/');
-    } else if (emailSigninThunk.rejected.match(actionResult)) {
-      const errorMessage = handleLoginResponse(actionResult.payload?.message ?? '');
-      alert(errorMessage);
-    }
-  };
+      try {
+        const actionResult = await (dispatch as ThunkDispatch<RootState, void, AnyAction>)(
+          emailSigninThunk(inputs)
+        );
+        if (emailSigninThunk.fulfilled.match(actionResult)) {
+          navigate('/');
+        } else if (emailSigninThunk.rejected.match(actionResult)) {
+          const errorMessage = handleLoginResponse(actionResult.payload?.message ?? '');
+          alert(errorMessage);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [dispatch, navigate, inputs]
+  );
 
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
@@ -84,7 +92,6 @@ function LoginPage() {
                 onChange={handleChangeInputs}
                 required
               />
-
               <input
                 type="password"
                 className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
@@ -135,7 +142,7 @@ function LoginPage() {
           <img
             className="object-fill w-full h-full rounded-r-2xl"
             src={loginImg}
-            alt="signupMainImage"
+            alt="login page main image"
           />
         </div>
       </div>

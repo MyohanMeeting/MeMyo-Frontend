@@ -1,3 +1,4 @@
+import { basicApi } from '@redux/api/axiosConfig';
 import axios from 'axios';
 
 const DUPLICATE_EMAIL_API_URL = '/v1/member/email';
@@ -28,12 +29,8 @@ export const checkDuplicateEmailOrNickname = async (
   const url = type === 'email' ? DUPLICATE_EMAIL_API_URL : DUPLICATE_NICKNAME_API_URL;
 
   try {
-    const data = await axios<SuccessResonse>({
+    const data = await basicApi<SuccessResonse>({
       method: 'GET',
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       url: `${url}?${type}=${stateValue}`,
     });
 
