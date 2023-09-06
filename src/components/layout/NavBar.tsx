@@ -1,12 +1,25 @@
-import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+// import type { RootState } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+// import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import Sidebar from '../../pages/home/components/Sidebar';
-
+// import { signoutThunk } from '@redux/thunks/AuthThunk';
+import { removeAuth, selectCurrentUser } from '@redux/slice/authSlice';
+        
 export interface SidebarProps {
   showSidebar: boolean;
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 function NavBar() {
+  const dispatch = useDispatch();
+  const user = useSelector(selectCurrentUser);
+  // const { accessToken } = useSelector(selectCurrentToken);
+
+  const handleSignout = () => {
+    dispatch(removeAuth());
+  };
+
   const pathToTitle: { [key: string]: string } = {
     '/': '묘한만남',
     '/signup': '회원가입',
@@ -28,13 +41,13 @@ function NavBar() {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="2"
+            strokeWidth="2"
             stroke="currentColor"
             className="w-12 h-8 text-memyo-yellow8"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
             />
           </svg>
@@ -48,18 +61,37 @@ function NavBar() {
           <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
             묘한만남
           </Link>
-          <ul className="flex items-center space-x-4">
-            <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              <Link to="/signup">회원가입</Link>
-            </li>
-            <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
-              <Link to="/login">로그인</Link>
-            </li>
-          </ul>
+          {user ? (
+            <div className="flex items-center gap-x-2">
+              <img
+                src={user.profileImageUrl}
+                className=" border border-gray-200 rounded-full w-10 h-10"
+              />
+              <p>
+                <span className="font-medium">{user.nickName}</span>님 안녕하세요
+              </p>
+              <button
+                onClick={handleSignout}
+                className="px-1 rounded-sm text-sm bg-opacity-20 hover:bg-opacity-40 transition-colors bg-memyo-yellow10"
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <ul className="flex items-center space-x-4">
+              <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
+                <Link to="/signup">회원가입</Link>
+              </li>
+              <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
+                <Link to="/login">로그인</Link>
+              </li>
+            </ul>
+          )}
           <ul className="flex items-center space-x-8">
             <li className="text-lg font-semibold">
               <Link to="/adopt">입양</Link>
             </li>
+            <li className="text-lg font-semibold">공지사항</li>
             <Link to="/adopt/register">
               <li className="text-lg font-semibold">신청서 작성</li>
             </Link>

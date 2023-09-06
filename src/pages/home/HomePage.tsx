@@ -10,13 +10,12 @@ import { basicApi } from '@redux/api/axiosConfig';
 
 function HomePage() {
   const dispatch = useThunkDispatch();
-  const recentPost = useSelector(
-    (state: RootState) => state.persistedReducer.recentPost.recentPost
-  );
+  const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
 
   useEffect(() => {
     dispatch(getRecentPostThunk());
   }, [dispatch]);
+  console.log('rescent', recentPost);
 
   if (!recentPost) return null;
 

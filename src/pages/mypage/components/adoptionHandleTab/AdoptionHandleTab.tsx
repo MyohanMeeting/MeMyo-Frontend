@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 export default function AdoptionHandleTab() {
   const dispatch = useThunkDispatch();
-  const myAdoption = useSelector((state: RootState) => state.persistedReducer.mypage.myAdoption);
+  const myAdoption = useSelector((state: RootState) => state.mypage.myAdoption);
 
   useEffect(() => {
     dispatch(getMyAdoptionThunk());

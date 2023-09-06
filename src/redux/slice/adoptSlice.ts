@@ -1,12 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk';
-import { AdoptComment, AdoptDetail, AdoptPost } from '@/types/Adopt';
+import { createSlice } from '@reduxjs/toolkit'
+import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk'
+import { AdoptApply, AdoptApplyObj, AdoptComment, AdoptDetail, AdoptForm, AdoptPost } from '@/types/Adopt'
+
+
 
 export interface AdoptState {
   page: number;
   limit: number;
   adoptDetail?: AdoptDetail;
-  adoptForm?: Partial<Omit<AdoptDetail, 'noticeId'>>;
+  adoptApply?: Partial<AdoptApply>;
+  adoptApplyObj?: AdoptApplyObj;
+  adoptForm: Partial<AdoptForm>;
   adoptPosts?: Array<AdoptPost>;
   adoptComments?: Array<AdoptComment>;
 }
@@ -16,7 +20,9 @@ const initialState: AdoptState = {
   page: 0,
   limit: 0,
   adoptPosts: [],
-};
+  adoptApply:{},
+  adoptForm: {}
+}
 
 export const adoptSlice = createSlice({
   name: 'adopt',
@@ -35,19 +41,46 @@ export const adoptSlice = createSlice({
       return state;
     },
     setAdoptForm: (state, action) => {
-      console.log('action', action);
-      if ('cat' in action.payload) {
-        state.adoptForm = { ...state.adoptForm, cat: { ...action.payload.cat } };
-      } else if ('shelter' in action.payload) {
-        state.adoptForm = { ...state.adoptForm, shelter: { ...action.payload.shelter } };
-      } else {
-        state.adoptForm = { ...state.adoptForm, ...action.payload };
+      console.log('state', state);
+      console.log('action', action.payload);
+
+      let adoptForm = state.adoptForm as Partial<AdoptForm>;
+      for (const [key, value] of Object.entries(action.payload)) {
+        if (key === 'cat' || key === 'shelter') {
+          console.log('key', key, value);
+          adoptForm = { ...adoptForm, [key]: value };
+        } else {
+          adoptForm = { ...adoptForm, [key]: value };
+        }
       }
-      return state;
+      if (Object.keys(action.payload).length == 0) {
+        adoptForm = {};
+      }
+      console.log('adoptForm', adoptForm);
+      return { ...state, adoptForm: { ...adoptForm } };
     },
     getAdoptComments: (state, action) => {
       state.adoptComments = action.payload;
       return state;
+    },
+    setAdoptApply: (state, action) => {
+      console.log('state', state);
+      console.log('action', action.payload);
+
+      let adoptApply = state.adoptApply as Partial<AdoptApply>;
+      for (const [key, value] of Object.entries(action.payload)) {
+        if (key === 'applicant' || key === 'survey') {
+          console.log('key', key, value);
+          adoptApply = { ...adoptApply, [key]: value };
+        } else {
+          adoptApply = { ...adoptApply, [key]: value };
+        }
+      }
+      if (Object.keys(action.payload).length == 0) {
+        adoptApply = {};
+      }
+   
+      return { ...state, adoptApply: { ...adoptApply } };
     },
   },
   extraReducers: (builder) => {
@@ -64,6 +97,7 @@ export const adoptSlice = createSlice({
   },
 });
 
-export const { getAdoptPosts, getAdoptDetail, setAdoptForm, getAdoptComments } = adoptSlice.actions;
+export const { getAdoptPosts, getAdoptDetail, setAdoptForm, getAdoptComments, setAdoptApply } =
+  adoptSlice.actions;
 
 export default adoptSlice.reducer;

@@ -1,25 +1,24 @@
 import AdoptCatForm from '@components/adopt-post/regist/form/AdoptCatForm';
-import 냥이5 from '../../../../assets/adopt/냥이5.jpg';
+import AdoptUploadCatPic from '@components/adopt-post/regist/form/AdoptUploadCatPic';
+import { Cat } from '@/types/Adopt';
+import { memo, useMemo } from 'react';
 
-function AdoptUploadPicForm() {
-  return (
-    <>
-      <h6 className="p-2 mt-5 text-base font-bold">등록할 유기묘에 대한 정보를 입력해주세요</h6>
-      <h4 className="p-2 mt-4 text-base font-bold">사진 추가하기(필수)</h4>
-      <button className="w-32 p-2 mt-2 text-center border-2 rounded-md hover:border-gray-700">
-        사진 첨부
-      </button>
+interface Props{
+    cat: Partial<Cat>;
+}
+function AdoptUploadPicForm({cat}:Props) {
+    
+    const catVal = useMemo(() =>cat, [cat]);
 
-      <div className="flex flex-col w-full gap-3 mt-5 mb-20 md:flex-row">
-        <div className="w-full h-full p-2 pb-5 bg-gray-300 md:w-3/5 mt-7">
-          <img src={냥이5} />
-          <img src={냥이5} />
-          <img src={냥이5} />
-        </div>
-        <AdoptCatForm />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <h6 className='text-base font-bold p-2 mt-5'>등록할 유기묘에 대한 정보를 입력해주세요</h6>
+            <div className='flex w-full mt-5 gap-3 md:flex-row flex-col h-full'>
+                <AdoptUploadCatPic />
+                <AdoptCatForm cat={catVal as Partial<Cat>} />
+            </div>
+        </>
+    );
 }
 
-export default AdoptUploadPicForm;
+export default memo(AdoptUploadPicForm);

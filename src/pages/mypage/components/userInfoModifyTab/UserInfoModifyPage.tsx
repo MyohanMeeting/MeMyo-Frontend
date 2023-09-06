@@ -7,7 +7,7 @@ import { deleteUserThunk, getUserInfoThunk } from '@redux/thunks/MyThunk';
 
 function UserInfoModifyPage() {
   const dispatch = useThunkDispatch();
-  const userInfo = useSelector((state: RootState) => state.persistedReducer.mypage.userInfo);
+  const userInfo = useSelector((state: RootState) => state.mypage.userInfo);
   useEffect(() => {
     dispatch(getUserInfoThunk());
   }, [dispatch]);

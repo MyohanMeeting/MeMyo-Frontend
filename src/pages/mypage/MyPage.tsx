@@ -11,7 +11,7 @@ import { getUserInfoThunk, updateUserPasswordThunk } from '@redux/thunks/MyThunk
 import Modal from './components/modal/Modal';
 
 function MyPage() {
-  const userinfo = useSelector((state: RootState) => state.persistedReducer.mypage.userInfo);
+  const userinfo = useSelector((state: RootState) => state.mypage.userInfo);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [password, setPassword] = useState({
     currentPassword: '',
