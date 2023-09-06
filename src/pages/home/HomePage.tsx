@@ -6,7 +6,6 @@ import homePageMainImage from '../../assets/homePage/homePageMainImage.png';
 import { useThunkDispatch } from '@redux/hooks';
 import { getRecentPostThunk } from '@redux/thunks/HomeThunk';
 import { RootState } from '@redux/store';
-import { basicApi } from '@redux/api/axiosConfig';
 
 function HomePage() {
   const dispatch = useThunkDispatch();
@@ -15,29 +14,8 @@ function HomePage() {
   useEffect(() => {
     dispatch(getRecentPostThunk());
   }, [dispatch]);
-  console.log('rescent', recentPost);
 
   if (!recentPost) return null;
-
-  useEffect(() => {
-    function login() {
-      basicApi
-        .post('/v1/auth/signin/direct', {
-          email: 'user@user.com',
-          password: 'user12345!',
-        })
-        .then((res) => localStorage.setItem('access_token', res.data.data.accessToken));
-    }
-    login();
-  }, []);
-
-  setInterval(function refresh() {
-    basicApi
-      .post('/v1/auth/refresh', {
-        refreshToken: localStorage.getItem('access_token'),
-      })
-      .then((res) => localStorage.setItem('access_token', res.data.accessToken));
-  }, 60000 * 2.5);
 
   return (
     <div className="mt-4">
