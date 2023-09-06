@@ -19,12 +19,12 @@ export default function AdoptionHandleTab() {
   }
 
   return (
-    <article className="max-w-lg pt-4 m-auto space-y-4 md:space-y-0 md:grid md:grid-cols-1 md:gap-4 md:max-w-none md:place-items-center">
+    <article className="max-w-lg max-h-screen pt-4 m-auto space-y-4 overflow-auto md:space-y-0 md:grid md:grid-cols-2 md:gap-4 md:max-w-none md:place-items-center scrollbar-hide">
       {myAdoption &&
         myAdoption.map((item: MyAdoption) => {
           return (
-            <div key={item.applicationId} className="overflow-auto max-h-96 scrollbar-hide">
-              <div className="flex flex-col items-center justify-center space-y-4">
+            <div key={item.applicationId}>
+              <div className="flex flex-col space-y-4">
                 <AdoptionCard myAdoption={item} />
               </div>
             </div>

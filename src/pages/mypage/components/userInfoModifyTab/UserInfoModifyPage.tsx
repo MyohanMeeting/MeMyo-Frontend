@@ -3,27 +3,32 @@ import { useSelector } from 'react-redux';
 import UserInfoModifyInput from './UserInfoModifyInput';
 import { RootState } from '@redux/store';
 import { useThunkDispatch } from '@redux/hooks';
-import { getUserInfo } from '@redux/slice/mypageSlice';
+import { deleteUserThunk, getUserInfoThunk } from '@redux/thunks/MyThunk';
 
 function UserInfoModifyPage() {
   const dispatch = useThunkDispatch();
-  const userInfo = useSelector((state: RootState) => state.recentPost);
+  const userInfo = useSelector((state: RootState) => state.mypage.userInfo);
   useEffect(() => {
-    dispatch(getUserInfo({}));
+    dispatch(getUserInfoThunk());
   }, [dispatch]);
+
+  function handleClickDeleteUser() {
+    if (window.confirm('확인 버튼을 누르시면 정말로 회원 정보가 삭제됩니다!')) {
+      // confirm창 modal로 변경 예정
+      dispatch(deleteUserThunk());
+    }
+  }
+
+  if (!userInfo) {
+    return null;
+  }
 
   return (
     <article className="flex flex-col h-screen md:max-w-md md:m-auto">
-      <UserInfoModifyInput />
-      {Array.isArray(userInfo) &&
-        userInfo.map((info) => (
-          <div key={info.nickname}>
-            <UserInfoModifyInput />
-          </div>
-        ))}
+      <UserInfoModifyInput info={userInfo} />
       <div className="mt-10 text-center ">
-        <button className="w-24 p-2 text-white bg-memyo-yellow7 rounded-2xl hover:bg-blue-500">
-          회원탈퇴
+        <button onClick={handleClickDeleteUser} className="btn btn-outline btn-error">
+          회원 탈퇴하기
         </button>
       </div>
     </article>
