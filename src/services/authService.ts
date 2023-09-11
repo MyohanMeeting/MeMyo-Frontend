@@ -1,5 +1,4 @@
 import { basicApi } from '@redux/api/axiosConfig';
-import axios from 'axios';
 
 const DUPLICATE_EMAIL_API_URL = '/v1/member/email';
 const DUPLICATE_NICKNAME_API_URL = '/v1/member/nickname';
