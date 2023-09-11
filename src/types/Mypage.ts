@@ -6,6 +6,12 @@ export interface UserInfo {
   oauthType: string;
 }
 
+export interface newUserInfo {
+  nickname: string;
+  phoneNumber: string;
+  profileImageId: number;
+}
+
 export interface MyNotice {
   noticeId: number;
   noticeTitle: string;
@@ -55,4 +61,9 @@ export interface MyAdoption {
   survey: Survey;
   content: string;
   createdAt: string;
+}
+
+export interface UserPassword {
+  currentPassword: string;
+  newPassword: string;
 }

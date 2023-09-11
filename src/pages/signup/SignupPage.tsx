@@ -14,7 +14,6 @@ interface ErrorResponse {
   };
 }
 
-
 function SignupPage() {
   const [errorData, setErrorData] = useState<ErrorResponse['debugMessage']>({});
   const [inputs, setInputs] = useState({
@@ -160,6 +159,7 @@ function SignupPage() {
                   required
                 />
                 <button
+                  type="button"
                   disabled={isEmailBtnDisabled}
                   className={`${isEmailBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'}`}
                   onClick={() => handleDuplicateEmailOrNickname('email')}
@@ -179,6 +179,7 @@ function SignupPage() {
                   required
                 />
                 <button
+                  type="button"
                   disabled={isNicknameBtnDisabled}
                   className={`${
                     isNicknameBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'
