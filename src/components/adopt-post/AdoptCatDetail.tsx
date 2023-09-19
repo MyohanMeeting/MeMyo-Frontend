@@ -52,7 +52,7 @@ function AdoptCatDetail({cat}:Props) {
                         </div>
                         <div className="w-full px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 font-bold mb-2" htmlFor="health">건강 상태</label>
-                            <textarea rows="4" className="resize-none block p-2.5 w-full text-gray-900 rounded-lg border border-gray-300  " id="health" placeholder="" readOnly value={cat.healthStatus}>
+                            <textarea rows={4} className="resize-none block p-2.5 w-full text-gray-900 rounded-lg border border-gray-300  " id="health" placeholder="" readOnly value={cat.healthStatus}>
                             </textarea>
                         </div>
                         <div className="w-full px-3 mb-6 md:mb-0">

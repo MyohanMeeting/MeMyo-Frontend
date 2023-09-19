@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
-import { persistReducer } from 'redux-persist';
-import localStorage from 'redux-persist/es/storage';
-
 import authReducer from '@redux/slice/authSlice';
 import adoptReducer from '@redux/slice/adoptSlice';
+import localStorage from 'redux-persist/es/storage';
+import { persistReducer } from 'redux-persist';
+import mypageSlice from './slice/mypageSlice';
+import favoriteFriendSlice from './slice/favoriteFriendSlice';
+import recentPostSlice from './slice/recentPostSlice';
 
 const rootPersistConfig = {
   key: 'root',
@@ -24,10 +26,11 @@ const authPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-  adopt: persistReducer(adoptPersistConfig, adoptReducer),
   auth: persistReducer(authPersistConfig, authReducer),
+  adopt: persistReducer(adoptPersistConfig, adoptReducer),
+  mypage: mypageSlice,
+  recentPost: recentPostSlice,
+  favoriteFriend: favoriteFriendSlice,
 });
-
-// export type RootState = ReturnType<typeof rootReducer>;
 
 export const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

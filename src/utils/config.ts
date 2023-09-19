@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = 'http://localhost:5173';
+export const BASE_URL = 'https://myomeet.store/';
 
 export const basicApi = axios.create({
   baseURL: `${BASE_URL}`,

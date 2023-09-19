@@ -1,11 +1,12 @@
 import { useAppSelector, useThunkDispatch } from '@redux/hooks'
 import AdoptSearchFacet from '@components/adopt-post/AdoptSearchFacet';
-import { useCallback, useEffect } from 'react';
+import { Suspense, lazy, useCallback, useEffect } from 'react';
 import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk';
-import AdoptCard from '@components/adopt-post/AdoptCard';
+// import AdoptCard from '@components/adopt-post/AdoptCard';
 import AdoptMobileFacet from '@components/adopt-post/AdoptMobileFacet';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from '@components/loading/Loading';
 
 
 
@@ -16,7 +17,15 @@ function AdoptPage() {
 
   const [mobileBut, setMobileBut] = useState(false);
   const handleMobile = useCallback(() => setMobileBut(prev=>!prev),[]);
-  
+  const delayForDemo = (promise:any) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, 2000);
+  }).then(() => promise);
+}
+
+
+  const AdoptCardsPreview = lazy(()=>delayForDemo(import('@/components/adopt-post/AdoptCards')))
+
 
   useEffect(() => {
     dispatch(getAdoptPostThunk({}));
@@ -40,12 +49,12 @@ function AdoptPage() {
       <AdoptSearchFacet  />
       
       
-      <section className="flex flex-wrap p-2 md:w-2/3 w-full">
-        <ul className="grid md:grid-cols-3 grid-cols-2 gap-3 my-4 h-72">
-          {AdoptPosts.map((adopt) => (
-            <AdoptCard key={adopt.noticeId} adopt={adopt} />
-          ))}
-        </ul>
+      <section className="flex flex-wrap p-2 md:w-2/3 w-full h-screen">
+        {AdoptPosts && (
+        <Suspense fallback={<Loading />}>
+          <AdoptCardsPreview AdoptPosts={AdoptPosts} />
+        </Suspense>
+        )}
       </section>
       </div>
     </>  

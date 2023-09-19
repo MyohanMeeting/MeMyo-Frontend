@@ -15,13 +15,16 @@ import { Link, useParams } from 'react-router-dom';
 import AdoptAddMyReview from './detail/AdoptAddMyReview';
 
 interface Props{
-    adopt:AdoptDetail
+    adopt: AdoptDetail
 }
 function AdoptDetailCard({ adopt }: Props) {
     const {noticeId} = useParams();
     
 
-    const { title,cat,catPictures } = adopt;
+    const { title, cat, catPictures, thumbnail } = adopt;
+    const calUrl = catPictures.length > 0 ? catPictures : [thumbnail]
+    
+
     return (
          <section className="flex flex-col w-full p-2 my-4 h-full mt-6 justify-center">
               <div className='flex justify-center'>
@@ -37,7 +40,7 @@ function AdoptDetailCard({ adopt }: Props) {
                     modules={[Navigation, Pagination, Scrollbar, A11y]}
                     navigation
                     pagination={{ clickable: true }}>
-                    {catPictures.map((picture) => {
+                    {calUrl.map((picture) => {
                         return (
                          <SwiperSlide key={picture.uploadId}>
                             <div className='w-full flex justify-center md:h-80 h-72'> 
@@ -87,7 +90,7 @@ function AdoptDetailCard({ adopt }: Props) {
                               <button className='w-10 h-10 mr-2 bg-gray-100 text-center flex justify-center items-center'>
                                   <AiOutlineHeart/>
                               </button>
-                              <Link to='/adopt/apply' className='w-full bg-memyo-yellow6 hover:bg-memyo-yellow8 text-white text-center flex justify-center items-center'>입양 신청하기</Link>
+                              <Link to={`/adopt/apply/${noticeId}`} className='w-full bg-memyo-yellow6 hover:bg-memyo-yellow8 text-white text-center flex justify-center items-center'>입양 신청하기</Link>
                           </div>    
                       </div>
                  </div>

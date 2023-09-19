@@ -13,10 +13,10 @@ function AdoptCard(props:Props) {
   return (
     <Link to={`/adopt/detail/${noticeId}`}
       className="border border-memyo-yellow4 hover:bg-memyo-yellow2 rounded-md transition-all 
-      cursor-pointer hover:p-2 shadow-sm hover:shadow-md hover:border-memyo-yellow2 box-border"
+      cursor-pointer hover:p-2 shadow-sm hover:shadow-md hover:border-memyo-yellow2 box-border flex flex-col justify-between h-64"
     >
       <img
-        className="border-b border-memyo-yellow4 rounded-t-md hover:rounded-md"
+        className="border-b border-memyo-yellow4 rounded-t-md hover:rounded-md h-full"
         src={thumbnail}
       />
       <div className="p-2">
@@ -43,7 +43,7 @@ function AdoptCard(props:Props) {
           <span className="text-sm font-semibold">묘종</span>
           <span className="text-sm">{catSpecies}</span>
         </div>
-      </div>
+        </div>
     </Link>
   );
 }
