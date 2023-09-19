@@ -36,8 +36,8 @@ export const getAdoptPostThunk = createAsyncThunk(
   async (facet: any, thunkApi) => {
     try {
       await basicApi<
-        AdoptResultDataType<AdoptPost[]>,
-        AxiosResponse<AdoptResultDataType<AdoptPost[]>, Partial<searchFacet>>,
+        AdoptResultDataType<{ adoptNoticeList: AdoptPost[] }>,
+        AxiosResponse<AdoptResultDataType<{ adoptNoticeList: AdoptPost[] }>, Partial<searchFacet>>,
         Partial<searchFacet>
       >({
         method: 'get',
@@ -50,8 +50,7 @@ export const getAdoptPostThunk = createAsyncThunk(
         if (result.data) {
           const { data } = result.data;
           if (data) {
-            console.log('data', data);
-            thunkApi.dispatch(getAdoptPosts(data));
+            thunkApi.dispatch(getAdoptPosts(data.adoptNoticeList));
           }
         }
       });

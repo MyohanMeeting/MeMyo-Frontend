@@ -16,17 +16,17 @@ export interface searchFacet {
 }
 
 export interface AdoptPost {
-  noticeId: number;
-  noticeTitle: string;
-  noticeStatus: string;
-  thumbnail: string;
+  applicationCount: number;
   authorName: string;
   catName: string;
   catSpecies: string;
-  shelterCity: string;
-  applicationCount: number;
   commentCount: number;
-  createAt: string;
+  createdAt: string;
+  noticeId: number;
+  noticeTitle: string;
+  noticeStatus: string;
+  shelterCity: string;
+  thumbnail: string;
 }
 
 export interface Author {
