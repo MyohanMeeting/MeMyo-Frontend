@@ -1,4 +1,15 @@
-
+.sr-only {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px); /* IE6/7 */
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal; /* IE9+ */
+}
 
 .swiper {
   width: 100%;
@@ -23,16 +34,18 @@
   object-fit: cover;
 }
 
-.swiper-button-prev:after, .swiper-button-next:after {
-    font-family: swiper-icons;
-    font-size: var(--swiper-navigation-size);
-    text-transform: none !important;
-    letter-spacing: 0;
-    font-variant: initial;
-    line-height: 1;
-    color: gray;
-    font-size: 22px;
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-family: swiper-icons;
+  font-size: var(--swiper-navigation-size);
+  text-transform: none !important;
+  letter-spacing: 0;
+  font-variant: initial;
+  line-height: 1;
+  color: gray;
+  font-size: 22px;
 }
+
 .swiper-pagination-bullet-active {
-    background: orange;
+  background: orange;
 }

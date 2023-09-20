@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
@@ -65,16 +66,15 @@ function SignupPage() {
 
     try {
       const data = await checkDuplicateEmailOrNickname(type, stateValue);
-      // console.log('data', data);
+
       if (data?.message === 'SUCCESS') {
-        alert(`사용가능한 ${type === 'email' ? '이메일' : '닉네임'}입니다.`);
+        toast.success(`사용가능한 ${type === 'email' ? '이메일' : '닉네임'}입니다.`);
         setDuplicated((prev) => ({
           ...prev,
           [stateName]: stateValue,
         }));
       }
     } catch (err) {
-      // console.log('err', err);
       if (axios.isAxiosError<ErrorResponse, any>(err)) {
         setDuplicated((prev) => ({
           ...prev,
@@ -147,7 +147,11 @@ function SignupPage() {
                 }}
                 className="space-y-3 text-center"
               >
+                <label htmlFor="email" className="sr-only">
+                  이메일
+                </label>
                 <input
+                  id="email"
                   type="text"
                   className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
                   placeholder="이메일"
@@ -163,11 +167,16 @@ function SignupPage() {
                   disabled={isEmailBtnDisabled}
                   className={`${isEmailBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'}`}
                   onClick={() => handleDuplicateEmailOrNickname('email')}
+                  aria-label="이메일 중복 확인"
                 >
                   이메일 중복 확인
                 </button>
 
+                <label htmlFor="nickname" className="sr-only">
+                  닉네임
+                </label>
                 <input
+                  id="nickname"
                   type="text"
                   className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
                   placeholder="닉네임"
@@ -185,11 +194,16 @@ function SignupPage() {
                     isNicknameBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'
                   }`}
                   onClick={() => handleDuplicateEmailOrNickname('nickname')}
+                  aria-label="닉네임 중복 확인"
                 >
                   닉네임 중복 확인
                 </button>
 
+                <label htmlFor="password" className="sr-only">
+                  비밀번호
+                </label>
                 <input
+                  id="password"
                   type="password"
                   className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
                   placeholder="비밀번호"
@@ -201,7 +215,11 @@ function SignupPage() {
                   required
                 />
 
+                <label htmlFor="phoneNumber" className="sr-only">
+                  전화번호
+                </label>
                 <input
+                  id="phoneNumber"
                   type="text"
                   className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
                   placeholder="전화번호"
@@ -214,11 +232,15 @@ function SignupPage() {
                 />
 
                 <div className="flex items-center justify-center">
-                  <button className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl">
+                  <button
+                    type="submit"
+                    className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl"
+                  >
                     회원가입
                   </button>
                 </div>
               </form>
+
               <div className="flex items-center justify-center text-sm pb-4 space-x-2">
                 <p>이미 회원이신가요? </p>
                 <Link to="/login" className="font-semibold">
