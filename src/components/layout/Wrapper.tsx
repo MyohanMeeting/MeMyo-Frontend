@@ -23,7 +23,9 @@ function Wrapper() {
   return (
     <div className="w-full h-full max-w-md mx-auto md:max-w-5xl font-pretendard">
       <NavBar />
-      <Outlet />
+      <div className="md:px-4">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

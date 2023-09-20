@@ -57,7 +57,7 @@ function NavBar() {
 
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       </nav>
-      <div className="hidden px-4 shadow-sm md:block">
+      <div className="hidden px-6 shadow-sm md:block">
         <nav className="flex items-center justify-between w-full py-8">
           <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
             묘한만남
