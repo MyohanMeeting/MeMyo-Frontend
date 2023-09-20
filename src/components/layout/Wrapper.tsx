@@ -21,7 +21,7 @@ function Wrapper() {
   }, []);
 
   return (
-    <div className="w-full h-full max-w-md px-3 mx-auto md:max-w-5xl font-pretendard">
+    <div className="w-full h-full max-w-md mx-auto md:max-w-5xl font-pretendard">
       <NavBar />
       <Outlet />
       <Footer />
