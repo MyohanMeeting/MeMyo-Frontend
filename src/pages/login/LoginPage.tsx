@@ -128,10 +128,10 @@ function LoginPage() {
                 </svg>
                 <span className="">카카오 로그인</span>
               </button>
-              <div className="flex items-center justify-center py-4 space-x-2">
-                <p className="text-xs text-gray-600">아직 아이디가 없으신가요?</p>
-                <Link to="/signup" className="text-xs font-semibold">
-                  회원가입
+              <div className="flex flex-wrap items-center text-sm md:text-base justify-center py-4">
+                <p className="text-gray-800">아직 아이디가 없으신가요?</p>
+                <Link to="/signup" className=" font-semibold hover:underline">
+                  회원가입 하러가기
                 </Link>
               </div>
             </div>
