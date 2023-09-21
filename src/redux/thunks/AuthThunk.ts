@@ -2,45 +2,16 @@ import { isAxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { basicApi } from '@redux/api/axiosConfig';
-
-interface ErrorResponse {
-  status: string;
-  timestamp: string;
-  message: string;
-  debugMessage: {
-    [key: string]: string;
-  };
-}
+import type {
+  ErrorResponse,
+  SigninResponse,
+  SigninResponseData,
+  RefreshTokenData,
+  RefreshTokenResponse,
+} from '../../types/Auth';
 
 interface MyKnownError {
   message: string;
-}
-
-interface SigninResponseData {
-  email: string;
-  nickName: string;
-  profileImageUrl: string;
-  accessToken: string;
-  refreshToken: string;
-}
-
-interface SigninResponse {
-  status: string;
-  timestamp: string;
-  message: string;
-  data: SigninResponseData;
-}
-
-interface RefreshTokenData {
-  accessToken: string;
-  refreshToken: string;
-}
-
-interface RefreshTokenResponse {
-  status: string;
-  timestamp: string;
-  message: string;
-  data: RefreshTokenData;
 }
 
 export const signoutThunk = createAsyncThunk<null, string, { rejectValue: MyKnownError }>(

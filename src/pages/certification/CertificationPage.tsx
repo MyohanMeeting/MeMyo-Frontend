@@ -1,7 +1,8 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { ErrorResponse } from '../login/LoginPage';
+
+import type { ErrorResponse } from '../../types/Auth';
 
 function CertificationPage() {
   const location = useLocation();
@@ -47,17 +48,13 @@ function CertificationPage() {
           'Content-Type': 'application/json',
         },
         url: `/v1/member/certification?email=${emailParam}`,
-        // data: JSON.stringify(inputs),
       });
-
-      console.log(data);
       if (data.status === 200) {
         alert('이메일 인증이 완료됐습니다.');
         navigate('/login');
       }
     } catch (error) {
       if (axios.isAxiosError<ErrorResponse, any>(error)) {
-        console.log(error.response?.data);
         if (error.response?.data.debugMessage === 'ALREADY_CERTIFIED') {
           alert('이미 인증이 완료됐습니다.');
           navigate(-1);

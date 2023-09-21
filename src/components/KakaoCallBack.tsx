@@ -7,43 +7,8 @@ import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import { kakaoSigninThunk } from '@redux/thunks/AuthThunk';
 import { handleLoginResponse } from '@/utils/ApiResponseHandler';
-import type { ErrorResponse } from '../pages/login/LoginPage';
 import { checkDuplicateEmailOrNickname } from '../services/authService';
-
-interface KakaoResponseData {
-  access_token: string;
-  expires_in: number;
-  id_token: string;
-  refresh_token: string;
-  refresh_token_expires_in: number;
-  scope: string;
-  token_type: string;
-}
-
-interface KakaoUserResponseData {
-  connected_at: string;
-  id: number;
-  kakao_account: {
-    email?: string;
-    email_needs_agreement: boolean;
-    has_email: boolean;
-    is_email_valid: boolean;
-    is_email_verified: boolean;
-    profile_nickname_needs_agreement: boolean;
-    profile?: {
-      nickname?: string;
-    };
-  };
-}
-
-interface SuccessResonse {
-  status: string;
-  timestamp: string;
-  message: string;
-  data: {
-    memberId: number;
-  };
-}
+import type { KakaoResponseData, KakaoUserResponseData, OauthSuccessResonse } from '../types/Auth';
 
 function KakaoCallBack() {
   const navigate = useNavigate();
@@ -168,7 +133,7 @@ function KakaoCallBack() {
   }, []);
 
   const handleKakaoSignup = () => {
-    axios<SuccessResonse>({
+    axios<OauthSuccessResonse>({
       method: 'post',
       withCredentials: true,
       headers: {
