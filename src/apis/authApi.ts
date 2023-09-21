@@ -1,21 +1,24 @@
 import { basicApi } from '../utils/config';
 
-export async function oauthSignIn(data: { oauthType: 'KAKAOTALK'; oauthId: string }) {
-  const res = await basicApi.post('/auth/signIn/oauth', data);
-  return res.data;
+export interface ErrorResponse {
+  status: string;
+  timestamp: string;
+  message: string;
+  debugMessage: {
+    [key: string]: string;
+  };
 }
 
-export async function directSignIn(data: { email: string; password: string }) {
-  const res = await basicApi.post('/auth/signIn/direct', data);
-  return res.data;
-}
-
-export async function refreshToken(data: { refreshToken: string }) {
-  const res = await basicApi.post('/auth/refresh', data);
-  return res.data;
-}
-
-export async function signOut() {
-  const res = await basicApi.get('/auth/signOut');
+export async function emailSignUp(data: {
+  email: string;
+  password: string;
+  nickname: string;
+  phoneNumber: string;
+}) {
+  const res = await basicApi({
+    method: 'post',
+    url: 'v1/member/direct',
+    data: JSON.stringify(data),
+  });
   return res.data;
 }
