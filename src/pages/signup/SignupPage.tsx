@@ -48,14 +48,12 @@ function SignupPage() {
   );
 
   const isFormValid = () => {
-    const allFieldsFilled = Object.values(inputs).every((value) => value !== '');
     const duplicationChecked =
       isDuplicatedEmail !== false &&
       isDuplicatedEmail !== '' &&
       isDuplicatedNickname !== false &&
       isDuplicatedNickname !== '';
     return (
-      allFieldsFilled &&
       isEmailValid(email) &&
       isPasswordValid(password) &&
       isNicknameValid(nickname) &&
@@ -166,7 +164,7 @@ function SignupPage() {
                   id="nickname"
                   type="text"
                   className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
-                  placeholder="닉네임"
+                  placeholder="닉네임 (공백 없이 2~12자)"
                   name="nickname"
                   value={nickname}
                   onChange={handleChangeInputs}
@@ -195,7 +193,7 @@ function SignupPage() {
                   id="password"
                   type="password"
                   className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
-                  placeholder="비밀번호"
+                  placeholder="비밀번호 (영문, 숫자를 조합해 8~24자)"
                   name="password"
                   value={password}
                   onChange={handleChangeInputs}
