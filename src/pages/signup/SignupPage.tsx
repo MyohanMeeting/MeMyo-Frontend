@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import useAuthInputs from '@hooks/useAuthInputs';
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
-import { type ErrorResponse, emailSignUp } from '@/apis/authApi';
+import { emailSignUp } from '@/apis/authApi';
 import { checkDuplicateEmailOrNickname } from '../../services/authService';
 import {
   isEmailValid,
@@ -13,6 +13,7 @@ import {
   isPasswordValid,
   isNicknameValid,
 } from '@/utils/validation';
+import type { SignupErrorResponse } from '../../types/Auth';
 
 function SignupPage() {
   const { inputs, handleChangeInputs } = useAuthInputs();
@@ -20,7 +21,7 @@ function SignupPage() {
   const [isDuplicatedEmail, setIsDuplicatedEmail] = useState<string | boolean>('');
   const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<string | boolean>('');
   const [isCompleted, setIsCompleted] = useState(false);
-  const [errorData, setErrorData] = useState<ErrorResponse['debugMessage']>({});
+  const [errorData, setErrorData] = useState<SignupErrorResponse['debugMessage']>({});
 
   const handleDuplicateEmailOrNickname = useCallback(
     async (type: 'email' | 'nickname') => {
@@ -33,7 +34,7 @@ function SignupPage() {
           setStateFunc(stateValue);
         }
       } catch (err) {
-        if (axios.isAxiosError<ErrorResponse, any>(err)) {
+        if (axios.isAxiosError<SignupErrorResponse, any>(err)) {
           if (err.code === 'ERR_NETWORK') {
             toast.error(`네트워크에 문제가 생겼습니다. 잠시 후 다시 시도해주세요.`);
           } else {
@@ -80,7 +81,7 @@ function SignupPage() {
         setIsCompleted(true);
       }
     } catch (err) {
-      if (axios.isAxiosError<ErrorResponse, any>(err)) {
+      if (axios.isAxiosError<SignupErrorResponse, any>(err)) {
         if (err.code === 'ERR_NETWORK') {
           toast.error(`네트워크에 문제가 생겼습니다. 잠시 후 다시 시도해주세요.`);
         } else {

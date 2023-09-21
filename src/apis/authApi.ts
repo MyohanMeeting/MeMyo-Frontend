@@ -1,14 +1,5 @@
 import { basicApi } from '../utils/config';
 
-export interface ErrorResponse {
-  status: string;
-  timestamp: string;
-  message: string;
-  debugMessage: {
-    [key: string]: string;
-  };
-}
-
 export async function emailSignUp(data: {
   email: string;
   password: string;
