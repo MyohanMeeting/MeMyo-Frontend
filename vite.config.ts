@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/v1': {
-        target: 'https://myomeet.store/',
+        target: 'https://myomeet.store',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/v1/, '/v1/'),
