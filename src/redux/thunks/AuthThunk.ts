@@ -37,9 +37,9 @@ interface RefreshTokenData {
 }
 
 interface RefreshTokenResponse {
-  status: string;
-  timestamp: string;
-  message: string;
+  status: '200 OK';
+  timestamp: '2023-08-29T04:08:15.868Z';
+  message: 'SUCCESS';
   data: RefreshTokenData;
 }
 
