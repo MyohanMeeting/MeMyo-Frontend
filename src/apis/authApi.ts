@@ -13,3 +13,19 @@ export async function emailSignUp(data: {
   });
   return res.data;
 }
+
+export async function certificationEmail(certCode: string, email: string) {
+  const res = await basicApi({
+    method: 'PUT',
+    url: `/v1/member/certification?certCode=${certCode}&email=${email}`,
+  });
+  return res.data;
+}
+
+export async function resendCertificationEmail(email: string) {
+  const res = await basicApi({
+    method: 'POST',
+    url: `/v1/member/certification?email=${email}`,
+  });
+  return res.data;
+}
