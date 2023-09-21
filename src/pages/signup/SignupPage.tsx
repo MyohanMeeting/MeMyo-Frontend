@@ -7,6 +7,12 @@ import useAuthInputs from '@hooks/useAuthInputs';
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 import { type ErrorResponse, emailSignUp } from '@/apis/authApi';
 import { checkDuplicateEmailOrNickname } from '../../services/authService';
+import {
+  isEmailValid,
+  isPhoneNumberValid,
+  isPasswordValid,
+  isNicknameValid,
+} from '@/utils/validation';
 
 function SignupPage() {
   const { inputs, handleChangeInputs } = useAuthInputs();
@@ -40,18 +46,7 @@ function SignupPage() {
     [email, nickname]
   );
 
-  const isFormValid = (inputs: {
-    email: string;
-    password: string;
-    nickname: string;
-    phoneNumber: string;
-  }) => {
-    const { email, password, nickname, phoneNumber } = inputs;
-    const isEmailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
-    const isPasswordValid = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
-    const isNicknameValid = /^[\wㄱ-ㅎㅏ-ㅣ가-힣]{3,}$/.test(nickname);
-    const isPhoneNumberValid = /^\d{3}-\d{4}-\d{4}$/.test(phoneNumber);
-
+  const isFormValid = () => {
     const allFieldsFilled = Object.values(inputs).every((value) => value !== '');
     const duplicationChecked =
       isDuplicatedEmail !== false &&
@@ -60,16 +55,16 @@ function SignupPage() {
       isDuplicatedNickname !== '';
     return (
       allFieldsFilled &&
-      isEmailValid &&
-      isPasswordValid &&
-      isNicknameValid &&
-      isPhoneNumberValid &&
+      isEmailValid(email) &&
+      isPasswordValid(password) &&
+      isNicknameValid(nickname) &&
+      isPhoneNumberValid(phoneNumber) &&
       duplicationChecked
     );
   };
 
   const handleSignUp = useCallback(async () => {
-    if (!isFormValid(inputs)) {
+    if (!isFormValid()) {
       toast.error('모든 필드를 입력하고, 중복확인을 완료해주세요.');
       return;
     }
@@ -95,7 +90,7 @@ function SignupPage() {
     }
   }, [inputs, isDuplicatedEmail, isDuplicatedNickname]);
 
-  const isEmailBtnDisabled = isDuplicatedEmail === email;
+  const isEmailBtnDisabled = !isEmailValid(email) || isDuplicatedEmail === email;
   const isNicknameBtnDisabled = nickname.length < 1 || isDuplicatedNickname === nickname;
 
   return (
@@ -174,8 +169,8 @@ function SignupPage() {
                   name="nickname"
                   value={nickname}
                   onChange={handleChangeInputs}
-                  minLength={1}
-                  maxLength={11}
+                  minLength={2}
+                  maxLength={12}
                   required
                 />
                 <button
