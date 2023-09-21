@@ -1,115 +1,97 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
+import useAuthInputs from '@hooks/useAuthInputs';
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
+import { emailSignUp } from '@/apis/authApi';
 import { checkDuplicateEmailOrNickname } from '../../services/authService';
-
-interface ErrorResponse {
-  status: string;
-  timestamp: string;
-  message: string;
-  debugMessage: {
-    [key: string]: string;
-  };
-}
-
+import {
+  isEmailValid,
+  isPhoneNumberValid,
+  isPasswordValid,
+  isNicknameValid,
+} from '@/utils/validation';
+import type { SignupErrorResponse } from '../../types/Auth';
 
 function SignupPage() {
-  const [errorData, setErrorData] = useState<ErrorResponse['debugMessage']>({});
-  const [inputs, setInputs] = useState({
-    email: '',
-    password: '',
-    nickname: '',
-    phoneNumber: '',
-  });
+  const { inputs, handleChangeInputs } = useAuthInputs();
   const { email, password, nickname, phoneNumber } = inputs;
-  const [duplicated, setDuplicated] = useState({
-    isDuplicatedEmail: null,
-    isDuplicatedNickname: null,
-  });
-  const { isDuplicatedEmail, isDuplicatedNickname } = duplicated;
-
+  const [isDuplicatedEmail, setIsDuplicatedEmail] = useState<string | boolean>('');
+  const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<string | boolean>('');
   const [isCompleted, setIsCompleted] = useState(false);
+  const [errorData, setErrorData] = useState<SignupErrorResponse['debugMessage']>({});
 
-  const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    if (name === 'phoneNumber') {
-      let formattedValue = value
-        .replace(/\D+/g, '') // 숫자 외의 문자 제거
-        .slice(0, 11) // 최대 11 자리까지 자르기
-        .split('')
-        .map((digit, index) => {
-          if (index === 2 || index === 6) {
-            // 3번째 또는 7번째 위치에서 하이픈 추가
-            return digit + '-';
+  const handleDuplicateEmailOrNickname = useCallback(
+    async (type: 'email' | 'nickname') => {
+      const stateValue = type === 'email' ? email : nickname;
+      const setStateFunc = type === 'email' ? setIsDuplicatedEmail : setIsDuplicatedNickname;
+      try {
+        const data = await checkDuplicateEmailOrNickname(type, stateValue);
+        if (data?.message === 'SUCCESS') {
+          toast.success(`사용가능한 ${type === 'email' ? '이메일' : '닉네임'}입니다.`);
+          setStateFunc(stateValue);
+        }
+      } catch (err) {
+        if (axios.isAxiosError<SignupErrorResponse, any>(err)) {
+          if (err.code === 'ERR_NETWORK') {
+            toast.error(`네트워크에 문제가 생겼습니다. 잠시 후 다시 시도해주세요.`);
+          } else {
+            toast.error(`이미 사용중인 ${type === 'email' ? '이메일' : '닉네임'}입니다.`);
+            setStateFunc(false);
           }
-          return digit;
-        })
-        .join('');
-      setInputs((prevInputs) => ({
-        ...prevInputs,
-        phoneNumber: formattedValue,
-      }));
-    } else {
-      setInputs((prevInputs) => ({
-        ...prevInputs,
-        [name]: value,
-      }));
-    }
+        }
+      }
+    },
+    [email, nickname]
+  );
+
+  const isFormValid = () => {
+    const allFieldsFilled = Object.values(inputs).every((value) => value !== '');
+    const duplicationChecked =
+      isDuplicatedEmail !== false &&
+      isDuplicatedEmail !== '' &&
+      isDuplicatedNickname !== false &&
+      isDuplicatedNickname !== '';
+    return (
+      allFieldsFilled &&
+      isEmailValid(email) &&
+      isPasswordValid(password) &&
+      isNicknameValid(nickname) &&
+      isPhoneNumberValid(phoneNumber) &&
+      duplicationChecked
+    );
   };
 
-  const handleDuplicateEmailOrNickname = async (type: 'email' | 'nickname') => {
-    const stateValue = type === 'email' ? email : nickname;
-    const stateName = type === 'email' ? 'isDuplicatedEmail' : 'isDuplicatedNickname';
-
-    try {
-      const data = await checkDuplicateEmailOrNickname(type, stateValue);
-      // console.log('data', data);
-      if (data?.message === 'SUCCESS') {
-        alert(`사용가능한 ${type === 'email' ? '이메일' : '닉네임'}입니다.`);
-        setDuplicated((prev) => ({
-          ...prev,
-          [stateName]: stateValue,
-        }));
-      }
-    } catch (err) {
-      // console.log('err', err);
-      if (axios.isAxiosError<ErrorResponse, any>(err)) {
-        setDuplicated((prev) => ({
-          ...prev,
-          [stateName]: false,
-        }));
-      }
+  const handleSignUp = useCallback(async () => {
+    if (!isFormValid()) {
+      toast.error('모든 필드를 입력하고, 중복확인을 완료해주세요.');
+      return;
     }
-  };
-
-  const handleSignUp = async () => {
     try {
-      const data = await axios({
-        method: 'post',
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        url: 'v1/member/direct',
-        data: JSON.stringify(inputs),
+      const data = await emailSignUp({
+        email: isDuplicatedEmail as string,
+        nickname: isDuplicatedNickname as string,
+        password,
+        phoneNumber,
       });
-
       if (data.status === 200) {
-        alert('회원가입이 완료됐습니다.');
+        toast.success('회원가입이 완료됐습니다.');
         setIsCompleted(true);
       }
-    } catch (error) {
-      if (axios.isAxiosError<ErrorResponse, any>(error)) {
-        console.log(error.response?.data);
-        setErrorData(error.response?.data.debugMessage!);
+    } catch (err) {
+      if (axios.isAxiosError<SignupErrorResponse, any>(err)) {
+        if (err.code === 'ERR_NETWORK') {
+          toast.error(`네트워크에 문제가 생겼습니다. 잠시 후 다시 시도해주세요.`);
+        } else {
+          setErrorData(err.response?.data.debugMessage!);
+        }
       }
     }
-  };
+  }, [inputs, isDuplicatedEmail, isDuplicatedNickname]);
 
-  const isEmailBtnDisabled = email.length < 8 || isDuplicatedEmail === email;
+  const isEmailBtnDisabled = !isEmailValid(email) || isDuplicatedEmail === email;
   const isNicknameBtnDisabled = nickname.length < 1 || isDuplicatedNickname === nickname;
 
   return (
@@ -122,14 +104,14 @@ function SignupPage() {
       }}
       className="flex items-center justify-center max-w-5xl min-h-screen md:p-16"
     >
-      <div className="flex w-4/5 bg-opacity-50 shadow-2xl bottom-12 bg-memyo-yellow8 rounded-2xl">
+      <div className="flex w-4/5 bg-opacity-60 shadow-2xl bottom-12 bg-memyo-yellow8 rounded-2xl">
         {!isCompleted ? (
-          <div className="flex flex-col w-7/12 m-auto">
+          <div className="flex flex-col p-4 md:p-0 md:w-7/12 m-auto">
             <div className="text-center md:mt-8">
-              <h1 className="hidden text-4xl font-semibold text-white shadow-inner md:block">
+              <h1 className="text-xl md:text-4xl font-semibold text-white shadow-inner md:block">
                 묘한만남
               </h1>
-              <h3 className="hidden text-gray-600 md:block text-md">Adopt your Life Partner</h3>
+              <h3 className="hidden text-gray-700 md:block text-md">Adopt your Life Partner</h3>
             </div>
 
             {Object.keys(errorData).length > 0 && (
@@ -148,7 +130,11 @@ function SignupPage() {
                 }}
                 className="space-y-3 text-center"
               >
+                <label htmlFor="email" className="sr-only">
+                  이메일
+                </label>
                 <input
+                  id="email"
                   type="text"
                   className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
                   placeholder="이메일"
@@ -160,35 +146,53 @@ function SignupPage() {
                   required
                 />
                 <button
+                  type="button"
                   disabled={isEmailBtnDisabled}
-                  className={`${isEmailBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'}`}
+                  className={`${
+                    isEmailBtnDisabled
+                      ? 'text-gray-700'
+                      : 'font-semibold text-memyo-yellow6 hover:text-memyo-yellow8'
+                  }`}
                   onClick={() => handleDuplicateEmailOrNickname('email')}
+                  aria-label="이메일 중복 확인"
                 >
                   이메일 중복 확인
                 </button>
 
+                <label htmlFor="nickname" className="sr-only">
+                  닉네임
+                </label>
                 <input
+                  id="nickname"
                   type="text"
                   className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
                   placeholder="닉네임"
                   name="nickname"
                   value={nickname}
                   onChange={handleChangeInputs}
-                  minLength={1}
-                  maxLength={11}
+                  minLength={2}
+                  maxLength={12}
                   required
                 />
                 <button
+                  type="button"
                   disabled={isNicknameBtnDisabled}
                   className={`${
-                    isNicknameBtnDisabled ? 'font-thin text-gray-800' : 'font-semibold'
+                    isNicknameBtnDisabled
+                      ? 'text-gray-700'
+                      : 'font-semibold text-memyo-yellow6 hover:text-memyo-yellow8'
                   }`}
                   onClick={() => handleDuplicateEmailOrNickname('nickname')}
+                  aria-label="닉네임 중복 확인"
                 >
                   닉네임 중복 확인
                 </button>
 
+                <label htmlFor="password" className="sr-only">
+                  비밀번호
+                </label>
                 <input
+                  id="password"
                   type="password"
                   className="w-full h-10 shadow-2xl rounded-xl indent-3 focus:outline-none"
                   placeholder="비밀번호"
@@ -200,7 +204,11 @@ function SignupPage() {
                   required
                 />
 
+                <label htmlFor="phoneNumber" className="sr-only">
+                  전화번호
+                </label>
                 <input
+                  id="phoneNumber"
                   type="text"
                   className="w-full h-10 mt-12 shadow-2xl rounded-xl indent-3 focus:outline-none"
                   placeholder="전화번호"
@@ -213,14 +221,18 @@ function SignupPage() {
                 />
 
                 <div className="flex items-center justify-center">
-                  <button className="w-full h-10 text-white bg-blue-500 shadow-2xl rounded-xl">
+                  <button
+                    type="submit"
+                    className="w-full h-10 text-white font-medium bg-blue-500 hover:bg-blue-600 transition-colors shadow-2xl rounded-xl"
+                  >
                     회원가입
                   </button>
                 </div>
               </form>
-              <div className="flex items-center justify-center text-sm pb-4 space-x-2">
-                <p>이미 회원이신가요? </p>
-                <Link to="/login" className="font-semibold">
+
+              <div className="flex items-center justify-center text-sm md:text-base pb-4 space-x-1">
+                <p className="text-gray-700">이미 회원이신가요? </p>
+                <Link to="/login" className="font-semibold hover:underline">
                   로그인하기
                 </Link>
               </div>
@@ -228,12 +240,12 @@ function SignupPage() {
           </div>
         ) : (
           <div className="text-center p-8">
-            <h2 className=" font-semibold">인증 이메일이 발송되었습니다!</h2>
-            <p>
+            <h2 className="text-lg font-semibold">인증 이메일이 발송되었습니다!</h2>
+            <p className="pt-4 pb-2">
               가입을 완료하려면 이메일 인증이 필요합니다. 받은 메일함을 확인하시고 제공된 지시에
               따라주십시오.
             </p>
-            <p className="my-4">
+            <p>
               발송된 메일 주소는{' '}
               <span className="font-medium bg-gray-100 px-1">{isDuplicatedEmail || email}</span>{' '}
               입니다.

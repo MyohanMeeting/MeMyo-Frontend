@@ -2,8 +2,7 @@ import { basicApi } from '@redux/api/axiosConfig';
 import { getFavoriteFriends, getFavoriteFriendsId } from '@redux/slice/favoriteFriendSlice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjkzMjc0OTE2fQ.A7tqB0-7Wpc3x1AsBLtuhdcK2gCgYpVtSaQJVU7ujhTVnJlglySjxwboJE_Kwy2AR70nY12VeawsIDcpsCv-EQ';
+const token = localStorage.getItem('access_token');
 
 export const setFavoriteFriendThunk = createAsyncThunk(
   'favoriteFriend/setFavoriteFriend',
@@ -53,15 +52,14 @@ export const deleteFavoriteFriendThunk = createAsyncThunk(
 
 export const getFavoriteFriendThunk = createAsyncThunk(
   'favoriteFriend/getFavoriteFriend',
-  async (favoriteFriends: any, thunkApi) => {
+  async (_, thunkApi) => {
     try {
       await basicApi({
         method: 'get',
         url: '/v1/favorite',
         headers: {
-          withCredentials: true,
+          Authorization: `Bearer ${token}`,
         },
-        params: { ...favoriteFriends },
       }).then((result) => {
         if (result.data) {
           const { data } = result.data;

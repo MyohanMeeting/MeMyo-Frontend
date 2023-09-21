@@ -9,20 +9,16 @@ import { RootState } from '@redux/store';
 
 function HomePage() {
   const dispatch = useThunkDispatch();
-  const recentPost = useSelector(
-    (state: RootState) => state.recentPost.recentPost
-  );
+  const recentPost = useSelector((state: RootState) => state.recentPost.recentPost);
 
   useEffect(() => {
     dispatch(getRecentPostThunk());
   }, [dispatch]);
-  console.log('rescent',recentPost)
-
 
   if (!recentPost) return null;
 
   return (
-    <div className="mt-4">
+    <div className="my-8 mx-4">
       <div className="mb-2 text-lg md:hidden">
         <div className="flex">
           <p>안녕하세요,</p>
@@ -51,12 +47,18 @@ function HomePage() {
             </div>
           </div>
           <div className="flex mt-3 space-x-2 md:mt-12">
-            <button className="w-24 h-10 text-white rounded-full bg-memyo-yellow7 md:h-24 md:text-lg md:font-semibold md:text-white md:border md:rounded-md md:w-36 md:border-memyo-yellow4 md:bg-memyo-yellow8">
+            <Link
+              to="/adopt/register"
+              className="flex items-center justify-center w-24 h-10 text-white rounded-full bg-memyo-yellow7 md:h-24 md:text-lg md:font-semibold md:text-white md:border md:rounded-md md:w-36 md:border-memyo-yellow4 md:hover:bg-memyo-yellow9 md:bg-memyo-yellow8 shadow-sm transition-colors"
+            >
               발견했어요
-            </button>
-            <button className="w-24 h-10 border rounded-full text-memyo-yellow7 border-memyo-yellow4 md:h-24 md:text-lg md:font-semibold md:border md:rounded-md md:text-memyo-yellow8 md:w-36 md:border-memyo-yellow8">
+            </Link>
+            <Link
+              to="/adopt"
+              className="flex items-center justify-center w-24 h-10 border rounded-full text-memyo-yellow7 border-memyo-yellow4 md:h-24 md:text-lg md:font-semibold md:border md:rounded-md md:text-memyo-yellow8 md:w-36 md:border-memyo-yellow8 md:hover:bg-white shadow-sm transition-colors"
+            >
               찾고있어요
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -64,22 +66,23 @@ function HomePage() {
       <section className="my-8">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold">최근 올라온 공고</h2>
-          <Link to="/공고전체주소">
+          <Link to="/adopt">
             <p className="h-6 text-center border-b md:hidden w-14 text-memyo-yellow8 border-memyo-yellow8">
               더보기
             </p>
           </Link>
         </div>
-        <div className="h-full">
-          <ul className="grid grid-cols-2 gap-2 my-4 md:grid-cols-4 h-70">
-            {recentPost &&
-              recentPost.map((item: any) => {
-                return (
-                  <li key={item.catId}>
-                    <Card post={item} />
-                  </li>
-                );
-              })}
+        <div className="h-full overflow-auto scrollbar-hide">
+          <ul className="grid h-full grid-cols-2 gap-2 my-4 md:grid-cols-4">
+            {Array.isArray(recentPost)
+              ? recentPost?.map((item) => {
+                  return (
+                    <li key={item.noticeId}>
+                      <Card post={item} />
+                    </li>
+                  );
+                })
+              : null}
           </ul>
         </div>
         <div className="flex items-center justify-center h-40">

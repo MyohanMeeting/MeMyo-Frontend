@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
-import { SidebarProps } from '../../../components/layout/NavBar';
 import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+
+import { SidebarProps } from '../../../components/layout/NavBar';
 
 function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
   const outside = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -68,6 +69,9 @@ function Sidebar({ showSidebar, setShowSidebar }: SidebarProps) {
             </Link>
             <Link to="/adopt/register">
               <li>입양 신청서 작성</li>
+            </Link>
+            <Link to="/login">
+              <li>로그인/회원가입</li>
             </Link>
           </ul>
         </div>

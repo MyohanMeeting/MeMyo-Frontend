@@ -3,6 +3,9 @@ import colors from 'tailwindcss/colors';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  daisyui: {
+    themes: ['light', 'dark', 'cupcake'],
+  },
   theme: {
     extend: {
       colors: {
@@ -30,5 +33,5 @@ export default {
       },
     },
   },
-  plugins: [require('tailwind-scrollbar-hide')],
+  plugins: [require('tailwind-scrollbar-hide'), require('daisyui')],
 };
