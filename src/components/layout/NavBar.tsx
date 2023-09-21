@@ -3,10 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 // import type { RootState } from '@redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 // import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
 import Sidebar from '../../pages/home/components/Sidebar';
 // import { signoutThunk } from '@redux/thunks/AuthThunk';
 import { removeAuth, selectCurrentUser } from '@redux/slice/authSlice';
-        
+
 export interface SidebarProps {
   showSidebar: boolean;
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
@@ -56,7 +57,7 @@ function NavBar() {
 
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       </nav>
-      <div className="hidden px-2 shadow-sm md:block">
+      <div className="hidden px-6 shadow-sm md:block">
         <nav className="flex items-center justify-between w-full py-8">
           <Link to="/" className="text-2xl font-semibold text-memyo-yellow8">
             묘한만남
@@ -79,26 +80,24 @@ function NavBar() {
             </div>
           ) : (
             <ul className="flex items-center space-x-4">
-              <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
+              <li className="px-4 border rounded-sm transition-colors border-memyo-yellow3 text-memyo-yellow5 hover:bg-memyo-yellow3 hover:text-white">
                 <Link to="/signup">회원가입</Link>
               </li>
-              <li className="px-4 border rounded-sm border-memyo-yellow3 text-memyo-yellow5">
+              <li className="px-4 border rounded-sm transition-colors border-memyo-yellow3 text-memyo-yellow5 hover:bg-memyo-yellow3 hover:text-white">
                 <Link to="/login">로그인</Link>
               </li>
             </ul>
           )}
           <ul className="flex items-center space-x-8">
-            <li className="text-lg font-semibold">
+            <li className="text-lg font-semibold hover:text-memyo-yellow3 transition-colors">
               <Link to="/adopt">입양</Link>
             </li>
-            <li className="text-lg font-semibold">공지사항</li>
-            <Link to="/adopt/register">
-              <li className="text-lg font-semibold">신청서 작성</li>
-            </Link>
-
-            <Link to="/mypage">
-              <li className="text-lg font-semibold">마이페이지</li>
-            </Link>
+            <li className="text-lg font-semibold hover:text-memyo-yellow3 transition-colors">
+              <Link to="/adopt/register">신청서 작성</Link>
+            </li>
+            <li className="text-lg font-semibold hover:text-memyo-yellow3 transition-colors">
+              <Link to="/mypage">마이페이지</Link>
+            </li>
           </ul>
         </nav>
       </div>
