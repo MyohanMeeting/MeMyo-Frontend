@@ -14,7 +14,7 @@ export const getRecentPostThunk = createAsyncThunk(
         },
       }).then((result) => {
         if (result.data) {
-          const data = result.data.data;
+          const data = result.data.data.adoptNoticeList;
           if (data) {
             thunkApi.dispatch(getRecentPost(data));
           }
