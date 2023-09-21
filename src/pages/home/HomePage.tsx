@@ -73,9 +73,9 @@ function HomePage() {
           </Link>
         </div>
         <div className="h-full overflow-auto scrollbar-hide">
-          <ul className="grid h-full grid-cols-2 gap-2 my-4 md:grid-cols-4">
+          <ul className="grid h-96 grid-cols-2 gap-2 my-4 md:grid-cols-4">
             {Array.isArray(recentPost)
-              ? recentPost?.map((item) => {
+              ? recentPost?.slice(0, 4).map((item) => {
                   return (
                     <li key={item.noticeId}>
                       <Card post={item} />
