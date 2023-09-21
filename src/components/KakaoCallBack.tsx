@@ -8,7 +8,12 @@ import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { kakaoSigninThunk } from '@redux/thunks/AuthThunk';
 import { handleLoginResponse } from '@/utils/ApiResponseHandler';
 import { checkDuplicateEmailOrNickname } from '../services/authService';
-import type { KakaoResponseData, KakaoUserResponseData, OauthSuccessResonse } from '../types/Auth';
+import type {
+  ErrorResponse,
+  KakaoResponseData,
+  KakaoUserResponseData,
+  OauthSuccessResonse,
+} from '../types/Auth';
 
 function KakaoCallBack() {
   const navigate = useNavigate();
