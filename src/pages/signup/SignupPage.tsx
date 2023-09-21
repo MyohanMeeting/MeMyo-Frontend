@@ -3,30 +3,18 @@ import { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
+import useAuthInputs from '@hooks/useAuthInputs';
 import signupBgImg from '../../assets/signup/signup-bg-img.jpeg';
 import { type ErrorResponse, emailSignUp } from '@/apis/authApi';
 import { checkDuplicateEmailOrNickname } from '../../services/authService';
 
 function SignupPage() {
-  const [inputs, setInputs] = useState({
-    email: '',
-    password: '',
-    nickname: '',
-    phoneNumber: '',
-  });
+  const { inputs, handleChangeInputs } = useAuthInputs();
   const { email, password, nickname, phoneNumber } = inputs;
   const [isDuplicatedEmail, setIsDuplicatedEmail] = useState<string | boolean>('');
   const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<string | boolean>('');
   const [isCompleted, setIsCompleted] = useState(false);
   const [errorData, setErrorData] = useState<ErrorResponse['debugMessage']>({});
-
-  const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputs((prevInputs) => ({
-      ...prevInputs,
-      [name]: name === 'phoneNumber' ? formatPhoneNumber(value) : value,
-    }));
-  };
 
   const handleDuplicateEmailOrNickname = useCallback(
     async (type: 'email' | 'nickname') => {
@@ -52,12 +40,18 @@ function SignupPage() {
     [email, nickname]
   );
 
-  const isEmailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
-  const isPasswordValid = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
-  const isNicknameValid = /^[\wㄱ-ㅎㅏ-ㅣ가-힣]{3,}$/.test(nickname);
-  const isPhoneNumberValid = /^\d{3}-\d{4}-\d{4}$/.test(phoneNumber);
+  const isFormValid = (inputs: {
+    email: string;
+    password: string;
+    nickname: string;
+    phoneNumber: string;
+  }) => {
+    const { email, password, nickname, phoneNumber } = inputs;
+    const isEmailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
+    const isPasswordValid = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+    const isNicknameValid = /^[\wㄱ-ㅎㅏ-ㅣ가-힣]{3,}$/.test(nickname);
+    const isPhoneNumberValid = /^\d{3}-\d{4}-\d{4}$/.test(phoneNumber);
 
-  const isFormValid = () => {
     const allFieldsFilled = Object.values(inputs).every((value) => value !== '');
     const duplicationChecked =
       isDuplicatedEmail !== false &&
@@ -75,7 +69,7 @@ function SignupPage() {
   };
 
   const handleSignUp = useCallback(async () => {
-    if (!isFormValid()) {
+    if (!isFormValid(inputs)) {
       toast.error('모든 필드를 입력하고, 중복확인을 완료해주세요.');
       return;
     }
@@ -101,7 +95,7 @@ function SignupPage() {
     }
   }, [inputs, isDuplicatedEmail, isDuplicatedNickname]);
 
-  const isEmailBtnDisabled = !isEmailValid || isDuplicatedEmail === email;
+  const isEmailBtnDisabled = isDuplicatedEmail === email;
   const isNicknameBtnDisabled = nickname.length < 1 || isDuplicatedNickname === nickname;
 
   return (
@@ -160,7 +154,7 @@ function SignupPage() {
                   disabled={isEmailBtnDisabled}
                   className={`${
                     isEmailBtnDisabled
-                      ? 'text-gray-800'
+                      ? 'text-gray-700'
                       : 'font-semibold text-memyo-yellow6 hover:text-memyo-yellow8'
                   }`}
                   onClick={() => handleDuplicateEmailOrNickname('email')}
@@ -189,7 +183,7 @@ function SignupPage() {
                   disabled={isNicknameBtnDisabled}
                   className={`${
                     isNicknameBtnDisabled
-                      ? 'text-gray-800'
+                      ? 'text-gray-700'
                       : 'font-semibold text-memyo-yellow6 hover:text-memyo-yellow8'
                   }`}
                   onClick={() => handleDuplicateEmailOrNickname('nickname')}
@@ -240,8 +234,8 @@ function SignupPage() {
                 </div>
               </form>
 
-              <div className="flex items-center justify-center text-sm md:text-base pb-4 space-x-2">
-                <p className="text-gray-800">이미 회원이신가요? </p>
+              <div className="flex items-center justify-center text-sm md:text-base pb-4 space-x-1">
+                <p className="text-gray-700">이미 회원이신가요? </p>
                 <Link to="/login" className="font-semibold hover:underline">
                   로그인하기
                 </Link>
@@ -268,17 +262,3 @@ function SignupPage() {
 }
 
 export default SignupPage;
-
-const formatPhoneNumber = (value: string) => {
-  return value
-    .replace(/\D+/g, '')
-    .slice(0, 11)
-    .split('')
-    .map((digit, index) => {
-      if (index === 2 || index === 6) {
-        return digit + '-';
-      }
-      return digit;
-    })
-    .join('');
-};
