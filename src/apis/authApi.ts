@@ -7,8 +7,8 @@ export async function emailSignUp(data: {
   phoneNumber: string;
 }) {
   const res = await basicApi({
-    method: 'post',
-    url: 'v1/member/direct',
+    method: 'POST',
+    url: '/v1/member/direct',
     data: JSON.stringify(data),
   });
   return res.data;

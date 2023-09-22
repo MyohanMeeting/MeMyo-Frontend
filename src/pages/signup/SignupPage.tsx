@@ -48,23 +48,22 @@ function SignupPage() {
   );
 
   const isFormValid = () => {
-    const duplicationChecked =
-      isDuplicatedEmail !== false &&
-      isDuplicatedEmail !== '' &&
-      isDuplicatedNickname !== false &&
-      isDuplicatedNickname !== '';
-    return (
-      isEmailValid(email) &&
-      isPasswordValid(password) &&
-      isNicknameValid(nickname) &&
-      isPhoneNumberValid(phoneNumber) &&
-      duplicationChecked
-    );
+    if (isDuplicatedEmail === false || isDuplicatedEmail === '')
+      return '이메일 중복 확인을 완료해 주세요.';
+    if (isDuplicatedNickname === false || isDuplicatedNickname === '')
+      return '닉네임 중복 확인을 완료해 주세요.';
+    if (!isEmailValid(email)) return '이메일 형식으로 입력해 주세요.';
+    if (!isPasswordValid(password))
+      return '비밀번호는 영문과 숫자 하나씩 포함해서 8~24자로 입력해 주세요.';
+    if (!isNicknameValid(nickname)) return '닉네임은 공백 없이 2~12자로 입력해 주세요.';
+    if (!isPhoneNumberValid(phoneNumber)) return '전화번호 형식으로 입력해 주세요.';
+    return true;
   };
 
   const handleSignUp = useCallback(async () => {
-    if (!isFormValid()) {
-      toast.error('모든 필드를 입력하고, 중복확인을 완료해주세요.');
+    const formValidMessage = isFormValid();
+    if (formValidMessage !== true) {
+      toast.error(formValidMessage);
       return;
     }
     try {
