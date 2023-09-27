@@ -21,7 +21,7 @@ import {
 import { basicApi } from '@redux/api/axiosConfig';
 
 const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQHVzZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoyLCJleHAiOjE2OTM1NzcwNDZ9.x1chfbjCipTsnLBKQUvgHyPExzMOE3Qool0U7673naUHIrUPpIL_Yl0iQlCrgIAoExUR13hHIU9SWyUMbxGvKQ';
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJhdXRoIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJtZW1iZXJJZCI6MSwiZXhwIjoxNjk1ODA5MzUwfQ.NldQQ8gJBu4YOlpKUOAwG4z5p8XfP_ymA1Tw_EBXgLUG6gxGeSlEgLLw4O_xMut3GujhxEW9c2w32maH-Te58w';
 
 interface AdoptResultDataType<T> {
   applicationId: any;
@@ -103,8 +103,8 @@ export const setAdoptPostImg = createAsyncThunk(
     let res;
     try {
       await basicApi<
-        AdoptResultDataType<uploadIdArr>,
-        AxiosResponse<AdoptResultDataType<uploadIdArr>, FormData>,
+        AdoptResultDataType<{ uploadId: uploadIdArr }>,
+        AxiosResponse<AdoptResultDataType<{ uploadId: uploadIdArr }>, FormData>,
         FormData
       >({
         method: 'post',
@@ -116,7 +116,7 @@ export const setAdoptPostImg = createAsyncThunk(
         if (result.data) {
           const { data } = result.data;
           console.log('data', data);
-          res = data;
+          res = data.uploadId;
           thunkApi.dispatch(setAdoptForm({}));
         }
       });
