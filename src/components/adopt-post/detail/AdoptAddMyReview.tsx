@@ -7,13 +7,14 @@ interface Props {
   noticeId: NoticeId;
 }
 function AdoptAddMyReview({ noticeId }: Props) {
-  const [content, setContent] = useState<string>();
+  const [content, setContent] = useState<string>('');
   const dispatch = useThunkDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
   };
   const handleUpdate = useCallback(() => {
     if (content == null) return;
+    setContent('');
     dispatch(setAdoptComments({ noticeId, content }));
   }, [dispatch, content]);
 
@@ -33,7 +34,7 @@ function AdoptAddMyReview({ noticeId }: Props) {
             className="w-full mr-3 p-2 grow h-full flex flex-wrap border text-sm"
             placeholder="댓글을 남겨주세요"
             onChange={handleChange}
-            defaultValue={content || ''}
+            value={content || ''}
           />
         </div>
       </div>
