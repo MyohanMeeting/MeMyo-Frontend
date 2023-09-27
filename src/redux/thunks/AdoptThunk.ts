@@ -164,7 +164,7 @@ export const setAdoptComments = createAsyncThunk(
         data: { ...obj },
       }).then((result) => {
         if (result.status === 200) {
-          thunkApi.dispatch(getAdoptDetailThunk(obj.noticeId));
+          thunkApi.dispatch(getAdoptCommentsThunk(obj.noticeId));
         }
         return result;
       });

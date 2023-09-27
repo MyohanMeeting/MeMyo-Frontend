@@ -7,7 +7,6 @@ interface Props {
 }
 function AdoptDetailReview({ noticeId }: Props) {
   const comments = useAppSelector((state) => state.adopt.adoptComments);
-  console.log('comments', comments);
   const dispatch = useThunkDispatch();
   useEffect(() => {
     dispatch(getAdoptCommentsThunk(noticeId));
