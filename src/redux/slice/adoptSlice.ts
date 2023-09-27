@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAdoptPostThunk, setAdoptComments } from '@redux/thunks/AdoptThunk';
+import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk';
 import {
   AdoptApply,
   AdoptApplyObj,
