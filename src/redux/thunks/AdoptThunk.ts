@@ -191,7 +191,6 @@ export const getAdoptCommentsThunk = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       }).then((result) => {
-        console.log('123result', result);
         if (result.data) {
           const { data } = result.data;
           if (data) {
