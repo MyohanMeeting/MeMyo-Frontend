@@ -131,8 +131,6 @@ export interface AdoptForm {
   content: string;
 }
 
-export type AdoptFormRequired = keyof AdoptForm;
-
 export type Marrried = 'MARRIED' | 'UNMARRIED';
 
 export interface ApplyUser {
