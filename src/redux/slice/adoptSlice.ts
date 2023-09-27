@@ -1,8 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { getAdoptPostThunk } from '@redux/thunks/AdoptThunk'
-import { AdoptApply, AdoptApplyObj, AdoptComment, AdoptDetail, AdoptForm, AdoptPost } from '@/types/Adopt'
-
-
+import { createSlice } from '@reduxjs/toolkit';
+import { getAdoptPostThunk, setAdoptComments } from '@redux/thunks/AdoptThunk';
+import {
+  AdoptApply,
+  AdoptApplyObj,
+  AdoptComment,
+  AdoptDetail,
+  AdoptForm,
+  AdoptPost,
+} from '@/types/Adopt';
 
 export interface AdoptState {
   page: number;
@@ -20,9 +25,9 @@ const initialState: AdoptState = {
   page: 0,
   limit: 0,
   adoptPosts: [],
-  adoptApply:{},
-  adoptForm: {}
-}
+  adoptApply: {},
+  adoptForm: {},
+};
 
 export const adoptSlice = createSlice({
   name: 'adopt',
@@ -79,7 +84,7 @@ export const adoptSlice = createSlice({
       if (Object.keys(action.payload).length == 0) {
         adoptApply = {};
       }
-   
+
       return { ...state, adoptApply: { ...adoptApply } };
     },
   },
@@ -92,6 +97,16 @@ export const adoptSlice = createSlice({
         console.log(action.type);
       })
       .addCase(getAdoptPostThunk.rejected, (_state, action) => {
+        console.log(action.type);
+      });
+    builder
+      .addCase(setAdoptComments.pending, (_state, action) => {
+        console.log('action', action.type);
+      })
+      .addCase(setAdoptComments.fulfilled, (_state, action) => {
+        console.log(action.type);
+      })
+      .addCase(setAdoptComments.rejected, (_state, action) => {
         console.log(action.type);
       });
   },

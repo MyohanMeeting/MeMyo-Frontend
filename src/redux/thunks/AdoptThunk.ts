@@ -153,8 +153,9 @@ export const setAdoptPostThunk = createAsyncThunk(
 export const setAdoptComments = createAsyncThunk(
   'adopt/setAdoptComment',
   async (obj: userComment) => {
+    let res;
     try {
-      await basicApi({
+      res = await basicApi({
         method: 'post',
         url: `/v1/adoption/notices/comments`,
         headers: {
@@ -162,11 +163,12 @@ export const setAdoptComments = createAsyncThunk(
         },
         data: { ...obj },
       }).then((result) => {
-        console.log('result', result);
+        return result;
       });
     } catch (error) {
       console.error('error', error);
     }
+    return res;
   }
 );
 

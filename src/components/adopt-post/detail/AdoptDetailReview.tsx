@@ -13,26 +13,29 @@ function AdoptDetailReview({ noticeId }: Props) {
     dispatch(getAdoptCommentsThunk(noticeId));
   }, [dispatch]);
 
+  const isComments = comments && comments.length > 0;
+
   return (
     <>
       <div className="border-b border-black">
         <h2 className="p-2 font-semibold border-b text-md">댓글 보기</h2>
-        {comments?.map((comment: AdoptComment) => {
-          return (
-            <div className="flex w-full p-2 border-b">
-              <div className="flex items-center w-24 h-16">
-                <img src={comment.author.profileImageUrl} className="w-10 h-10 rounded-full" />
-                <p className="font-semibold">{comment.author.nickname}</p>
-              </div>
-              <div className="w-full ml-2">
-                <div className="flex flex-wrap w-full h-full p-2 mr-3 text-sm grow">
-                  {comment.content}
+        {isComments &&
+          comments?.map((comment: AdoptComment) => {
+            return (
+              <div className="flex w-full p-2 border-b">
+                <div className="flex items-center w-24 h-16">
+                  <img src={comment.author.profileImageUrl} className="w-10 h-10 rounded-full" />
+                  <p className="font-semibold">{comment.author.nickname}</p>
+                </div>
+                <div className="w-full ml-2">
+                  <div className="flex flex-wrap w-full h-full p-2 mr-3 text-sm grow items-center">
+                    {comment.content}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-        {!comments && (
+            );
+          })}
+        {comments?.length === 0 && (
           <div className="flex items-center justify-center w-full h-48 text-sm">
             댓글이 존재하지 않습니다.
           </div>
