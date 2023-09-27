@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import type { ErrorResponse } from '../../types/Auth';
+import { certificationEmail, resendCertificationEmail } from '@/apis/authApi';
 
 function CertificationPage() {
   const location = useLocation();
@@ -12,19 +13,9 @@ function CertificationPage() {
   const certCodeParam = params.get('certCode');
 
   useEffect(() => {
-    const certificationEmail = async () => {
+    const onCertificationEmail = async () => {
       try {
-        const data = await axios({
-          method: 'PUT',
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          url: `/v1/member/certification?certCode=${certCodeParam}&email=${emailParam}`,
-          // data: JSON.stringify(inputs),
-        });
-
-        console.log(data);
+        const data = await certificationEmail(certCodeParam!, emailParam!);
         if (data.status === 200) {
           alert('이메일 인증이 완료됐습니다.');
           navigate('/login');
@@ -36,19 +27,13 @@ function CertificationPage() {
       }
     };
 
-    if (certCodeParam) certificationEmail();
+    if (emailParam && certCodeParam) onCertificationEmail();
   }, []);
 
-  const resendcertificationEmail = async () => {
+  const handleResendCertificationEmail = async () => {
+    if (!emailParam) return;
     try {
-      const data = await axios({
-        method: 'POST',
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        url: `/v1/member/certification?email=${emailParam}`,
-      });
+      const data = await resendCertificationEmail(emailParam);
       if (data.status === 200) {
         alert('이메일 인증이 완료됐습니다.');
         navigate('/login');
@@ -64,14 +49,17 @@ function CertificationPage() {
   };
 
   return (
-    <div>
+    <div className="w-full flex items-center justify-center h-52">
       {!certCodeParam && (
-        <div>
+        <div className="flex flex-col items-center gap-y-2">
           <p>
             이메일 인증에 실패했거나 인증 시간이 만료됐습니다. 재발송 버튼을 클릭 후 다시 메일함을
-            확인해주세요.
+            확인해주세요!
           </p>
-          <button className="" onClick={resendcertificationEmail}>
+          <button
+            className="w-fit rounded-sm px-2 py-1 bg-memyo-yellow4 hover:bg-memyo-yellow6 transition-colors"
+            onClick={handleResendCertificationEmail}
+          >
             인증 이메일 재발송
           </button>
         </div>
