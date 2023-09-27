@@ -7,7 +7,6 @@ interface Props {
 }
 function AdoptDetailReview({ noticeId }: Props) {
   const comments = useAppSelector((state) => state.adopt.adoptComments);
-  console.log('comments', comments);
   const dispatch = useThunkDispatch();
   useEffect(() => {
     dispatch(getAdoptCommentsThunk(noticeId));
@@ -22,7 +21,7 @@ function AdoptDetailReview({ noticeId }: Props) {
         {isComments &&
           comments?.map((comment: AdoptComment) => {
             return (
-              <div className="flex w-full p-2 border-b">
+              <div className="flex w-full p-2 border-b" key={comment.noticeCommentId}>
                 <div className="flex items-center w-24 h-16">
                   <img src={comment.author.profileImageUrl} className="w-10 h-10 rounded-full" />
                   <p className="font-semibold">{comment.author.nickname}</p>
