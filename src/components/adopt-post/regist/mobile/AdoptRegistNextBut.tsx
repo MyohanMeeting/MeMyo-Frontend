@@ -2,7 +2,7 @@ import { AdoptPostContext } from '@/context/AdoptFormContext';
 import { useAppDispatch, useAppSelector, useThunkDispatch } from '@redux/hooks';
 import { setAdoptForm } from '@redux/slice/adoptSlice';
 import { setAdoptPostImg, setAdoptPostThunk } from '@redux/thunks/AdoptThunk';
-import { AdoptForm, AdoptFormRequired, catPicture } from '@/types/Adopt';
+import { AdoptForm, catPicture } from '@/types/Adopt';
 import { useCallback, useContext } from 'react';
 
 function AdoptRegistNextBut() {
