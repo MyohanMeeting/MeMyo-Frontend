@@ -152,7 +152,7 @@ export const setAdoptPostThunk = createAsyncThunk(
 // 내 코멘트 쓰기
 export const setAdoptComments = createAsyncThunk(
   'adopt/setAdoptComment',
-  async (obj: userComment) => {
+  async (obj: userComment, thunkApi) => {
     let res;
     try {
       res = await basicApi({
@@ -163,6 +163,9 @@ export const setAdoptComments = createAsyncThunk(
         },
         data: { ...obj },
       }).then((result) => {
+        if (result.status === 200) {
+          thunkApi.dispatch(getAdoptDetailThunk(obj.noticeId));
+        }
         return result;
       });
     } catch (error) {

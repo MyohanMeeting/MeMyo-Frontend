@@ -99,16 +99,6 @@ export const adoptSlice = createSlice({
       .addCase(getAdoptPostThunk.rejected, (_state, action) => {
         console.log(action.type);
       });
-    builder
-      .addCase(setAdoptComments.pending, (_state, action) => {
-        console.log('action', action.type);
-      })
-      .addCase(setAdoptComments.fulfilled, (_state, action) => {
-        console.log(action.type);
-      })
-      .addCase(setAdoptComments.rejected, (_state, action) => {
-        console.log(action.type);
-      });
   },
 });
 
